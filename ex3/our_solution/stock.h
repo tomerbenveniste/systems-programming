@@ -24,15 +24,21 @@ void printMenu(void);
 void addStock(Stock** stocks, int* ptr_stock_count);
 
 // Print all stored stock entries.
-void printStocks(Stock** stocks, int* ptr_stock_count);
+void printStocks(Stock** stocks, int stock_count);
 
 // Double the price of every stored stock.
-void doubleStockPrices(Stock** stocks, int* ptr_stock_count);
+void doubleStocks(Stock** stocks, int stock_count);
 
 // Validate a stock name string.
 int isValidName(const char* str_buf);
 
 // Validate a price string and convert it to float.
 int isValidPrice(const char* str_buf, float* ptr_price);
+
+// Dropping x% off all the stocks
+void dropStocks(Stock** stocks, int stock_count);
+
+// Validate the % drop input for dropStocks function
+int isValidPercent(const char* str_buf, int* ptr_percent);
 
 #endif // STOCK_H

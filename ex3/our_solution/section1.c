@@ -22,7 +22,7 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
     int valid = 0;
 
     // loop for valid stock name
-    printf("Please enter the stock name: ");
+    printf("Enter stock name: ");
     do {
         if (fgets(input_buf, sizeof(input_buf), stdin) != NULL) {
             // remove '\n' character that fgets() captures
@@ -40,14 +40,14 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
 
     // loop for valid stock price
     valid = 0;
-    printf("Please enter the stock price: ");
+    printf("Enter stock price: ");
     do {
         if (fgets(input_buf, sizeof(input_buf), stdin) != NULL) {
             /* call isValidPrice function to check the string
              * and to store the value in the struct if it is valid */
             if (isValidPrice(input_buf, &(stocks[*ptr_stock_count]->price))) {
                 valid = 1;
-                printf("Stock added\n");
+                printf("Stock added.\n");
             } else {
                 printf("Invalid Price, please try again: ");
             }

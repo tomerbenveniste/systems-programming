@@ -52,13 +52,13 @@ int main() {
                             addStock(stocks, &stock_count);
                             break;
                         case 2: 
-                            printStocks(stocks, &stock_count);
+                            printStocks(stocks, stock_count);
                             break;
                         case 3:
-                            doubleStockPrices(stocks, &stock_count);
+                            doubleStocks(stocks, stock_count);
                             break;
                         case 4:
-                            printf("you chose option %d\n", choice);
+                            dropStocks(stocks, stock_count);
                             break;
                         case 5:
                             printf("you chose option %d\n", choice);
