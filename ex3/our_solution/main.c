@@ -177,6 +177,7 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
              * and to store the value in the struct if it is valid */
             if (isValidPrice(input_buf, &(stocks[*ptr_stock_count]->price))) {
                 valid = 1;
+                printf("Stock added\n");
             } else {
                 printf("Invalid Price, please try again: ");
             }
