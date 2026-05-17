@@ -13,6 +13,7 @@ typedef struct {
 void printMenu(void);
 void addStock(Stock** stocks, int* ptr_stock_count);
 void printStocks(Stock** stocks, int* ptr_stock_count);
+void doubleStockPrices(Stock** stocks, int* ptr_stock_count);
 int isValidName(const char* str_buf);
 int isValidPrice(const char* str_buf, float* ptr_price);
 

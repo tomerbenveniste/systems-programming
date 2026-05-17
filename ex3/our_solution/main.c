@@ -48,12 +48,14 @@ int main() {
 
                     // ------------------ switch cases -----------------------------
                     switch (choice) {
-                        case 1: addStock(stocks, &stock_count);
+                        case 1: 
+                            addStock(stocks, &stock_count);
                             break;
-                        case 2: printStocks(stocks, &stock_count);
+                        case 2: 
+                            printStocks(stocks, &stock_count);
                             break;
                         case 3:
-                            printf("you chose option %d\n", choice);
+                            doubleStockPrices(stocks, &stock_count);
                             break;
                         case 4:
                             printf("you chose option %d\n", choice);
