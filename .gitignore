@@ -1,0 +1,27 @@
+# Compiled binaries
+a.out
+main
+*.exe
+
+# Object and build files
+*.o
+*.obj
+build/
+bin/
+
+# Output and temporary files
+ex3/moodle_files/output.txt
+*.log
+core
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Coverage and virtualenv
+.coverage
+venv/
+env/
