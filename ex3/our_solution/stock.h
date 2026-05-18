@@ -41,4 +41,10 @@ void dropStocks(Stock** stocks, int stock_count);
 // Validate the % drop input for dropStocks function
 int isValidPercent(const char* str_buf, int* ptr_percent);
 
+// finds the least expensive stock the user has
+void findLessExpensive(Stock** stocks, int stock_count);
+
+// sorts the stocks by price
+void sortByPrice(Stock** stocks, int stock_count);
+
 #endif // STOCK_H
