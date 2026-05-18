@@ -47,4 +47,7 @@ void findLessExpensive(Stock** stocks, int stock_count);
 // sorts the stocks by price
 void sortByPrice(Stock** stocks, int stock_count);
 
+// sorts the stocks by name
+void sortByName(Stock** stocks, int stock_count);
+
 #endif // STOCK_H
