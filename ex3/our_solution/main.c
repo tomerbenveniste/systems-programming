@@ -51,20 +51,40 @@ int main() {
                         case 1: 
                             addStock(stocks, &stock_count);
                             break;
-                        case 2: 
-                            printStocks(stocks, stock_count);
+                        case 2:
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                            } else {
+                                printStocks(stocks, stock_count);
+                            }
                             break;
                         case 3:
-                            doubleStocks(stocks, stock_count);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                            } else {
+                                doubleStocks(stocks, stock_count);
+                            }
                             break;
                         case 4:
-                            dropStocks(stocks, stock_count);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                            } else {
+                                dropStocks(stocks, stock_count);
+                            }
                             break;
                         case 5:
-                            printf("you chose option %d\n", choice);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                            } else {
+                                findLessExpensive(stocks, stock_count);
+                            }
                             break;
                         case 6:
-                            printf("you chose option %d\n", choice);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                            } else {
+                                sortByPrice(stocks, stock_count);
+                            }
                             break;
                         case 7:
                             printf("you chose option %d\n", choice);
