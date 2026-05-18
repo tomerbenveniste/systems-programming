@@ -59,6 +59,8 @@ int main() {
                         case 2:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
                             } else {
                                 printStocks(stocks, stock_count);
                             }
@@ -66,6 +68,8 @@ int main() {
                         case 3:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
                             } else {
                                 doubleStocks(stocks, stock_count);
                             }
@@ -73,6 +77,8 @@ int main() {
                         case 4:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
                             } else {
                                 dropStocks(stocks, stock_count);
                             }
@@ -80,6 +86,8 @@ int main() {
                         case 5:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
                             } else {
                                 findLessExpensive(stocks, stock_count);
                             }
@@ -87,6 +95,8 @@ int main() {
                         case 6:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
                             } else {
                                 sortByPrice(stocks, stock_count);
                             }
@@ -94,6 +104,8 @@ int main() {
                         case 7:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
                             } else {
                                 sortByName(stocks, stock_count);
                             }
@@ -111,8 +123,10 @@ int main() {
                     }
                     // ---------------- end switch cases ---------------------------
                 }
-                // valid format but not in menu range (0 or 11-99) — re-prompt silently
+
+            // valid format but not in menu range (0 or 11-99) — re-prompt silently
             } else {
+
                 // invalid input (letters, symbols, etc.)
                 error_count++;
                 printf("Invalid input.\n");

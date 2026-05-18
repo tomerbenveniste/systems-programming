@@ -18,8 +18,8 @@ void doubleStocks(Stock** stocks, int stock_count) {
     for (int i = 0; i < stock_count; i++) {
         if (stocks[i] != NULL) {
             stocks[i]->price *= 2;
-            printf("Stock prices have doubled.\n");
         }
     }
+    printf("Stock prices have doubled.\n");
 }
     
