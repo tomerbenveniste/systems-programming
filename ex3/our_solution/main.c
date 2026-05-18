@@ -87,7 +87,11 @@ int main() {
                             }
                             break;
                         case 7:
-                            printf("you chose option %d\n", choice);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                            } else {
+                                sortByName(stocks, stock_count);
+                            }
                             break;
                         case 8:
                             printf("you chose option %d\n", choice);
