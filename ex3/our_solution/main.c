@@ -15,6 +15,7 @@ int main() {
 
     int error_count = 0;
     int choice = -1;
+    int reprint_menu = 1;
     char input_buffer[100];
 
     // Flag to manage the loop execution state
@@ -22,7 +23,11 @@ int main() {
 
     // The main loop
     do {
-        printMenu();
+        if (reprint_menu) {
+            printMenu();
+        }
+        reprint_menu = 1; // reset - assuming a valid input
+        
         // Read a line of input safely from the user
         if (fgets(input_buffer, sizeof(input_buffer), stdin) != NULL) {
 
@@ -101,6 +106,7 @@ int main() {
                             break;
                         case 10:
                             keep_running = 0; // exit loop
+                            printf("Exiting program...\n");
                             break;
                     }
                     // ---------------- end switch cases ---------------------------
@@ -109,6 +115,10 @@ int main() {
             } else {
                 // invalid input (letters, symbols, etc.)
                 error_count++;
+                printf("Invalid input.\n");
+                printf("You made %d errors from 5, try again.\n", error_count);
+                printf("Please enter a number between 0-99: \n");
+                reprint_menu = 0; // skip full menu in the next iteration
 
                 if (error_count >= 5) {
                     printf("Too many errors. Exiting...\n");
@@ -137,9 +147,9 @@ void printMenu() {
     printf("5. Find Less Expensive Stock\n");
     printf("6. Sort Stocks by Price\n");
     printf("7. Sort Stocks Alphabetically\n");
-    printf("8. Sort Stocks by ASCII Sum of Names\n");
+    printf("8. Sort Stocks by ASCII Sum of Name\n");
     printf("9. Check Palindromic Stock Names\n");
     printf("10. Exit\n");
-    printf("Please enter a number between 0-99:\n");
+    printf("Please enter a number between 0-99: \n");
 }
 
