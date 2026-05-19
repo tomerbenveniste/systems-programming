@@ -4,6 +4,7 @@
 
 #define MAX_STOCKS 10
 
+
 // Struct definition - Do not change the name or the fields
 typedef struct {
     char name[21];
@@ -35,6 +36,8 @@ int isPalindrome(const char* str);
 // ==========================================
 
 int main() {
+
+
     int stock_count = 0;
     Stock** stocks = malloc(MAX_STOCKS * sizeof(Stock*));
 
@@ -180,6 +183,7 @@ int main() {
 // ==========================================
 
 void printMenu() {
+    printf("\n");
     printf("=== Stock Management Menu ===\n");
     printf("1. Add Stock\n");
     printf("2. Print Stocks\n");
@@ -330,7 +334,7 @@ void dropStocks(Stock** stocks, int stock_count) {
     int percent;
     int valid = 0; // validation flag
 
-    printf("Enter x%%: ");
+    printf("Enter x%%: \n");
 
     // Validation loop of the input
     do {
