@@ -212,7 +212,7 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
     int valid = 0;
 
     // loop for valid stock name
-    printf("Enter stock name: ");
+    printf("Enter stock name: \n");
     do {
         if (fgets(input_buf, sizeof(input_buf), stdin) != NULL) {
             // remove '\n' character that fgets() captures
@@ -223,14 +223,14 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
                 strcpy(stocks[*ptr_stock_count]->name, input_buf);
                 valid = 1;
             } else {
-                printf("Invalid name, please try again: ");
+                printf("Invalid name, please try again: \n");
             }
         }
     } while (!valid);
 
     // loop for valid stock price
     valid = 0;
-    printf("Enter stock price: ");
+    printf("Enter stock price: \n");
     do {
         if (fgets(input_buf, sizeof(input_buf), stdin) != NULL) {
             /* call isValidPrice function to check the string
@@ -436,9 +436,6 @@ int asciiSum(const char* str) {
     return 0;
 }
 
-void findLessExpensive(Stock** stocks, int stock_count) {
-    // TODO: Implement function to find the stock with the lowest price
-}
 
 void findPalindromes(Stock** stocks, int stock_count) {
     // TODO: Implement function to check and print palindromic stock names
