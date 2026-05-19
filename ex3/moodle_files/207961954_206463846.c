@@ -139,10 +139,23 @@ int main() {
                             }
                             break;
                         case 8:
-                            printf("you chose option %d\n", choice);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
+                            } else {
+                                sortByAsciiSum(stocks, stock_count);
+                
+                            }
                             break;
                         case 9:
-                            printf("you chose option %d\n", choice);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
+                            } else {
+                                findPalindromes(stocks, stock_count);
+                            }
                             break;
                         case 10:
                             keep_running = 0; // exit loop
@@ -428,24 +441,71 @@ void sortByName(Stock** stocks, int stock_count) {
 }
 
 
-void sortByAsciiSum(Stock** stocks, int stock_count) {
-    /* * REMINDER: Sort the pointers based on the ASCII sum of the names.
-     * Do NOT swap the structs themselves!
-     */
-    // TODO: Implement sorting by ASCII sum
+void sortByAsciiSum(Stock** stocks, int stock_count)
+{
+    for (int i = 0; i < stock_count - 1; i++)
+    {
+        for (int j = 0; j < stock_count - 1 - i; j++)
+        {
+            if (asciiSum(stocks[j]->name) > asciiSum(stocks[j + 1]->name))
+            {
+                Stock* temp = stocks[j];
+                stocks[j] = stocks[j + 1];
+                stocks[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Sorted by ASCII sum.\n");
 }
 
-int asciiSum(const char* str) {
-    // TODO: Implement function to calculate the ASCII sum of a string
-    return 0;
+int asciiSum(const char* str)
+{
+    int sum = 0;
+
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        sum += str[i];
+    }
+
+    return sum;
 }
 
 
-void findPalindromes(Stock** stocks, int stock_count) {
-    // TODO: Implement function to check and print palindromic stock names
+void findPalindromes(Stock** stocks, int stock_count)
+{
+    int found = 0;
+
+    for (int i = 0; i < stock_count; i++)
+    {
+        if (isPalindrome(stocks[i]->name))
+        {
+            printf("Palindrome stock: %s\n", stocks[i]->name);
+            found = 1;
+        }
+    }
+
+    if (!found)
+    {
+        printf("No palindromic stock names found.\n");
+    }
 }
 
-int isPalindrome(const char* str) {
-    // TODO: Implement helper function to check if a string is a palindrome
-    return 0;
+int isPalindrome(const char* str)
+{
+    int left = 0;
+    int right = strlen(str) - 1;
+
+    while (left < right)
+    {
+        if (str[left] != str[right])
+        {
+            return 0;
+        }
+
+        left++;
+        right--;
+    }
+
+    return 1;
 }
