@@ -440,13 +440,15 @@ void sortByName(Stock** stocks, int stock_count) {
     printf("Sorted by name.\n");
 }
 
-
+// sorts the stocks by the sum of the ASCII values of their names
 void sortByAsciiSum(Stock** stocks, int stock_count)
 {
+    // loop that sorts the helper stocks array by ASCII sum with bubble sort
     for (int i = 0; i < stock_count - 1; i++)
     {
         for (int j = 0; j < stock_count - 1 - i; j++)
         {
+            //if the sum of the ASCII values of the name of the stock at index j is greater than that of the stock at index j+1, swap them
             if (asciiSum(stocks[j]->name) > asciiSum(stocks[j + 1]->name))
             {
                 Stock* temp = stocks[j];
@@ -458,7 +460,7 @@ void sortByAsciiSum(Stock** stocks, int stock_count)
 
     printf("Sorted by ASCII sum.\n");
 }
-
+// calculates the sum of the ASCII values of the characters in a string
 int asciiSum(const char* str)
 {
     int sum = 0;
@@ -471,7 +473,7 @@ int asciiSum(const char* str)
     return sum;
 }
 
-
+// finds and prints the stocks with palindromic names
 void findPalindromes(Stock** stocks, int stock_count)
 {
     int found = 0;
@@ -490,7 +492,7 @@ void findPalindromes(Stock** stocks, int stock_count)
         printf("No palindromic stock names found.\n");
     }
 }
-
+// checks if a string is a palindrome
 int isPalindrome(const char* str)
 {
     int left = 0;
