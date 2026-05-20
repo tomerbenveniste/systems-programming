@@ -234,7 +234,7 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
 
     // loop for valid stock name
     printf("\n");
-    printf("Enter stock name:");
+    printf("Enter stock name: ");
     do {
         if (fgets(input_buf, sizeof(input_buf), stdin) != NULL) {
             // remove '\n' character that fgets() captures

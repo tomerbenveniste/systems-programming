@@ -50,4 +50,16 @@ void sortByPrice(Stock** stocks, int stock_count);
 // sorts the stocks by name
 void sortByName(Stock** stocks, int stock_count);
 
+// sorts the stocks by the sum of ASCII values of their names
+void sortByAsciiSum(Stock** stocks, int stock_count);
+
+// helper: returns the sum of ASCII values of all characters in str
+int asciiSum(const char* str);
+
+// finds and prints all stocks with palindromic names
+void findPalindromes(Stock** stocks, int stock_count);
+
+// helper: returns 1 if str is a palindrome, 0 otherwise
+int isPalindrome(const char* str);
+
 #endif // STOCK_H

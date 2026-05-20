@@ -111,10 +111,22 @@ int main() {
                             }
                             break;
                         case 8:
-                            printf("you chose option %d\n", choice);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
+                            } else {
+                                sortByAsciiSum(stocks, stock_count);
+                            }
                             break;
                         case 9:
-                            printf("you chose option %d\n", choice);
+                            if (stock_count == 0) {
+                                printf("Must add a stock first\n");
+                                printf("Please enter a number between 0-99: \n");
+                                reprint_menu = 0;
+                            } else {
+                                findPalindromes(stocks, stock_count);
+                            }
                             break;
                         case 10:
                             keep_running = 0; // exit loop
