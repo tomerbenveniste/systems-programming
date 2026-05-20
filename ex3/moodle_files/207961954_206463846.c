@@ -96,7 +96,7 @@ int main() {
                         case 3:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
-                                printf("Please enter a number between 0-99: \n");
+                                printf("Please enter a number between 0-99: ");
                                 reprint_menu = 0;
                             } else {
                                 doubleStocks(stocks, stock_count);
@@ -105,7 +105,7 @@ int main() {
                         case 4:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
-                                printf("Please enter a number between 0-99: \n");
+                                printf("Please enter a number between 0-99: ");
                                 reprint_menu = 0;
                             } else {
                                 dropStocks(stocks, stock_count);
@@ -114,7 +114,7 @@ int main() {
                         case 5:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
-                                printf("Please enter a number between 0-99: \n");
+                                printf("Please enter a number between 0-99: ");
                                 reprint_menu = 0;
                             } else {
                                 findLessExpensive(stocks, stock_count);
@@ -123,7 +123,7 @@ int main() {
                         case 6:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
-                                printf("Please enter a number between 0-99: \n");
+                                printf("Please enter a number between 0-99: ");
                                 reprint_menu = 0;
                             } else {
                                 sortByPrice(stocks, stock_count);
@@ -132,7 +132,7 @@ int main() {
                         case 7:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
-                                printf("Please enter a number between 0-99: \n");
+                                printf("Please enter a number between 0-99: ");
                                 reprint_menu = 0;
                             } else {
                                 sortByName(stocks, stock_count);
@@ -141,7 +141,7 @@ int main() {
                         case 8:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
-                                printf("Please enter a number between 0-99: \n");
+                                printf("Please enter a number between 0-99: ");
                                 reprint_menu = 0;
                             } else {
                                 sortByAsciiSum(stocks, stock_count);
@@ -151,7 +151,7 @@ int main() {
                         case 9:
                             if (stock_count == 0) {
                                 printf("Must add a stock first\n");
-                                printf("Please enter a number between 0-99: \n");
+                                printf("Please enter a number between 0-99: ");
                                 reprint_menu = 0;
                             } else {
                                 findPalindromes(stocks, stock_count);
@@ -170,9 +170,10 @@ int main() {
 
                 // invalid input (letters, symbols, etc.)
                 error_count++;
+                printf("\n");
                 printf("Invalid input.\n");
                 printf("You made %d errors from 5, try again.\n", error_count);
-                printf("Please enter a number between 0-99: \n");
+                printf("Please enter a number between 0-99: ");
                 reprint_menu = 0; // skip full menu in the next iteration
 
                 if (error_count >= 5) {
@@ -208,12 +209,14 @@ void printMenu() {
     printf("8. Sort Stocks by ASCII Sum of Name\n");
     printf("9. Check Palindromic Stock Names\n");
     printf("10. Exit\n");
-    printf("Please enter a number between 0-99: \n");
+    printf("Please enter a number between 0-99: ");
+
 }
 
 void addStock(Stock** stocks, int* ptr_stock_count) {
     // check if there is space in the static pointer array
     if (*ptr_stock_count >= MAX_STOCKS) {
+        printf("\n");
         printf("The system is full\n");
         return;
     }
@@ -221,6 +224,7 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
     // Allocate memory for a new stock structure on the heap
     stocks[*ptr_stock_count] = (Stock*)malloc(sizeof(Stock));
     if (stocks[*ptr_stock_count] == NULL) {
+        printf("\n");
         printf("Memory allocation failed!\n");
         return;
     }
@@ -229,7 +233,8 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
     int valid = 0;
 
     // loop for valid stock name
-    printf("Enter stock name: \n");
+    printf("\n");
+    printf("Enter stock name:");
     do {
         if (fgets(input_buf, sizeof(input_buf), stdin) != NULL) {
             // remove '\n' character that fgets() captures
@@ -240,22 +245,28 @@ void addStock(Stock** stocks, int* ptr_stock_count) {
                 strcpy(stocks[*ptr_stock_count]->name, input_buf);
                 valid = 1;
             } else {
-                printf("Invalid name, please try again: \n");
+                printf("\n");
+                printf("Invalid name, please try again:");
             }
         }
     } while (!valid);
+    printf("\n");
 
     // loop for valid stock price
     valid = 0;
-    printf("Enter stock price: \n");
+    printf("Enter stock price: ");
     do {
         if (fgets(input_buf, sizeof(input_buf), stdin) != NULL) {
             /* call isValidPrice function to check the string
              * and to store the value in the struct if it is valid */
             if (isValidPrice(input_buf, &(stocks[*ptr_stock_count]->price))) {
                 valid = 1;
-                printf("Stock added.\n");
+                printf("\n");
+                printf("Stock added.");
+                printf("\n");
+
             } else {
+                printf("\n");
                 printf("Invalid Price, please try again: ");
             }
         }
@@ -310,10 +321,11 @@ void printStocks(Stock** stocks, int stock_count) {
     }
 
     if (stock_count == 0) {
+        printf("\n");
         printf("No stocks available.\n");
         return;
     }
-
+    printf("\n");
     for (int i = 0; i < stock_count; i++) {
         if (stocks[i] != NULL) {
             printf("%d. %s - $%.2f\n", i + 1, stocks[i]->name, stocks[i]->price);
@@ -329,6 +341,7 @@ void doubleStocks(Stock** stocks, int stock_count) {
 
     // If the list is empty, there is nothing to double.
     if (stock_count == 0) {
+        printf("\n");
         printf("No stocks available.\n");
         return;
     }
@@ -338,6 +351,7 @@ void doubleStocks(Stock** stocks, int stock_count) {
             stocks[i]->price *= 2;
         }
     }
+    printf("\n");
     printf("Stock prices have doubled.\n");
 }
 
@@ -346,8 +360,8 @@ void dropStocks(Stock** stocks, int stock_count) {
     char input_buf[100];
     int percent;
     int valid = 0; // validation flag
-
-    printf("Enter x%%: \n");
+    printf("\n");
+    printf("Enter x%%: ");
 
     // Validation loop of the input
     do {
@@ -356,7 +370,8 @@ void dropStocks(Stock** stocks, int stock_count) {
             if (isValidPercent(input_buf, &percent)) {
                 valid = 1;
             } else {
-                printf("Invalid Percentage, please try again: ");
+                printf("\n");
+                printf("Invalid Percentage, please try again:");
             }
         }
     } while (!valid);
@@ -366,7 +381,7 @@ void dropStocks(Stock** stocks, int stock_count) {
         // percentage calculation and updating the value at the price address
         stocks[j]->price *= (1.0f - percent / 100.0f);
     }
-
+    printf("\n");
     printf("Stock prices has dropped by %d%%.\n", percent);
 }
 
@@ -402,7 +417,7 @@ void findLessExpensive(Stock** stocks, int stock_count) {
             min_index = i;
         }
     }
-
+    printf("\n");
     printf("Less expensive stock: %s - $%.2f\n", stocks[min_index]->name, stocks[min_index]->price);
 }
 // sorts the stocks by price
@@ -420,7 +435,7 @@ void sortByPrice(Stock** stocks, int stock_count) {
             }
         }
     }
-
+    printf("\n");
     printf("Sorted by price.\n");
 }
 void sortByName(Stock** stocks, int stock_count) {
@@ -437,6 +452,7 @@ void sortByName(Stock** stocks, int stock_count) {
             }
         }
     }
+    printf("\n");
     printf("Sorted by name.\n");
 }
 
@@ -455,7 +471,7 @@ void sortByAsciiSum(Stock** stocks, int stock_count)
             }
         }
     }
-
+    printf("\n");
     printf("Sorted by ASCII sum.\n");
 }
 
@@ -480,13 +496,15 @@ void findPalindromes(Stock** stocks, int stock_count)
     {
         if (isPalindrome(stocks[i]->name))
         {
+            printf("\n");
             printf("Palindrome stock: %s\n", stocks[i]->name);
             found = 1;
         }
     }
-
+   
     if (!found)
     {
+        printf("\n");
         printf("No palindromic stock names found.\n");
     }
 }
