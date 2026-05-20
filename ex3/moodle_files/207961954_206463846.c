@@ -159,7 +159,7 @@ int main() {
                             break;
                         case 10:
                             keep_running = 0; // exit loop
-                            printf("Exiting program...\n");
+                            printf("\nExiting program...\n");
                             break;
                     }
                     // ---------------- end switch cases ---------------------------
