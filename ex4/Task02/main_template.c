@@ -52,35 +52,35 @@ typedef struct wlst {
 item* create_item(char *name, int id, itemlst **items);
 warehouse* create_warehouse(char *name, int code, wlst **warehouses);
 
-void add_last_whs(wlst **head, warehouse* newItem);
-void add_last_itemlst(itemlst **head, item* newItem);
+warehouse* add_last_whs(wlst **head, warehouse* newWhs);
+item* add_last_itemlst(itemlst **head, item* newItem);
 
 void print_items(itemlst *items, wlst *warehouses);
 void print_whs_lst(wlst *head);
 void print_item_lst(itemlst *head);
 
-int search_item_by_id(itemlst *head, int id);
-int search_warehouse_by_code(wlst *head, int code);
+item* search_item_by_id(itemlst *head, int id);
+warehouse* search_warehouse_by_code(wlst *head, int code);
 
 void print_error_message(int errid);
 
 
 /******************************************* your's functions ********************************************************************************/
-int search_item_by_id(itemlst *head, int id){
+item* search_item_by_id(itemlst *head, int id){
     if (!head) {
-        return -1;
+        return NULL;
     }
     if(head->data->id == id){
-        return 1;
+        return head->data;
     }
     return search_item_by_id(head->next, id);
 }
-int search_warehouse_by_code(wlst *head, int code){
+warehouse* search_warehouse_by_code(wlst *head, int code){
     if (!head) {
-        return -1;
+        return NULL;
     }
     if(head->data->code == code){
-        return 1;
+        return head->data;
     }
     return search_warehouse_by_code(head->next, code);
 }
@@ -89,7 +89,7 @@ int search_warehouse_by_code(wlst *head, int code){
 /*****************************************new objects and insert object functions******************************************************/
 
 item* create_item(char *name, int id, itemlst **items) {
-    if(search_item_by_id(*items, id) != -1){
+    if(search_item_by_id(*items, id) != NULL){
         return NULL;
     }
     item *itm;
@@ -109,21 +109,9 @@ item* create_item(char *name, int id, itemlst **items) {
     return itm;
 }
 
-void add_last_itemlst(itemlst **head, item* newItem){
-    if (!*head) {
-        *head = malloc(sizeof(itemlst));
-        if (*head == NULL) {
-            print_error_message(2);
-        }   
-        (*head)->data = newItem;
-        (*head)->next = NULL;
-        return;
-    }
-    add_last_itemlst(&((*head)->next), newItem);
-}
 
-warehouse* create_warehouse(char *name, int code, wlst **warehouses) {
-    if(search_warehouse_by_code(*warehouses, code) != -1){
+warehouse* create_warehouse(char *location, int code, wlst **warehouses) {
+    if(search_warehouse_by_code(*warehouses, code) != NULL){
         return NULL;
     }
     warehouse *whs;
@@ -132,28 +120,56 @@ warehouse* create_warehouse(char *name, int code, wlst **warehouses) {
         print_error_message(1);
     }
     // allocating memory for the string before copying it
-    whs->location = malloc(strlen(name) + 1);
+    whs->location = malloc(strlen(location) + 1);
     if (whs->location == NULL) {
         print_error_message(1);
     }
-    strcpy(whs->location, name);
+    strcpy(whs->location, location);
     whs->code = code;
     whs->items = NULL;
     add_last_whs(warehouses, whs);
     return whs;
 }
 
-void add_last_whs(wlst **head, warehouse* newItem){
+
+item* add_last_itemlst(itemlst **head, item* newItem){
+    // if current (recursive call) head is NULL, we add the newWhs to the current head
     if (!*head) {
-        *head = malloc(sizeof(wlst));
+        *head = malloc(sizeof(itemlst));
         if (*head == NULL) {
             print_error_message(2);
         }   
         (*head)->data = newItem;
         (*head)->next = NULL;
-        return;
+        return newItem;
     }
-    add_last_whs(&((*head)->next), newItem);
+    // if current head is not NULL, we check if the current head is the same as the newWhs
+    if (newItem->id == (*head)->data->id)
+    {
+        return (*head)->data;
+    }
+    // if current head is not NULL, we go to the next head
+    add_last_itemlst(&((*head)->next), newItem);
+}
+
+warehouse* add_last_whs(wlst **head, warehouse* newWhs){
+    // if current (recursive call) head is NULL, we add the newWhs to the current head
+    if (!*head) {
+        *head = malloc(sizeof(wlst));
+        if (*head == NULL) {
+            print_error_message(2);
+        }   
+        (*head)->data = newWhs;
+        (*head)->next = NULL;
+        return newWhs;
+    }
+    // if current head is not NULL, we check if the current head is the same as the newWhs
+    if (newWhs->code == (*head)->data->code)
+    {
+        return (*head)->data;
+    }   
+    // if current head is not NULL, we go to the next head
+    return add_last_whs(&((*head)->next), newWhs);
 }
 
 
@@ -196,6 +212,7 @@ void print_whs_lst(wlst *head){
     }
     while(ptr){
         printf("Warehouse code %d, Warehouse name: %s\n", ptr->data->code, ptr->data->location);
+        print_item_lst(ptr->data->items);
         ptr = ptr->next;
     }
 }
@@ -204,6 +221,24 @@ void print_whs_lst(wlst *head){
 
 
 /*******************************************Generate And Assign Items And Warehouses******************************************************/
+warehouse* assign_item_to_warehouse(int item_id, int warehouse_num, wlst *warehouses, itemlst *itemlst){
+    warehouse *warehouse = search_warehouse_by_code(warehouses, warehouse_num);
+    if(!warehouse){
+        print_error_message(4);
+        return warehouse;
+    }
+    item *item = search_item_by_id(itemlst,item_id);
+    if(!item){
+        print_error_message(5);
+        return warehouse;
+    }
+    
+    add_last_itemlst(&(warehouse->items), item);
+    return warehouse;
+}
+
+
+    
 
 
 /*DO NOT TOUCH THIS FUNCTION */
@@ -279,7 +314,7 @@ int main() {
 			
 			printf("\n Add new warehouse: name %s warehouse code: %d",buf, num);
             
-			//your function
+			create_warehouse(buf, num, &warehouses);
 
             break;
 
@@ -293,7 +328,7 @@ int main() {
             scanf("%d", &num);
 
             //your function
-
+            assign_item_to_warehouse(id, num, warehouses, items);
             break;
 
         case 'u':
