@@ -48,18 +48,25 @@ typedef struct wlst {
 
 
 /******************************************* your's prototypes *******************************************************************************/
-item* create_item(char *name, int id, itemlst **items);
+//create warehouse and add it to the list
 warehouse* create_warehouse(char *name, int code, wlst **warehouses);
-
+//create item and add it to the list
+item* create_item(char *name, int id, itemlst **items);
+//add warehouse to the end of the warehouses list
 warehouse* add_last_whs(wlst **head, warehouse* newWhs);
+//add item to the end of the items list
 item* add_last_itemlst(itemlst **head, item* newItem);
-
-void print_items(itemlst *items, wlst *warehouses);
-void print_whs_lst(wlst *head);
-void print_item_lst(itemlst *head);
-
-item* search_item_by_id(itemlst *head, int id);
+//search warehouse by code
 warehouse* search_warehouse_by_code(wlst *head, int code);
+//search item by id
+item* search_item_by_id(itemlst *head, int id);
+
+//print warehouses list
+void print_whs_lst(wlst *head);
+//print items list
+void print_item_lst(itemlst *head);
+//print items and warehouses
+void print_items(itemlst *items, wlst *warehouses);
 
 void print_error_message(int errid);
 
