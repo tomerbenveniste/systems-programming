@@ -4,7 +4,7 @@
 
 /**************************************************************************************************/
 /***************************YOU MUST REMARK IT BEFORE SUBMISSION***********************************/
-// #define DEBUGON
+#define DEBUGON
 /***************************YOU MUST REMARK IT BEFORE SUBMISSION***********************************/
 /**************************************************************************************************/
 
@@ -20,23 +20,27 @@ Name2: Privetname Familyname     ID: xxxxxxxx
 
 
 /* structures */
+// Item defenition: name, id, link list of warehouses where the item is stored
 typedef struct item {
     char* name;
     int  id;
     struct wlst* warehouses;
 } item;
 
+// warehouse defenition: location, code, link list of items in the warehouse
 typedef struct warehouse {
     char* location;
     int  code;
     struct itemlst* items;
 } warehouse;
 
+//Linked list of all items exists in the world
 typedef struct itemlst {
     item* data;
     struct itemlst* next;
 } itemlst;
 
+//Linked list of warehouses around the globe
 typedef struct wlst {
     warehouse* data;
     struct wlst* next;
@@ -45,13 +49,114 @@ typedef struct wlst {
 
 /******************************************* your's prototypes *******************************************************************************/
 
+item* create_item(char *name, int id, itemlst **items);
+warehouse* create_warehouse(char *name, int code, wlst **warehouses);
+
+void add_last_whs(wlst **head, warehouse* newItem);
+void add_last_itemlst(itemlst **head, item* newItem);
+
+void print_items(itemlst *items, wlst *warehouses);
+void print_whs_lst(wlst *head);
+void print_item_lst(itemlst *head);
+
+int search_item_by_id(itemlst *head, int id);
+int search_warehouse_by_code(wlst *head, int code);
+
+void print_error_message(int errid);
 
 
 /******************************************* your's functions ********************************************************************************/
-
+int search_item_by_id(itemlst *head, int id){
+    if (!head) {
+        return -1;
+    }
+    if(head->data->id == id){
+        return 1;
+    }
+    return search_item_by_id(head->next, id);
+}
+int search_warehouse_by_code(wlst *head, int code){
+    if (!head) {
+        return -1;
+    }
+    if(head->data->code == code){
+        return 1;
+    }
+    return search_warehouse_by_code(head->next, code);
+}
 
 
 /*****************************************new objects and insert object functions******************************************************/
+
+item* create_item(char *name, int id, itemlst **items) {
+    if(search_item_by_id(*items, id) != -1){
+        return NULL;
+    }
+    item *itm;
+    itm = malloc(sizeof(item));
+    if (itm == NULL) {
+        print_error_message(1);
+    }
+    // allocating memory for the string before copying it
+    itm->name = malloc(strlen(name) + 1);
+    if (itm->name == NULL) {
+        print_error_message(1);
+    }
+    strcpy(itm->name, name);
+    itm->id = id;
+    itm->warehouses = NULL;
+    add_last_itemlst(items, itm);
+    return itm;
+}
+
+void add_last_itemlst(itemlst **head, item* newItem){
+    if (!*head) {
+        *head = malloc(sizeof(itemlst));
+        if (*head == NULL) {
+            print_error_message(2);
+        }   
+        (*head)->data = newItem;
+        (*head)->next = NULL;
+        return;
+    }
+    add_last_itemlst(&((*head)->next), newItem);
+}
+
+warehouse* create_warehouse(char *name, int code, wlst **warehouses) {
+    if(search_warehouse_by_code(*warehouses, code) != -1){
+        return NULL;
+    }
+    warehouse *whs;
+    whs = malloc(sizeof(warehouse));
+    if (whs == NULL) {
+        print_error_message(1);
+    }
+    // allocating memory for the string before copying it
+    whs->location = malloc(strlen(name) + 1);
+    if (whs->location == NULL) {
+        print_error_message(1);
+    }
+    strcpy(whs->location, name);
+    whs->code = code;
+    whs->items = NULL;
+    add_last_whs(warehouses, whs);
+    return whs;
+}
+
+void add_last_whs(wlst **head, warehouse* newItem){
+    if (!*head) {
+        *head = malloc(sizeof(wlst));
+        if (*head == NULL) {
+            print_error_message(2);
+        }   
+        (*head)->data = newItem;
+        (*head)->next = NULL;
+        return;
+    }
+    add_last_whs(&((*head)->next), newItem);
+}
+
+
 
 
 
@@ -64,7 +169,36 @@ typedef struct wlst {
 
 
 /***********************************************printout functions***********************************************************************/
+void print_item_lst(itemlst *head){
+ printf("item LIST:\n");
+ itemlst *ptr = head;
+ if (!head){
+    printf("item LIST is empty\n");
+    return;
+ }
+ while(ptr){
+    printf("%d:%s\n", ptr->data->id, ptr->data->name);
+    ptr = ptr->next;
+ }
+}
 
+void print_items(itemlst *items, wlst *warehouses){
+    print_item_lst(items);
+    print_whs_lst(warehouses);
+}
+
+void print_whs_lst(wlst *head){
+    printf("warehouse LIST:\n");
+    wlst *ptr = head;
+    if (!head){
+        printf("warehouse LIST is empty\n");
+        return;
+    }
+    while(ptr){
+        printf("Warehouse code %d, Warehouse name: %s\n", ptr->data->code, ptr->data->location);
+        ptr = ptr->next;
+    }
+}
 
 /***************************************************free**********************************************************************************/
 
@@ -130,8 +264,8 @@ int main() {
 			
 			printf("\n Add new item: name %s item id: %d",buf, id);
             
-			//your function
-
+			create_item(buf, id, &items);
+        
             break;
 
         case 'w':
@@ -178,7 +312,7 @@ int main() {
         case 'p':
             printf("Printing status.\n");
 
-            print_items(items);
+            print_items(items, warehouses);
             //your function
 
             break;
