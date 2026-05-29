@@ -253,23 +253,37 @@ void unassign_item_from_warehouse(int item_id, int warehouse_code, wlst *warehou
 
 
 
-/***********************************************printout functions***********************************************************************/
+/********************************************** printout functions **********************************************************************/
 
 // print linked list of items
 void print_item_lst(itemlst *head){
  printf("item LIST:\n");
  itemlst *ptr = head;
- // if head is NULL, print empty list
+ // if head is NULL, just return
  if (!head){
-    printf("item LIST is empty\n");
     return;
  }
- // print all items
+
+ // print all items with their warehouses lists
  while(ptr){
     printf("%d:%s\n", ptr->data->id, ptr->data->name);
+    // check if the item has a warehouses list for printing
+    if (ptr->data->warehouses) {
+        printf("Item Warehouses: ");
+        wlst *wp = ptr->data->warehouses;
+        // goes over all warehouses in the list and printing them
+        while (wp) {
+            printf("%d-%s", wp->data->code, wp->data->location);
+            if (wp->next) printf(", ");
+            wp = wp->next;
+        }
+         printf("\n");
+    }
+    // moving over to the next item if exists
     ptr = ptr->next;
  }
 }
+
 // print all items and warehouses
 void print_items(itemlst *items, wlst *warehouses){
     print_item_lst(items);
@@ -280,15 +294,26 @@ void print_items(itemlst *items, wlst *warehouses){
 void print_whs_lst(wlst *head){
     printf("warehouse LIST:\n");
     wlst *ptr = head;
-    // if head is NULL, print empty list
+    // if head is NULL, just return
     if (!head){
-        printf("warehouse LIST is empty\n");
         return;
     }
-    // print all warehouses
+    // print all warehouses and the items assigned to them if they have
     while(ptr){
         printf("Warehouse code %d, Warehouse name: %s\n", ptr->data->code, ptr->data->location);
-        print_item_lst(ptr->data->items);
+
+        if (ptr->data->items) {
+            printf("items: ");
+            itemlst *ip = ptr->data->items;
+            // goes over all items in the list and printing them
+            while (ip) {
+                printf("ID %d Name %s", ip->data->id, ip->data->name);
+                if (ip->next) printf(" | ");
+                ip = ip->next;
+            }
+            printf(" |\n");
+        }
+        // moving over to the next warehouse if exists
         ptr = ptr->next;
     }
 }
@@ -380,7 +405,7 @@ int main() {
 
             printf("warehouse code: ");
             scanf("%d", &num);
-                
+
             assign_item_to_warehouse(id, num, warehouses, items);
             break;
 
