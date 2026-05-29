@@ -4,7 +4,7 @@
 
 /**************************************************************************************************/
 /***************************YOU MUST REMARK IT BEFORE SUBMISSION***********************************/
-#define DEBUGON
+// #define DEBUGON
 /***************************YOU MUST REMARK IT BEFORE SUBMISSION***********************************/
 /**************************************************************************************************/
 
@@ -61,9 +61,9 @@ warehouse* search_warehouse_by_code(wlst *head, int code);
 //search item by id
 item* search_item_by_id(itemlst *head, int id);
 // assign item to warehouse
-void assign_item_to_warehouse(int item_id, int warehouse_code, wlst *warehouses, itemlst *itemlst);
+void assign_item_to_warehouse(int item_id, int warehouse_code, wlst **warehouses, itemlst **itemlst);
 // unassign item to warehouse (without deleting anything)
-void unassign_item_from_warehouse(int item_id, int warehouse_code, wlst *warehouses, itemlst *itemlst);
+void unassign_item_from_warehouse(int item_id, int warehouse_code, wlst **warehouses, itemlst **itemlst);
 //print warehouses list
 void print_whs_lst(wlst *head);
 //print items list
@@ -72,6 +72,14 @@ void print_item_lst(itemlst *head);
 void print_items(itemlst *items, wlst *warehouses);
 //print error messages
 void print_error_message(int errid);
+// generating and assigning 100 items to 10 warehouses
+void generate_and_assign(itemlst **items, wlst **warehouses);
+// free all malloced data
+void free_all(itemlst **items, wlst **warehouses);
+// free malloced item helper function
+void free_item(item *itm);
+// free malloced warehouse helper function
+void free_warehouse(warehouse *whs);
 
 /******************************************* search functions *****************************************************************/
 //search item by id
@@ -198,13 +206,13 @@ warehouse* add_sorted_whs(wlst **head, warehouse* newWhs){
 /*************************************** assign/unassign item to a Warehouse ************************************************/
 
 // assign item to warehouse
-void assign_item_to_warehouse(int item_id, int warehouse_code, wlst *warehouses, itemlst *items){
+void assign_item_to_warehouse(int item_id, int warehouse_code, wlst **warehouses, itemlst **items){
     // search for warehouse by code
-    warehouse *warehouse = search_warehouse_by_code(warehouses, warehouse_code);
+    warehouse *warehouse = search_warehouse_by_code(*warehouses, warehouse_code);
     if(!warehouse) print_error_message(4); // if warehouse not found, print error message
 
     // search for item by id
-    item *item = search_item_by_id(items, item_id);
+    item *item = search_item_by_id(*items, item_id);
     if(!item) print_error_message(5); // if item not found, print error message
 
     // add item to warehouse's items list
@@ -215,13 +223,13 @@ void assign_item_to_warehouse(int item_id, int warehouse_code, wlst *warehouses,
 }
 
 // unassign item to warehouse
-void unassign_item_from_warehouse(int item_id, int warehouse_code, wlst *warehouses, itemlst *items){
+void unassign_item_from_warehouse(int item_id, int warehouse_code, wlst **warehouses, itemlst **items){
     // search for warehouse by code
-    warehouse *whs = search_warehouse_by_code(warehouses, warehouse_code);
+    warehouse *whs = search_warehouse_by_code(*warehouses, warehouse_code);
     if(!whs) print_error_message(4); // if warehouse not found, print error message
 
     // search for item by id
-    item *itm = search_item_by_id(items, item_id);
+    item *itm = search_item_by_id(*items, item_id);
     if(!itm) print_error_message(5); // if item not found, print error message
 
     // remove item from warehouse's items list
@@ -248,10 +256,6 @@ void unassign_item_from_warehouse(int item_id, int warehouse_code, wlst *warehou
         free(tmp);
     }
 }
-
-/********************************************uregisters objects*************************************************************************/
-
-
 
 /********************************************** printout functions **********************************************************************/
 
@@ -317,9 +321,87 @@ void print_whs_lst(wlst *head){
         ptr = ptr->next;
     }
 }
+/******************************************* generate function *************************************************************************/
+// generate and assign 100 items to 10 warehouses
+void generate_and_assign(itemlst **items, wlst **warehouses) {
+    int i;
+    char name[20];
 
-/***************************************************free**********************************************************************************/
+    // creating 10 warehouses needed for storing 100 items later
+    for (i = 0; i < 10; i++) {
+        sprintf(name, "Warehouse%d", i); // takes the string and puts it in 'name'
+        create_warehouse(name, i, warehouses); // creates the warehouse
+    }
 
+    srand(1948); //
+
+    // creating 100 items and assigning them to warehouses randomly
+    for (i = 0; i < 100; i++) {
+        int randomCode = rand() % 10;
+        sprintf(name, "Item%d", i);
+        create_item(name, i, items);
+        assign_item_to_warehouse(i, randomCode, warehouses, items);
+    }
+}
+
+/************************************************** free *********************************************************************************/
+
+// free all malloced data
+void free_all(itemlst **items, wlst **warehouses) {
+    // freeing all items using the helper
+    itemlst *ip = *items;
+    while (ip) {
+        itemlst *tmp = ip->next;
+        free_item(ip->data);
+        free(ip);
+        ip = tmp;
+    }
+
+    // freeing all warehouses using the helper
+    wlst *wp = *warehouses;
+    while (wp) {
+        wlst *tmp = wp->next;
+        free_warehouse(wp->data);
+        free(wp);
+        wp = tmp;
+    }
+}
+
+// free malloced item helper function
+void free_item(item *itm) {
+    // first freeing the cross-reference nodes
+    wlst *wp = itm->warehouses;
+    while (wp) {
+        wlst *tmp = wp->next; // capture the next address so we don't lose it
+        free(wp);
+        wp = tmp;
+    }
+
+    // secondly freeing the name string
+    char *np = itm->name;
+    free(np);
+
+    // third and last - freeing the struct itself
+    free(itm);
+}
+
+// free malloced warehouse helper function
+void free_warehouse(warehouse *whs) {
+    // first freeing the cross-reference nodes
+    itemlst *ip = whs->items;
+    while (ip) {
+        itemlst *tmp = ip->next; // capture the next address so we don't lose it
+        free(ip);
+        ip = tmp;
+    }
+
+    // secondly freeing the location string
+    char *lp = whs->location;
+    free(lp);
+
+    // third and last - freeing the struct itself
+    free(whs);
+}
 
 
 /*DO NOT TOUCH THIS FUNCTION */
@@ -406,7 +488,7 @@ int main() {
             printf("warehouse code: ");
             scanf("%d", &num);
 
-            assign_item_to_warehouse(id, num, warehouses, items);
+            assign_item_to_warehouse(id, num, &warehouses, &items);
             break;
 
         case 'u':
@@ -418,7 +500,7 @@ int main() {
             printf("warehouse code: ");
             scanf("%d", &num);
 
-            unassign_item_from_warehouse(id, num, warehouses, items);
+            unassign_item_from_warehouse(id, num, &warehouses, &items);
 
             break;
 
@@ -432,12 +514,13 @@ int main() {
 		case 'g':  // generating and assigning items and warehouses
 			printf("Generating and assigning items to warehouses\n");
 
-			//your function
+            generate_and_assign(&items, &warehouses);
 
 			break;
 
         case 'q':
             printf("Quitting...\n");
+
             break;
         }
 
@@ -446,6 +529,8 @@ int main() {
     } while (c != 'q');
 
     //your free functions
+    free_all(&items, &warehouses);
+
 	return 0;
 
 }
