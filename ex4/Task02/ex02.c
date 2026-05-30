@@ -113,8 +113,9 @@ warehouse* search_warehouse_by_code(wlst *head, int code){
 //create item
 item* create_item(char *name, int id, itemlst **items) {
     // if item with same id is already exists, return NULL
-    if(search_item_by_id(*items, id) != NULL){
-        return NULL;
+    item *existing = search_item_by_id(*items, id);
+    if (existing != NULL) {
+        return existing;
     }
     item *itm; // if item with same id is not exists, create new item
     itm = malloc(sizeof(item)); // allocating memory for the item
@@ -139,8 +140,9 @@ item* create_item(char *name, int id, itemlst **items) {
 //create warehouse
 warehouse* create_warehouse(char *location, int code, wlst **warehouses) {
     // if warehouse with same code is already exists, return NULL
-    if(search_warehouse_by_code(*warehouses, code) != NULL){
-        return NULL;
+    warehouse *existing = search_warehouse_by_code(*warehouses, code);
+    if (existing != NULL) {
+        return existing;
     }
     // if warehouse with same code is not exists, create new warehouse
     warehouse *whs;
@@ -208,18 +210,30 @@ warehouse* add_sorted_whs(wlst **head, warehouse* newWhs){
 // assign item to warehouse
 void assign_item_to_warehouse(int item_id, int warehouse_code, wlst **warehouses, itemlst **items){
     // search for warehouse by code
-    warehouse *warehouse = search_warehouse_by_code(*warehouses, warehouse_code);
-    if(!warehouse) print_error_message(4); // if warehouse not found, print error message
+    warehouse *whs = search_warehouse_by_code(*warehouses, warehouse_code);
+    if(!whs) 
+    {
+        print_error_message(4); // if warehouse not found, print error message
+        return;
+
+    }
 
     // search for item by id
-    item *item = search_item_by_id(*items, item_id);
-    if(!item) print_error_message(5); // if item not found, print error message
-
+    item *itm = search_item_by_id(*items, item_id);
+    if(!itm)
+    {
+        print_error_message(5); // if item not found, print error message
+        return;
+    } 
+        
+    if(search_item_by_id(whs->items, item_id)) 
+    {
+        return;
+    }
     // add item to warehouse's items list
-    add_sorted_itemlst(&(warehouse->items), item);
-
+    add_sorted_itemlst(&(whs->items), itm);
     // add warehouse to item's warehouses list
-    add_sorted_whs(&(item->warehouses), warehouse);
+    add_sorted_whs(&(itm->warehouses), whs);
 }
 
 // unassign item to warehouse
@@ -461,7 +475,6 @@ int main() {
 			printf("\n Add new item: name %s item id: %d",buf, id);
 
 			create_item(buf, id, &items);
-
             break;
 
         case 'w':
@@ -521,6 +534,10 @@ int main() {
         case 'q':
             printf("Quitting...\n");
 
+            break;
+
+        default:
+            print_error_message(3);
             break;
         }
 
