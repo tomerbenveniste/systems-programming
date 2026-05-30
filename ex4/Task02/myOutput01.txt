@@ -1,0 +1,19 @@
+Choose:
+    i - new item
+    w - new warehouse
+    a - assign an item to a warehouse
+    u - unassign an item from a warehouse(not delete!)
+    p - print status
+    g - generating and assigning 100 items to 10 warehouses
+    q - quit
+Adding new item.
+item name: item ID: 
+ Add new item: name i1 item id: 1
+Choose:
+    i - new item
+    w - new warehouse
+    a - assign an item to a warehouse
+    u - unassign an item from a warehouse(not delete!)
+    p - print status
+    g - generating and assigning 100 items to 10 warehouses
+    q - quit
