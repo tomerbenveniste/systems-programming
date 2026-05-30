@@ -69,7 +69,7 @@ void print_whs_lst(wlst *head);
 //print items list
 void print_item_lst(itemlst *head);
 //print items and warehouses
-void print_items(itemlst *items, wlst *warehouses);
+void print_items(itemlst *items);
 //print error messages
 void print_error_message(int errid);
 // generating and assigning 100 items to 10 warehouses
@@ -274,7 +274,7 @@ void unassign_item_from_warehouse(int item_id, int warehouse_code, wlst **wareho
 /********************************************** printout functions **********************************************************************/
 
 // print linked list of items
-void print_item_lst(itemlst *head){
+void print_items(itemlst *head){
  printf("item LIST:\n");
  itemlst *ptr = head;
  // if head is NULL, just return
@@ -302,11 +302,7 @@ void print_item_lst(itemlst *head){
  }
 }
 
-// print all items and warehouses
-void print_items(itemlst *items, wlst *warehouses){
-    print_item_lst(items);
-    print_whs_lst(warehouses);
-}
+
 
 // print linked list of warehouses
 void print_whs_lst(wlst *head){
@@ -520,7 +516,8 @@ int main() {
         case 'p':
             printf("Printing status.\n");
 
-            print_items(items, warehouses);
+            print_items(items);
+            print_whs_lst(warehouses);
 
             break;
 
