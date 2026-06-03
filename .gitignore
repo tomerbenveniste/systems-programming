@@ -6,6 +6,7 @@ cmake-build-debug/
 a.out
 main
 *.exe
+.out
 
 # Object and build files
 *.o
