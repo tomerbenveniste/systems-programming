@@ -6,7 +6,7 @@ class Menu
     MyQueue queue;
 
     public:
-    void print_menu();
+    void mainMenu();
     void input_manager(int user_input);
     void stackMenu();
     void queueMenu();       

@@ -12,14 +12,15 @@ private:
 
 
 public:
+    MyQueue();
     MyQueue(int maxQ);
     ~MyQueue();
     int get_maxQ() const;
     void print_queue() const;
-    bool enqueue(int element);
-    bool dequeue();
+    bool enQueue(int element);
+    bool deQueue();
     int peek() const;
-    bool is_empty() const;
+    bool isEmpty() const;
     void set_maxQ(int maxQ);
     bool is_full() const;
 };

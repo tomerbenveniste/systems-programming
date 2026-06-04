@@ -2,7 +2,9 @@
 #include "MyQueue.h"
 
 using namespace std;
-
+MyQueue::MyQueue() {
+    this->maxQ = 0;
+}
 MyQueue::MyQueue(int maxQ) {
     this->maxQ = maxQ;
 }
@@ -20,7 +22,7 @@ int MyQueue:: get_maxQ() const {
 }
 
 void MyQueue::print_queue() const {
-    if (is_empty()) {
+    if (isEmpty()) {
         cout << "Queue is empty" << endl;
         return;
     }
@@ -32,7 +34,7 @@ void MyQueue::print_queue() const {
     cout << endl;
 }
 
-bool MyQueue::enqueue(int element) {
+bool MyQueue::enQueue(int element) {
     if (queue.size() >= maxQ) {
         cout << "Queue is full" << endl;
         return false;
@@ -42,8 +44,8 @@ bool MyQueue::enqueue(int element) {
 }
 
 
-bool MyQueue::dequeue() {
-    if (is_empty()) {
+bool MyQueue::deQueue() {
+    if (isEmpty()) {
         cout << "Queue is empty" << endl;
         return false;
     }
@@ -53,14 +55,14 @@ bool MyQueue::dequeue() {
 }
 
 int MyQueue::peek() const {
-    if (is_empty()) {
-        return INT_MIN;
+    if (isEmpty()) {
+        return -1; // Return -1 to indicate the queue is empty
     }
 
     return queue[0];
 }
 
-bool MyQueue::is_empty() const {
+bool MyQueue::isEmpty() const {
     return queue.empty();
 }
 
