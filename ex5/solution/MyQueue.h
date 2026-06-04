@@ -8,16 +8,20 @@ using namespace std;
 class MyQueue {
 private:
     vector<int> queue;
+    int maxQ;
+
 
 public:
-    MyQueue();
+    MyQueue(int maxQ);
     ~MyQueue();
-
+    int get_maxQ() const;
     void print_queue() const;
-    void enqueue(int element);
-    void dequeue();
+    bool enqueue(int element);
+    bool dequeue();
     int peek() const;
     bool is_empty() const;
+    void set_maxQ(int maxQ);
+    bool is_full() const;
 };
 
 #endif

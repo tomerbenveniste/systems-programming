@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Menu.h"
 #include "MyQueue.h"
-#include "Stack.h"
 
 using namespace std;
 
@@ -69,6 +68,12 @@ void Menu::stackMenu() {
 
 }
 void Menu::queueMenu() {
+    if(this->queue.get_maxQ() == 0) {
+        cout << "Enter queue size: " << endl;
+        int maxQ;
+        cin >> maxQ;
+        this->queue.set_maxQ(maxQ);
+    }
     cout << "queueMenu" << endl;
     cout << "1. Print Queue" << endl;
     cout << "2. Add Element" << endl;
@@ -83,10 +88,15 @@ void Menu::queueMenu() {
     }   
     else if (user_input == 2)
     {
+        if (this->queue.is_full()) {
+            cout << "Queue is full. Cannot add element." << endl;
+            this->queueMenu();
+            return;
+        }
         cout << "Enter element to add: ";
         int* element = new int;
         cin >> *element;
-        this->queue.enqueue(*element);
+        bool result = this->queue.enqueue(*element);
         delete element;
     }
     else if (user_input == 3)
@@ -110,9 +120,8 @@ void Menu::queueMenu() {
     this->queueMenu();
     
 }
-Menu::Menu() {
+Menu::Menu() : queue(0) {
     cout << "Menu constructor called" << endl;
-    MyQueue queue;
     
 }   
 Menu::~Menu() {
@@ -123,7 +132,9 @@ Menu::~Menu() {
 
 int main()
 {
-    Menu menu;
-    menu.print_menu();
+
+    Menu* menu = new Menu();
+    menu->print_menu();
+    delete menu;
     
 }

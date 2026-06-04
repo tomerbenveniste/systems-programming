@@ -3,12 +3,20 @@
 
 using namespace std;
 
-MyQueue::MyQueue() {
-    // The vector is empty by default
+MyQueue::MyQueue(int maxQ) {
+    this->maxQ = maxQ;
 }
 
 MyQueue::~MyQueue() {
     // No manual delete needed
+}
+
+void MyQueue:: set_maxQ(int maxQ) {
+    this->maxQ = maxQ;
+}
+
+int MyQueue:: get_maxQ() const {
+    return this->maxQ;
 }
 
 void MyQueue::print_queue() const {
@@ -24,17 +32,24 @@ void MyQueue::print_queue() const {
     cout << endl;
 }
 
-void MyQueue::enqueue(int element) {
+bool MyQueue::enqueue(int element) {
+    if (queue.size() >= maxQ) {
+        cout << "Queue is full" << endl;
+        return false;
+    }
     queue.push_back(element);
+    return true;
 }
 
-void MyQueue::dequeue() {
+
+bool MyQueue::dequeue() {
     if (is_empty()) {
         cout << "Queue is empty" << endl;
-        return;
+        return false;
     }
 
     queue.erase(queue.begin());
+    return true;
 }
 
 int MyQueue::peek() const {
@@ -47,4 +62,8 @@ int MyQueue::peek() const {
 
 bool MyQueue::is_empty() const {
     return queue.empty();
+}
+
+bool MyQueue::is_full() const {
+    return queue.size() >= maxQ;
 }
