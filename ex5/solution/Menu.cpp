@@ -48,19 +48,24 @@ void Menu::stackMenu() {
         int user_input;
         cin >> user_input;
         if (user_input == 1) {
-            cout << "Push" << endl;
+                cout << "Enter element to push: ";
+                int* element = new int;
+                cin >> *element;
+                this->stack.push(*element);
+                delete element;
         }
         else if (user_input == 2)
         {
-            /* code */
+            this->stack.pop();
         }
         else if (user_input == 3)
         {
-            /* code */
+            cout << "Stack is " << (this->stack.isEmpty() ? "empty" : "not empty") << endl;
         }
         else if (user_input == 4)
         {
-            /* code */
+            cout << "Print Stack" << endl;
+            this->stack.print_stack();  
         }
         else if (user_input == 5)
         {
@@ -124,10 +129,9 @@ void Menu::queueMenu() {
         }
     }
 }
-Menu::Menu() : queue(0) {
+Menu::Menu() : queue(0), stack() {
     cout << "Menu constructor called" << endl;
-    
-}   
+}
 Menu::~Menu() {
     cout << "Menu destructor called" << endl;
 }

@@ -1,9 +1,11 @@
 #include "MyQueue.h"
+#include "Stack.h"
 
 class Menu
 {
     private:
     MyQueue queue;
+    Stack stack;
 
     public:
     void mainMenu();
