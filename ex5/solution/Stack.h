@@ -1,7 +1,10 @@
+#ifndef STACK_H
+#define STACK_H
 
-using namespace std;
 #include "StackNode.h"
 #include <climits>
+
+using namespace std;
 
 class Stack {
 private:
@@ -17,3 +20,4 @@ public:
     void print_stack() const;
 };
 
+#endif

@@ -1,12 +1,16 @@
 // Menu.cpp
-// iostream is a library in C++ that provides input and output functionality. It allows us to read from the standard input (keyboard) and write to the standard output (console).
+/* iostream is a library in C++ that provides input and output functionality. It allows us to read
+ * from the standard input (keyboard) and write to the standard output (console). */
 #include <iostream>
-// We include the header file "Menu.h" which contains the declaration of the Menu class. This allows us to use the Menu class and its member functions in this implementation file.
+/* We include the header file "Menu.h" which contains the declaration of the Menu class.
+ * This allows us to use the Menu class and its member functions in this implementation file. */
 #include "Menu.h"
-//the using namespace std; directive allows us to use names from the standard library (like cout and cin) without having to prefix them with std::.
+/* the using namespace std; directive allows us to use names from the standard library (like cout and cin)
+ * without having to prefix them with std::. */
 using namespace std;
 
-// The mainMenu function is the entry point of the menu system. It displays the main menu options and handles user input to navigate to the stack menu, queue menu, or exit the program.
+/* The mainMenu function is the entry point of the menu system. It displays the main menu
+ * options and handles user input to navigate to the stack menu, queue menu, or exit the program. */
 void Menu::mainMenu() {
     // We use an infinite loop to continuously display the main menu until the user chooses to exit.
     while (true) {
@@ -43,7 +47,8 @@ void Menu::mainMenu() {
   
 
 }
-// The stackMenu function displays the stack menu options and handles user input to perform stack operations such as push, pop, check if the stack is empty, print the stack, or return to the main menu.
+/* The stackMenu function displays the stack menu options and handles user input to perform stack
+ * operations such as push, pop, check if the stack is empty, print the stack, or return to the main menu. */
 void Menu::stackMenu() {
     int user_input;
     while (true) {
@@ -55,8 +60,9 @@ void Menu::stackMenu() {
         cout << "5. Return to Main Menu" << endl;
         int user_input;
         cin >> user_input;
-        // Based on the user's input, we perform the corresponding stack operation.
-        // If the user selects option 1, we prompt them to enter an element to push onto the stack, read the input, and call the push function of the stack.
+        /* Based on the user's input, we perform the corresponding stack operation.
+         * If the user selects option 1, we prompt them to enter an element to push onto the stack,
+         * read the input, and call the push function of the stack. */
         if (user_input == 1) {
                 cout << "Enter element to push: ";
                 int* element = new int;
@@ -91,7 +97,9 @@ void Menu::stackMenu() {
     }   
 
 }
-// The queueMenu function displays the queue menu options and handles user input to perform queue operations such as printing the queue, adding an element, removing an element, printing the first element, or returning to the main menu.
+/* The queueMenu function displays the queue menu options and handles user input to perform queue operations
+ * such as printing the queue, adding an element, removing an element, printing the first element,
+ * or returning to the main menu. */
 void Menu::queueMenu() {
     while (true) {
         if(this->queue.get_maxQ() == 0) {
@@ -114,7 +122,9 @@ void Menu::queueMenu() {
             cout << "Print Queue" << endl;  
             this->queue.print_queue();
         }   
-        // If the user selects option 2, we check if the queue is full. If it is full, we display a message and return to the queue menu. Otherwise, we prompt the user to enter an element to add to the queue, read the input, and call the enQueue function of the queue.
+        /* If the user selects option 2, we check if the queue is full. If it is full, we display a message
+         * and return to the queue menu. Otherwise, we prompt the user to enter an element to add to the queue,
+         * read the input, and call the enQueue function of the queue. */
         else if (user_input == 2)
         {
             if (this->queue.is_full()) {

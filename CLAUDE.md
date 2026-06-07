@@ -1,30 +1,120 @@
 # Project Context for Claude
 
 ## What this project is
-This repo is the hub for all C programming assignments in the Intro to System Programming course.
-Assignments are organized by folder (`ex3/`, `ex4/`, etc.). The root-level `main.c` is an old draft — ignore it.
+This repo is the hub for all C/C++ programming assignments in the Intro to System Programming course.
+Assignments are organized by folder (`ex3/`, `ex4/`, `ex5/` etc.). The root-level `main.c` is an old draft — ignore it.
 Work is done in pairs with school partner Carmi (GitHub: CarmiF). IDs: 207961954 (Tomer) and 206463846 (Carmi).
 
 ---
 
-## ex4 — EX2: Inventory Management System (CURRENT ASSIGNMENT)
+## ex5 — Assignment 1 C++: Stack, Queue & Menu (IN PROGRESS)
+
+### Status
+- Carmi completed: StackNode, Stack (basic ops), MyQueue, Menu (basic menus)
+- **Remaining: Stack operator overloads** (`+`, `+=`, `==`, `<<`) — the main missing piece
+- Minor issue: `Stack::peek()` should return `INT_MIN` when empty (Carmi returns -1)
+
+### Branch & file setup
+- Working branch: `ex5-tomer-1` (branched from `origin/carmi_ex5_1`)
+- All source in `ex5/solution/`
+- Reference binary (Linux): `ex5/solution/program` and `ex5/moodle_files/executable1.exe`
+- Assignment PDF: `ex5/moodle_files/assignment1CPP2026.pdf`
+
+### Files (8 to submit — do NOT submit assignment1.cpp, it's provided by VPL)
+- `StackNode.h` / `StackNode.cpp`
+- `Stack.h` / `Stack.cpp`
+- `MyQueue.h` / `MyQueue.cpp`
+- `Menu.h` / `Menu.cpp`
+
+### Classes overview
+
+#### StackNode
+- Private: `int data`, `StackNode* next`
+- Public: default + parameterized constructors, destructor, `get_data()`, `get_next()`, `set_next()`
+
+#### Stack (linked-list based, dynamic size)
+- Private: `StackNode* top`
+- Public: `Stack()` (top=nullptr), `~Stack()`, `push(int)`, `pop()` (prints "Stack is empty" if empty), `isEmpty() const`, `peek() const` (returns **INT_MIN** if empty)
+- **Required operator overloads (not yet implemented):**
+  - `operator+` (Stack + Stack): concatenates, returns new Stack with S1 bottom, S2 on top
+  - `operator+` (Stack + int): appends int to top; `operator+` (int + Stack): prepends int at bottom
+  - `operator+=` (Stack += int): pushes int onto stack (i.e. `S += 4` → 4 is new top)
+  - `operator==` (Stack == Stack): true if same elements in same order
+  - `operator<<` (ostream <<): prints stack elements numbered 1..n from bottom to top
+
+#### MyQueue (vector-based, bounded capacity)
+- Private: `vector<int> queue`, `int maxQ`
+- Public: `MyQueue()`, `MyQueue(int maxQ)`, `~MyQueue()`, `enQueue(int)` (returns bool), `deQueue()` (returns bool), `isEmpty() const`, `peek() const` (returns -1 if empty), `print_queue()`, `is_full()`, `get_maxQ()`, `set_maxQ(int)`
+
+#### Menu
+- Private: `MyQueue queue`, `Stack stack`
+- Public: `Menu()`, `~Menu()`, `mainMenu()`, `stackMenu()`, `queueMenu()`
+- `mainMenu`: options 1 (stack menu), 2 (queue menu), 3 (exit — print "Goodbye!" then exit)
+- `stackMenu`: options 1 (push), 2 (pop), 3 (isEmpty), 4 (print), 5 (back to main)
+- `queueMenu`: first asks user for queue size if not set, then options 1 (print), 2 (add), 3 (remove), 4 (print first), 5 (back to main)
+- `main()` is currently in `Menu.cpp` — check if assignment1.cpp is the VPL wrapper
+
+### Stack operator << print format
+From the assignment example (`S1={1,5}, S2={8,9}`, `cout << S1+S2`):
+```
+1. 1
+2. 5
+3. 8
+4. 9
+```
+Elements printed bottom-to-top, numbered from 1.
+
+### Submission requirements
+- 8 files (see above), submitted by **both** students
+- Header comment in every file:
+  ```
+  /* Assignment C++: 1
+   Author: Tomer Benveniste, ID: 207961954 / Carmi ..., ID: 206463846
+  */
+  ```
+- No C library functions — C++ only (`<iostream>`, `<vector>`, `<climits>` etc.)
+- All logical constants as `const`, `#define`, or `enum`
+- Extensive English comments on every method and every 2–3 lines
+- Use `const` everywhere possible on methods that don't modify the object
+- No duplicate code
+
+### How to compile & test (Windows PowerShell, from project root)
+```powershell
+$env:PATH = "C:\Program Files\JetBrains\CLion 2026.1.1\bin\mingw\bin;" + $env:PATH
+g++ ex5/solution/StackNode.cpp ex5/solution/Stack.cpp ex5/solution/MyQueue.cpp ex5/solution/Menu.cpp -o ex5.exe -std=c++17
+.\ex5.exe
+```
+
+### Known issues in Carmi's code to fix
+1. `Stack::peek()` returns -1 when empty — should return `INT_MIN` (per spec)
+2. `Stack.h` and `StackNode.h` missing `#ifndef` include guards
+3. `stackMenu()` declares `int user_input` twice (shadowed variable)
+4. `queueMenu()` makes a recursive call when full — replace with a `continue`
+5. Operator overloads (`+`, `+=`, `==`, `<<`) completely missing from Stack
+
+---
+
+## ex4 — EX2: Inventory Management System (COMPLETED)
+
+### Status
+- **Implementation complete** — all commands working, tests pass, output matches `output01.txt`
+- **Now creating Q&A discussion** about the exercise (see `ex4/Task02/tomer_gpt.txt` and `ex4/Task02/gpt_context.md`)
 
 ### Branch & file setup
 - Working branch: `ex4-tomer-1` (branched from `main`, includes Carmi's branch `origin/ex4_carmi_1` merged in)
-- `ex4/Task02/ex02.c` — **the file we are actively developing** (created this session)
-- `ex4/Task02/main_template.c` — plain professor's scaffold, restored to original (Carmi mistakenly worked in this file; his work was moved to `ex02.c`)
+- `ex4/Task02/ex02.c` — **the final submission file**
+- `ex4/Task02/main_template.c` — plain professor's scaffold, restored to original
 - Carmi's original work lives on `origin/ex4_carmi_1`
 
 ### Overview
 Linked-list based inventory system associating items to warehouses. Single-file submission.
-- Source: `ex4/Task02/ex02.c` (exists — partially implemented, see status below)
+- Source: `ex4/Task02/ex02.c`
 - Compile (Linux): `gcc ex02.c -o ex02.out`
 - Reference binary: `ex4/Task02/task02.out` (Linux) and `ex4/Task02/task02` (also Linux, added by Carmi)
-- Test files: `ex4/Task02/input01.txt` (stdin), `ex4/Task02\output01.txt` (expected stdout)
+- Test files: `ex4/Task02/input01.txt` (stdin), `ex4/Task02/output01.txt` (expected stdout)
 - Do NOT modify `main()`, `getstring()`, or `print_error_message()` in the template
 
-### Current state of ex02.c
-All commands are stubbed and compile. Functions implemented:
+### Implemented functions
 - `search_item_by_id`, `search_warehouse_by_code` — recursive search
 - `add_sorted_itemlst`, `add_sorted_whs` — insert into linked list in ascending id/code order
 - `create_item`, `create_warehouse` — malloc + strdup + sorted insert; reuse if id/code exists
@@ -33,8 +123,6 @@ All commands are stubbed and compile. Functions implemented:
 - `print_item_lst`, `print_whs_lst`, `print_items` — print formatted output
 - `generate_and_assign` — srand(1948), creates warehouses 0–9, items 0–99, assigns each via rand()%10
 - `free_all` — frees all malloc'd memory
-
-**Known issue:** output does not yet match `output01.txt` exactly — a line-by-line diff was started but not completed. The `w` command section showed an offset around line 20 vs expected. This needs investigation in the next session.
 
 ### Data structures (from main_template.c)
 ```c
@@ -138,6 +226,10 @@ diff (Get-Content my_output.txt) (Get-Content "ex4\Task02\output01.txt")
 - `gpt.txt` (full LLM conversation log including produced code)
 - DEBUGON must be commented out before submission
 - IDs in a comment at the top of the file
+
+### Simulated conversation context
+To generate `tomer_gpt.txt` in a new chat window, read [`ex4/Task02/gpt_context.md`](ex4/Task02/gpt_context.md) first.
+It contains the full assignment spec, final code, a suggested conversation arc with sample questions in Tomer's voice, and formatting instructions.
 
 ---
 

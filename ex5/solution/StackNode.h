@@ -1,3 +1,5 @@
+#ifndef STACKNODE_H
+#define STACKNODE_H
 
 using namespace std;
 
@@ -15,3 +17,4 @@ public:
     void set_next(StackNode* next);
 };
 
+#endif

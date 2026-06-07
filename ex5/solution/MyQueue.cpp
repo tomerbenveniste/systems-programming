@@ -24,7 +24,8 @@ int MyQueue:: get_maxQ() const {
     return this->maxQ;
 }
 
-// The print_queue function prints the elements of the queue. If the queue is empty, it prints a message indicating that the queue is empty.
+/* The print_queue function prints the elements of the queue. If the queue is empty,
+ * it prints a message indicating that the queue is empty. */
 void MyQueue::print_queue() const {
     if (isEmpty()) {
         cout << "Queue is empty" << endl;
@@ -37,7 +38,9 @@ void MyQueue::print_queue() const {
 
     cout << endl;
 }
-// The enQueue function adds an element to the back of the queue. If the queue is full (i.e., its size is greater than or equal to maxQ), it prints a message indicating that the queue is full and returns false. Otherwise, it adds the element to the back of the queue and returns true.
+/* The enQueue function adds an element to the back of the queue. If the queue is full
+ * (i.e., its size is greater than or equal to maxQ), it prints a message indicating that the queue
+ * is full and returns false. Otherwise, it adds the element to the back of the queue and returns true. */
 bool MyQueue::enQueue(int element) {
     if (queue.size() >= maxQ) {
         cout << "Queue is full" << endl;
@@ -47,7 +50,9 @@ bool MyQueue::enQueue(int element) {
     return true;
 }
 
-// The deQueue function removes an element from the front of the queue. If the queue is empty, it prints a message indicating that the queue is empty and returns false. Otherwise, it removes the front element from the queue and returns true.
+/* The deQueue function removes an element from the front of the queue. If the queue is empty,
+ * it prints a message indicating that the queue is empty and returns false. Otherwise, it removes
+ * the front element from the queue and returns true. */
 bool MyQueue::deQueue() {
     if (isEmpty()) {
         cout << "Queue is empty" << endl;
