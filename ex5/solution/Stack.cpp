@@ -1,3 +1,7 @@
+/* Assignment C++: 1
+Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
+   */
+
 #include <iostream>
 #include "Stack.h"
 
@@ -63,4 +67,107 @@ void Stack::print_stack() const {
         current = current->get_next();
     }
     cout << endl;
+}
+
+// operator that pushes an integer to the stack
+Stack& Stack::operator+=(int value) {
+    this->push(value);
+    return *this;
+}
+
+// operator that compares 2 stacks and return TRUE if they contain the same elements in the same order, FALSE otherwise
+bool Stack::operator==(const Stack& other) const {
+
+    StackNode* first = this->top; // pointer to the first stack
+    StackNode* second = other.top; // pointer to the second stack
+
+    // as long as both pointers are pointing on elements, keep comparing
+    while (first != nullptr && second != nullptr) {
+        if (first->get_data() != second->get_data()) {
+            return false;
+        }
+        // approaching ahead in the stack
+        first = first->get_next();
+        second = second->get_next();
+    }
+
+    // if sizes of stacks are not the same, it will return false, otherwise all elements equal and will return true
+    return (first == nullptr && second == nullptr);
+}
+
+// operator that stacks two stacks one on top of the other.
+Stack Stack::operator+(const Stack& other) const {
+
+    Stack temp; // a temp stack to reverse the push order caused by pushing the original Stacks
+    Stack target; // the stack that will eventually hold all the elements [S1 | S2]
+
+    StackNode* ptr = other.top; // pointer to the top of the second stack
+    // pushing all elements from the second stack to temp
+    while (ptr != nullptr) {
+        temp.push(ptr->get_data());
+        ptr = ptr->get_next();
+    }
+
+    ptr = this->top; // moving the pointer to the first stack top
+    // pushing first stack elements to temp on top of the second stack elements
+    while (ptr != nullptr) {
+        temp.push(ptr->get_data());
+        ptr = ptr->get_next();
+    }
+
+    ptr = temp.top; // moving the pointer to temp top
+    // pushing all elements from temp to target in the correct order
+    while (ptr != nullptr) {
+        target.push(ptr->get_data());
+        ptr = ptr->get_next();
+    }
+
+    // all elements are in order
+    return target;
+}
+
+// operator that adds an in to the top of the stack
+Stack Stack::operator+(const int value) const {
+    Stack temp; // a new stack to hold the value
+    temp.push(value); // push the value to temp stack
+    // now we can use the + operator for the 2 stacks
+    return *this + temp;
+}
+
+// operator that adds an int to the bottom of the stack
+Stack operator+(int value, const Stack& other) {
+    Stack temp; // a new stack to hold the value
+    temp.push(value); // push the value to temp stack
+    // now we can use the + operator for the 2 stacks
+    return temp + other;
+}
+
+// insertion operator for easy printing
+ostream& operator<<(ostream& os, const Stack& other) {
+
+    // check if the given stack is empty
+    if (other.isEmpty()) {
+        os << "Stack is empty" << endl;
+        return os;
+    }
+
+    // the stack has elements
+    Stack temp; // a temp stack for order reverse
+    StackNode* ptr = other.top; // pointer to the given stack top
+
+    // as long as the stack has elements, push to temp stack
+    while (ptr != nullptr) {
+        temp.push(ptr->get_data());
+        ptr = ptr->get_next();
+    }
+
+    ptr = temp.top; // the pointer now points to temp stack
+    int i = 0; // element index for the printout
+    // as long sa there are stack nodes, keep printing the data of the nodes
+    while (ptr != nullptr) {
+        i++;
+        os << i << ". " << ptr->get_data() << endl;
+        ptr = ptr->get_next();
+    }
+    return os;
 }

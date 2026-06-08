@@ -1,3 +1,7 @@
+/* Assignment C++: 1
+Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
+   */
+
 #include <iostream>
 #include "MyQueue.h"
 

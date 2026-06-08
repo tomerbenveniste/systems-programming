@@ -1,4 +1,7 @@
-// Menu.cpp
+/* Assignment C++: 1
+   Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
+   */
+
 /* iostream is a library in C++ that provides input and output functionality. It allows us to read
  * from the standard input (keyboard) and write to the standard output (console). */
 #include <iostream>
@@ -36,6 +39,7 @@ void Menu::mainMenu() {
         else if (user_input == 3) {
             // If the user selects option 3, we print "Exit" and terminate the program using exit(0).
             cout << "Exit" << endl;
+            cout << "Goodbye!" << endl;
             exit(0);
             
         }
@@ -50,7 +54,6 @@ void Menu::mainMenu() {
 /* The stackMenu function displays the stack menu options and handles user input to perform stack
  * operations such as push, pop, check if the stack is empty, print the stack, or return to the main menu. */
 void Menu::stackMenu() {
-    int user_input;
     while (true) {
         cout << "stackMenu" << endl;
         cout << "1. Push" << endl;
@@ -61,14 +64,13 @@ void Menu::stackMenu() {
         int user_input;
         cin >> user_input;
         /* Based on the user's input, we perform the corresponding stack operation.
-         * If the user selects option 1, we prompt them to enter an element to push onto the stack,
+         * If the user selects option 1, we prompt them to enter an element to push into the stack,
          * read the input, and call the push function of the stack. */
         if (user_input == 1) {
                 cout << "Enter element to push: ";
-                int* element = new int;
-                cin >> *element;
-                this->stack.push(*element);
-                delete element;
+                int element;
+                cin >> element;
+                this->stack.push(element);
         }
         // If the user selects option 2, we call the pop function of the stack to remove the top element.
         else if (user_input == 2)
@@ -84,7 +86,7 @@ void Menu::stackMenu() {
         else if (user_input == 4)
         {
             cout << "Print Stack" << endl;
-            this->stack.print_stack();  
+            cout << this->stack;  
         }
         // If the user selects option 5, we break out of the loop and return to the main menu.
         else if (user_input == 5)
@@ -129,14 +131,12 @@ void Menu::queueMenu() {
         {
             if (this->queue.is_full()) {
                 cout << "Queue is full. Cannot add element." << endl;
-                this->queueMenu();
-                return;
+                continue;
             }
             cout << "Enter element to add: ";
-            int* element = new int;
-            cin >> *element;
-            bool result = this->queue.enQueue(*element);
-            delete element;
+            int element;
+            cin >> element;
+            this->queue.enQueue(element);
         }
         // If the user selects option 3, we call the deQueue function of the queue to remove the front element.
         else if (user_input == 3)

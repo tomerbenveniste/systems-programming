@@ -1,4 +1,10 @@
-// Menu.h
+/* Assignment C++: 1
+Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
+   */
+
+#ifndef MENU_H
+#define MENU_H
+
 /* The Menu class provides a user interface for interacting with a stack and a queue. It includes functions
  * to display the main menu, stack menu, and queue menu, allowing users to perform various operations on the
  * stack and queue. */
@@ -31,3 +37,5 @@ class Menu
     // The destructor of the Menu class
     ~Menu();
 };
+
+#endif

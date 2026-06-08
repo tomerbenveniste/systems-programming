@@ -1,3 +1,7 @@
+/* Assignment C++: 1
+Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
+   */
+
 #include <iostream>
 #include "StackNode.h"
 
@@ -30,7 +34,7 @@ StackNode* StackNode::get_next() const {
     return this->next;
 }
 
-// It modifies the bbject, setting the next field to be the input value (no const here)
+// It modifies the object, setting the next field to be the input value (no const here)
 void StackNode::set_next(StackNode* next) {
     this->next = next;
 }   
