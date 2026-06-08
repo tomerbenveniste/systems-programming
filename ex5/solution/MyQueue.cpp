@@ -19,12 +19,12 @@ MyQueue::~MyQueue() {
     // No manual delete needed
 }
 // The set_maxQ function sets the maximum capacity of the queue to the given value.
-void MyQueue:: set_maxQ(int maxQ) {
+void MyQueue::set_maxQ(int maxQ) {
     this->maxQ = maxQ;
 }
 
 // The get_maxQ function returns the maximum capacity of the queue.
-int MyQueue:: get_maxQ() const {
+int MyQueue::get_maxQ() const {
     return this->maxQ;
 }
 
@@ -46,7 +46,7 @@ void MyQueue::print_queue() const {
  * (i.e., its size is greater than or equal to maxQ), it prints a message indicating that the queue
  * is full and returns false. Otherwise, it adds the element to the back of the queue and returns true. */
 bool MyQueue::enQueue(int element) {
-    if (queue.size() >= maxQ) {
+    if (is_full()) {
         cout << "Queue is full" << endl;
         return false;
     }
@@ -83,5 +83,5 @@ bool MyQueue::isEmpty() const {
 
 // The is_full function checks if the queue is full. It returns true if the size of the queue is greater than or equal to maxQ and false otherwise.
 bool MyQueue::is_full() const {
-    return queue.size() >= maxQ;
+    return (int)queue.size() >= maxQ;
 }

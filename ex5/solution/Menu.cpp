@@ -27,13 +27,11 @@ void Menu::mainMenu() {
         cin >> user_input;
         // Based on the user's input, we call the appropriate menu function or exit the program.
         if (user_input == 1) {
-        cout << "stackMenu" << endl;
         // If the user selects option 1, we call the stackMenu function to display the stack menu and handle stack operations.
         this->stackMenu();
         }
         else if (user_input == 2) {
             // If the user selects option 2, we call the queueMenu function to display the queue menu and handle queue operations.
-            cout << "queueMenu" << endl;
             this->queueMenu();
         }
         else if (user_input == 3) {
