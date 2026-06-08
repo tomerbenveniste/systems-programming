@@ -7,6 +7,7 @@ Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
 
 #include "StackNode.h"
 #include <climits>
+#include <iostream>
 
 using namespace std;
 

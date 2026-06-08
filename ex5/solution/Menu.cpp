@@ -167,16 +167,3 @@ Menu::Menu() : queue(0), stack() {
 Menu::~Menu() {
     // No manual cleanup needed since we are using standard library containers and dynamic memory is managed within those containers.
     }
-
-
-// The main function is the entry point of the program. It creates an instance of the Menu class and calls the mainMenu function to start the menu system. Finally, it returns 0 to indicate that the program has ended successfully.
-int main()
-{
-    // We create an instance of the Menu class called menu.
-    Menu menu;
-    // We call the mainMenu function of the menu object to start the menu system and allow the user to interact with it.
-    menu.mainMenu();
-    // We return 0 to indicate that the program has ended successfully.
-    return 0;
-    
-}
