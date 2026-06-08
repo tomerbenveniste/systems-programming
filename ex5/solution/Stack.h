@@ -13,10 +13,13 @@ using namespace std;
 class Stack {
 private:
     StackNode* top;
+    void copy_from(const Stack& other); // helper: deep copies other's elements into this (assumes this is empty)
     
 public:
-    Stack();
-    ~Stack();
+    Stack(); // normal Constructor
+    Stack(const Stack& stack); // copy Constructor - deep copies all nodes from other into this stack
+    Stack& operator=(const Stack& stack); // assignment operator - clears this stack then deep copies other into it
+    ~Stack(); // normal Destructor
     void push(int element);
     void pop();
     bool isEmpty() const;

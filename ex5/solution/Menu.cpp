@@ -86,7 +86,7 @@ void Menu::stackMenu() {
         else if (user_input == 4)
         {
             cout << "Print Stack" << endl;
-            cout << this->stack;  
+            cout << this->stack;
         }
         // If the user selects option 5, we break out of the loop and return to the main menu.
         else if (user_input == 5)

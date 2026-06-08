@@ -12,6 +12,45 @@ Stack::Stack() {
     this->top = nullptr; // empty Stack, the pointer points to NULL
 }
 
+// helper method - deep copies all nodes from other into this stack in correct order
+void Stack::copy_from(const Stack& other) {
+
+    Stack temp; // a temp stack to reverse the push order caused by pushing the original Stacks
+    StackNode* ptr = other.top; // pointer to the top of the second stack
+
+    // as long as the other stack has elements, keep pushing to temp
+    while (ptr != nullptr) {
+        temp.push(ptr->get_data()); // push element from other to temp
+        ptr = ptr->get_next();
+    }
+    ptr = temp.top; // pointer to the top of the temp stack
+    // as long as the temp stack has elements, keep pushing to this stack
+    while (ptr != nullptr) {
+        this->push(ptr->get_data()); // push element from temp to this stack
+        ptr = ptr->get_next();
+    }
+}
+
+// copy constructor - deep copies all nodes from other into this stack
+Stack::Stack(const Stack& other) : top(nullptr) {
+    copy_from(other); // using the helper to deep copy
+}
+
+// assignment operator - clears this stack then deep copies other into it
+Stack& Stack::operator=(const Stack& other) {
+    // guard against self-assignment (s = s)
+    if (this == &other) {
+        return *this;
+    }
+    // clear current nodes
+    while (!isEmpty()) {
+        pop();
+    }
+    // using the helper to deep copy
+    copy_from(other);
+    return *this;
+}
+
 // Destructor
 Stack::~Stack() {
     // as long as the Stack has StackNodes, pop them out (the deletion happens in the pop method)
