@@ -21,8 +21,8 @@ public:
     Stack(const Stack& stack); // copy Constructor - deep copies all nodes from other into this stack
     Stack& operator=(const Stack& stack); // assignment operator - clears this stack then deep copies other into it
     ~Stack(); // normal Destructor
-    void push(int element);
-    void pop();
+    bool push(int element);
+    bool pop();
     bool isEmpty() const;
     int peek() const;
     void print_stack() const;

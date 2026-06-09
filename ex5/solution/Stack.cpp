@@ -60,25 +60,25 @@ Stack::~Stack() {
 }
 
 // Pushes element to the stack method
-void Stack::push(int element) {
+bool Stack::push(int element) {
     StackNode* new_node = new StackNode(element); // allocate memory for a new StackNode then construct it
     new_node->set_next(this->top); // the new node points to the old top
     this->top = new_node; // the new node becomes the top
+    return true;
 }
 
 // Pushes element from the stack method
-void Stack::pop() {
+bool Stack::pop() {
     // if the stack is empty, nothing to pop
     if (isEmpty()) {
-        cout << "Stack is empty" << endl;
-        return;
+        return false;
     }
     // there is an element to pop
     StackNode* temp = this->top; // define a temp pointer to not lose the element we want to delete after
-    cout << "Removing " << temp->get_data() << endl; // print the popped element
+    
     this->top = this->top->get_next(); // define new top as the next element in the stack
     delete temp; // delete the popped item from the memory (first destructor, then memory release)
-
+    return true;
 }
 
 // the method checks if the stack is empty

@@ -27,6 +27,7 @@ public:
     bool isEmpty() const;
     void set_maxQ(int maxQ);
     bool is_full() const;
+    void cleanQueue();
 };
 
 #endif

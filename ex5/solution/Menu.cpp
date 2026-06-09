@@ -3,6 +3,8 @@
 #include <iostream>
 // We include the header file "Menu.h" which contains the declaration of the Menu class. This allows us to use the Menu class and its member functions in this implementation file.
 #include "Menu.h"
+#include "Stack.h"
+#include "MyQueue.h"
 //the using namespace std; directive allows us to use names from the standard library (like cout and cin) without having to prefix them with std::.
 using namespace std;
 
@@ -44,7 +46,6 @@ void Menu::mainMenu() {
 }
 // The stackMenu function displays the stack menu options and handles user input to perform stack operations such as push, pop, check if the stack is empty, print the stack, or return to the main menu.
 void Menu::stackMenu() {
-    int user_input;
     while (true) {
         cout << "*** Manage your integer stack ***" << endl;
         cout << "1 Push new element" << endl;
@@ -61,14 +62,14 @@ void Menu::stackMenu() {
         // If the user selects option 1, we prompt them to enter an element to push onto the stack, read the input, and call the push function of the stack.
         if (user_input == 1) {
                 cout << "Please insert the new element: ";
-                int* element = new int;
-                cin >> *element;
-                this->stack.push(*element);
-                delete element;
+                int element;
+                cin >> element;
+                this->stack.push(element);
         }
         // If the user selects option 2, we call the pop function of the stack to remove the top element.
         else if (user_input == 2)
         {
+            cout << "Removing " << this->stack.peek() << endl;
             this->stack.pop();
 
         }
@@ -85,6 +86,7 @@ void Menu::stackMenu() {
         // If the user selects option 5, we break out of the loop and return to the main menu.
         else if (user_input == 5)
         {
+            this->stack.~Stack(); // Call the destructor to clean up the stack before exiting the menu.
             cout << "Thank you!" << endl;
             break;
         }
@@ -97,6 +99,8 @@ void Menu::stackMenu() {
 }
 // The queueMenu function displays the queue menu options and handles user input to perform queue operations such as printing the queue, adding an element, removing an element, printing the first element, or returning to the main menu.
 void Menu::queueMenu() {
+    this->queue.set_maxQ(0); // Initialize the maximum capacity of the queue to 0, which will prompt the user to set it when they first access the queue menu.
+
     while (true) {
         if(this->queue.get_maxQ() == 0) {
             cout << "Enter the size of the queue: " << endl;
@@ -125,15 +129,13 @@ void Menu::queueMenu() {
         else if (user_input == 2)
         {
             if (this->queue.is_full()) {
-                cout << "Queue is full. Cannot add element." << endl;
-                this->queueMenu();
-                return;
+                cout << "Queue is full" << endl;
+                continue;
             }
             cout << "insert new element: ";
-            int* element = new int;
-            cin >> *element;
-            bool result = this->queue.enQueue(*element);
-            delete element;
+            int element;
+            cin >> element;
+            bool result = this->queue.enQueue(element);
             cout << "The new queue:" << endl;
             this->queue.print_queue();
         }
@@ -152,6 +154,7 @@ void Menu::queueMenu() {
         // If the user selects option 5, we break out of the loop and return to the main menu.
         else if (user_input == 5)
         {
+            this->queue.cleanQueue(); // Call the cleanQueue function to clean up the queue before exiting the menu.
             break;
         }
             else {

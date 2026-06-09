@@ -16,8 +16,15 @@ MyQueue::MyQueue(int maxQ) {
 }
 // The destructor of the MyQueue class 
 MyQueue::~MyQueue() {
-    // No manual delete needed
+    this->cleanQueue();
 }
+
+void MyQueue::cleanQueue() {
+    while (!this->isEmpty()) {
+        this->deQueue();
+    }
+}
+
 // The set_maxQ function sets the maximum capacity of the queue to the given value.
 void MyQueue::set_maxQ(int maxQ) {
     this->maxQ = maxQ;
@@ -32,7 +39,6 @@ int MyQueue::get_maxQ() const {
  * it prints a message indicating that the queue is empty. */
 void MyQueue::print_queue() const {
     if (isEmpty()) {
-        cout << "The queue is empty" << endl;
         return;
     }
 
@@ -58,7 +64,6 @@ bool MyQueue::enQueue(int element) {
  * the front element from the queue and returns true. */
 bool MyQueue::deQueue() {
     if (isEmpty()) {
-        cout << "Queue is empty" << endl;
         return false;
     }
 
