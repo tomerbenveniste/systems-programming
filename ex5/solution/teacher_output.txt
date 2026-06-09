@@ -1,0 +1,210 @@
+(1) Integer Stack
+(2) Integer Queue Menu
+(3) Exit
+*** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+The stack is empty
+*** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+Stack empty
+*** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+The stack is empty
+*** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+Please insert the new element: *** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+Please insert the new element: *** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+Please insert the new element: *** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+Stack elements:
+1. 30
+2. 20
+3. 10
+*** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+The stack is not empty
+*** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+Removing 30
+*** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+Stack elements:
+1. 20
+2. 10
+*** Manage your integer stack ***
+1 Push new element
+2 Pop element
+3 Check if empty
+4 Print stack elements
+5 to exit
+Thank you!
+(1) Integer Stack
+(2) Integer Queue Menu
+(3) Exit
+Enter the size of the queue: 
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+Queue is empty
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+Queue is empty
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+The queue is empty
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+insert new element: The new queue:
+100
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+insert new element: The new queue:
+100 <- 200
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+insert new element: The new queue:
+100 <- 200 <- 300
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+insert new element: Queue is full
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+100 <- 200 <- 300
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+100
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+The new queue:
+200 <- 300
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+200 <- 300
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+insert new element: The new queue:
+200 <- 300 <- 500
+
+*** Welcome to Queue Menu ***
+To select an item, enter 
+1 Show Queue
+2 Insert new element
+3 Remove element
+4 Check the first element
+5 to exit
+(1) Integer Stack
+(2) Integer Queue Menu
+(3) Exit
+Goodbye!

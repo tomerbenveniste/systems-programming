@@ -43,7 +43,10 @@ void MyQueue::print_queue() const {
     }
 
     for (size_t i = 0; i < queue.size(); i++) {
-        cout << queue[i] << " ";
+        cout  << queue[i] << "";
+        if (i != queue.size()-1) {
+            cout << " <- " << "";
+        }   
     }
 
     cout << endl;

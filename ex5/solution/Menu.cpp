@@ -13,7 +13,6 @@ void Menu::mainMenu() {
     // We use an infinite loop to continuously display the main menu until the user chooses to exit.
     while (true) {
         // Display the main menu options to the user.
-        cout << "Main Menu" << endl;
         cout << "(1) Integer Stack" << endl;
         cout << "(2) Integer Queue Menu" << endl;
         cout << "(3) Exit" << endl;
@@ -69,6 +68,10 @@ void Menu::stackMenu() {
         // If the user selects option 2, we call the pop function of the stack to remove the top element.
         else if (user_input == 2)
         {
+            if (this->stack.isEmpty()) {
+                cout << "Stack empty" << endl;
+                continue;
+            }
             cout << "Removing " << this->stack.peek() << endl;
             this->stack.pop();
 
@@ -82,6 +85,8 @@ void Menu::stackMenu() {
         else if (user_input == 4)
         {
             this->stack.print_stack();  
+            
+
         }
         // If the user selects option 5, we break out of the loop and return to the main menu.
         else if (user_input == 5)
@@ -108,9 +113,8 @@ void Menu::queueMenu() {
             cin >> maxQ;
             this->queue.set_maxQ(maxQ);
         }
-        cout << "" << endl;
         cout << "*** Welcome to Queue Menu ***" << endl;
-        cout << "To select an item, enter" << endl;
+        cout << "To select an item, enter " << endl;
         cout << "1 Show Queue" << endl;
         cout << "2 Insert new element" << endl;
         cout << "3 Remove element" << endl;
@@ -123,33 +127,64 @@ void Menu::queueMenu() {
         // Based on the user's input, we perform the corresponding queue operation.
         // If the user selects option 1, we call the print_queue function of the queue
         if (user_input == 1) {
+            if (this->queue.isEmpty()) {
+                cout << "The queue is empty" << endl;
+                cout << "" << endl;
+
+                continue;
+            }
             this->queue.print_queue();
+            cout << "" << endl;
+
+           
         }   
         // If the user selects option 2, we check if the queue is full. If it is full, we display a message and return to the queue menu. Otherwise, we prompt the user to enter an element to add to the queue, read the input, and call the enQueue function of the queue.
         else if (user_input == 2)
         {
-            if (this->queue.is_full()) {
-                cout << "Queue is full" << endl;
-                continue;
-            }
+            
             cout << "insert new element: ";
             int element;
             cin >> element;
+            if (this->queue.is_full()) {
+                cout << "Queue is full" << endl;
+                cout << "" << endl;
+
+                continue;
+            }
+            
             bool result = this->queue.enQueue(element);
             cout << "The new queue:" << endl;
             this->queue.print_queue();
+            cout << "" << endl;
+
         }
         // If the user selects option 3, we call the deQueue function of the queue to remove the front element.
         else if (user_input == 3)
         {
+            if (this->queue.isEmpty()) {
+                cout << "Queue is empty" << endl;
+                cout << "" << endl;
+
+                continue;
+            }
             this->queue.deQueue();
+            cout << "The new queue:" << endl;
             this->queue.print_queue();
+            cout << "" << endl;
 
         }
         // If the user selects option 4, we call the peek function of the queue to get the front element and print it.
         else if (user_input == 4)
         {
+            if (this->queue.isEmpty()) {
+                cout << "Queue is empty" << endl;
+                cout << "" << endl;
+
+                continue;
+            }
             cout << this->queue.peek() << endl;
+            cout << "" << endl;
+
         }
         // If the user selects option 5, we break out of the loop and return to the main menu.
         else if (user_input == 5)
@@ -157,8 +192,9 @@ void Menu::queueMenu() {
             this->queue.cleanQueue(); // Call the cleanQueue function to clean up the queue before exiting the menu.
             break;
         }
-            else {
+        else {
             cout << "Invalid input. Please try again." << endl;
+            cout << "" << endl;
         }
 
     }

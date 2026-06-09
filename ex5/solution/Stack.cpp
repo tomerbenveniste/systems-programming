@@ -98,16 +98,19 @@ int Stack::peek() const {
 void Stack::print_stack() const {
     // check if empty
     if (isEmpty()) {
-        cout << "Stack is empty" << endl;
+        cout << "The stack is empty" << endl;
         return;
     }
     // the stack has elements
     StackNode* current = this->top; // a new pointer to the top of the stack
-    while (current != nullptr) { // as long sa there are stack nodes, keep printing the data of the nodes
-        cout << current->get_data() << " ";
+    int i = 1; // element index for the printout
+    cout   <<  "Stack elements:" << endl;
+
+    while (current != nullptr) { // as long as there are stack nodes, keep printing the data of the nodes
+        cout   << i << ". " << current->get_data()  << endl;
         current = current->get_next();
+        i++;
     }
-    cout << endl;
 }
 
 // operator that pushes an integer to the stack
