@@ -47,7 +47,6 @@ void MyQueue::print_queue() const {
  * is full and returns false. Otherwise, it adds the element to the back of the queue and returns true. */
 bool MyQueue::enQueue(int element) {
     if (is_full()) {
-        cout << "Queue is full" << endl;
         return false;
     }
     queue.push_back(element);
