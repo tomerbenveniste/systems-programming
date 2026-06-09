@@ -75,8 +75,10 @@ void Stack::pop() {
     }
     // there is an element to pop
     StackNode* temp = this->top; // define a temp pointer to not lose the element we want to delete after
+    cout << "Removing " << temp->get_data() << endl; // print the popped element
     this->top = this->top->get_next(); // define new top as the next element in the stack
     delete temp; // delete the popped item from the memory (first destructor, then memory release)
+
 }
 
 // the method checks if the stack is empty

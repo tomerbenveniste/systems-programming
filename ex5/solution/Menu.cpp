@@ -12,15 +12,13 @@ void Menu::mainMenu() {
     while (true) {
         // Display the main menu options to the user.
         cout << "Main Menu" << endl;
-        cout << "1. stackMenu" << endl;
-        cout << "2. queueMenu" << endl;
-        cout << "3. Exit" << endl;
-        cout << "" << endl;
+        cout << "(1) Integer Stack" << endl;
+        cout << "(2) Integer Queue Menu" << endl;
+        cout << "(3) Exit" << endl;
 
         // Read the user's input for menu selection.
         int user_input;
         cin >> user_input;
-        cout << "" << endl;
         // Based on the user's input, we call the appropriate menu function or exit the program.
         if (user_input == 1) {
         // If the user selects option 1, we call the stackMenu function to display the stack menu and handle stack operations.
@@ -48,21 +46,21 @@ void Menu::mainMenu() {
 void Menu::stackMenu() {
     int user_input;
     while (true) {
-        cout << "stackMenu" << endl;
-        cout << "1. Push" << endl;
-        cout << "2. Pop" << endl;
-        cout << "3. isEmpty" << endl;      
-        cout << "4. Print Stack " << endl;
-        cout << "5. Return to Main Menu" << endl;
-         cout << "" << endl;
+        cout << "*** Manage your integer stack ***" << endl;
+        cout << "1 Push new element" << endl;
+        cout << "2 Pop element" << endl;
+        cout << "3 Check if empty" << endl;
+        cout << "4 Print stack elements" << endl;
+        cout << "5 to exit" << endl;
+        
         int user_input;
         cin >> user_input;
-        cout << "" << endl;
+       
 
         // Based on the user's input, we perform the corresponding stack operation.
         // If the user selects option 1, we prompt them to enter an element to push onto the stack, read the input, and call the push function of the stack.
         if (user_input == 1) {
-                cout << "Enter element to push: ";
+                cout << "Please insert the new element: ";
                 int* element = new int;
                 cin >> *element;
                 this->stack.push(*element);
@@ -72,27 +70,27 @@ void Menu::stackMenu() {
         else if (user_input == 2)
         {
             this->stack.pop();
+
         }
         // If the user selects option 3, we check if the stack is empty and print the appropriate message.
         else if (user_input == 3)
         {
-            cout << "Stack is " << (this->stack.isEmpty() ? "empty" : "not empty") << endl;
+            cout << "The stack is " << (this->stack.isEmpty() ? "empty" : "not empty") << endl;
         }
         // If the user selects option 4, we call the print_stack function of the stack to display the contents of the stack.
         else if (user_input == 4)
         {
-            cout << "Print Stack" << endl;
             this->stack.print_stack();  
         }
         // If the user selects option 5, we break out of the loop and return to the main menu.
         else if (user_input == 5)
         {
+            cout << "Thank you!" << endl;
             break;
         }
             else {
             cout << "Invalid input. Please try again." << endl;
         }
-        cout << "" << endl;
 
     }   
 
@@ -101,27 +99,26 @@ void Menu::stackMenu() {
 void Menu::queueMenu() {
     while (true) {
         if(this->queue.get_maxQ() == 0) {
-            cout << "Enter queue size: " << endl;
+            cout << "Enter the size of the queue: " << endl;
             int maxQ;
             cin >> maxQ;
             this->queue.set_maxQ(maxQ);
         }
-        cout << "queueMenu" << endl;
-        cout << "1. Print Queue" << endl;
-        cout << "2. Add Element" << endl;
-        cout << "3. Remove Element" << endl;      
-        cout << "4. Print First Element" << endl;
-        cout << "5. Return to Main Menu" << endl;
         cout << "" << endl;
-
+        cout << "*** Welcome to Queue Menu ***" << endl;
+        cout << "To select an item, enter" << endl;
+        cout << "1 Show Queue" << endl;
+        cout << "2 Insert new element" << endl;
+        cout << "3 Remove element" << endl;
+        cout << "4 Check the first element" << endl;
+        cout << "5 to exit" << endl;
+       
         int user_input;
         cin >> user_input;
-        cout << "" << endl;
 
         // Based on the user's input, we perform the corresponding queue operation.
         // If the user selects option 1, we call the print_queue function of the queue
         if (user_input == 1) {
-            cout << "Print Queue" << endl;  
             this->queue.print_queue();
         }   
         // If the user selects option 2, we check if the queue is full. If it is full, we display a message and return to the queue menu. Otherwise, we prompt the user to enter an element to add to the queue, read the input, and call the enQueue function of the queue.
@@ -132,22 +129,24 @@ void Menu::queueMenu() {
                 this->queueMenu();
                 return;
             }
-            cout << "Enter element to add: ";
+            cout << "insert new element: ";
             int* element = new int;
             cin >> *element;
             bool result = this->queue.enQueue(*element);
             delete element;
+            cout << "The new queue:" << endl;
+            this->queue.print_queue();
         }
         // If the user selects option 3, we call the deQueue function of the queue to remove the front element.
         else if (user_input == 3)
         {
-            cout << "Remove Element" << endl;
             this->queue.deQueue();
+            this->queue.print_queue();
+
         }
         // If the user selects option 4, we call the peek function of the queue to get the front element and print it.
         else if (user_input == 4)
         {
-            cout << "Print First Element" << endl;
             cout << this->queue.peek() << endl;
         }
         // If the user selects option 5, we break out of the loop and return to the main menu.
@@ -158,7 +157,6 @@ void Menu::queueMenu() {
             else {
             cout << "Invalid input. Please try again." << endl;
         }
-        cout << "" << endl;
 
     }
 }

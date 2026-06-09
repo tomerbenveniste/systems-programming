@@ -32,7 +32,7 @@ int MyQueue::get_maxQ() const {
  * it prints a message indicating that the queue is empty. */
 void MyQueue::print_queue() const {
     if (isEmpty()) {
-        cout << "Queue is empty" << endl;
+        cout << "The queue is empty" << endl;
         return;
     }
 
