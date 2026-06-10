@@ -45,7 +45,7 @@ void Menu::mainMenu() {
         }
         else {
             // If the user enters an invalid option, we display an error message and prompt them to try again.
-            cout << "Invalid input. Please try again." << endl;
+            cout << "Invalid selection." << endl;
         }
     }
   
@@ -106,7 +106,7 @@ void Menu::stackMenu() {
             break;
         }
             else {
-            cout << "Invalid input. Please try again." << endl;
+            cout << "Invalid selection." << endl;
         }
 
     }   
@@ -116,15 +116,14 @@ void Menu::stackMenu() {
  * operations such as printing the queue, adding an element, removing an element, printing the first element,
  * or returning to the main menu. */
 void Menu::queueMenu() {
-    this->queue.set_maxQ(0); // Initialize the maximum capacity of the queue to 0, which will prompt the user to set it when they first access the queue menu.
+    // Prompt for queue size once per menu entry, before entering the loop
+    this->queue.set_maxQ(0);
+    cout << "Enter the size of the queue: " << endl;
+    int maxQ;
+    cin >> maxQ;
+    this->queue.set_maxQ(maxQ);
 
     while (true) {
-        if(this->queue.get_maxQ() == 0) {
-            cout << "Enter the size of the queue: " << endl;
-            int maxQ;
-            cin >> maxQ;
-            this->queue.set_maxQ(maxQ);
-        }
         cout << "*** Welcome to Queue Menu ***" << endl;
         cout << "To select an item, enter " << endl;
         cout << "1 Show Queue" << endl;
@@ -182,9 +181,15 @@ void Menu::queueMenu() {
                 continue;
             }
             this->queue.deQueue();
-            cout << "The new queue:" << endl;
-            this->queue.print_queue();
-            cout << "" << endl;
+            // if the queue is now empty after removal, say so instead of printing a blank queue
+            if (this->queue.isEmpty()) {
+                cout << "Queue is empty" << endl;
+                cout << "" << endl;
+            } else {
+                cout << "The new queue:" << endl;
+                this->queue.print_queue();
+                cout << "" << endl;
+            }
 
         }
         // If the user selects option 4, we call the peek function of the queue to get the front element and print it.
@@ -207,7 +212,7 @@ void Menu::queueMenu() {
             break;
         }
         else {
-            cout << "Invalid input. Please try again." << endl;
+            cout << "Invalid selection." << endl;
             cout << "" << endl;
         }
 
