@@ -98,9 +98,10 @@ void Menu::stackMenu() {
             
 
         }
-        // If the user selects option 5, we break out of the loop and return to the main menu.
+        // If the user selects option 5, we reset the stack and return to the main menu.
         else if (user_input == 5)
         {
+            this->stack = Stack(); // clear the stack so it starts fresh next time the menu is entered
             cout << "Thank you!" << endl;
             break;
         }
