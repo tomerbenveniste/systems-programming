@@ -74,7 +74,8 @@ bool MyQueue::deQueue() {
     return true;
 }
 
-// The peek function returns the front element of the queue without removing it. If the queue is empty, it returns -1 to indicate that the queue is empty. Otherwise, it returns the front element of the queue.
+/* The peek function returns the front element of the queue without removing it. If the queue is empty,
+ * it returns -1 to indicate that the queue is empty. Otherwise, it returns the front element of the queue. */
 int MyQueue::peek() const {
     if (isEmpty()) {
         return -1; // Return -1 to indicate the queue is empty
@@ -88,7 +89,8 @@ bool MyQueue::isEmpty() const {
     return queue.empty();
 }
 
-// The is_full function checks if the queue is full. It returns true if the size of the queue is greater than or equal to maxQ and false otherwise.
+/* The is_full function checks if the queue is full. It returns true if the size of the queue is greater
+ * than or equal to maxQ and false otherwise. */
 bool MyQueue::is_full() const {
     return (int)queue.size() >= maxQ;
 }

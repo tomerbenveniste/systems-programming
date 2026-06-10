@@ -91,7 +91,6 @@ void Menu::stackMenu() {
         // If the user selects option 5, we break out of the loop and return to the main menu.
         else if (user_input == 5)
         {
-            this->stack.~Stack(); // Call the destructor to clean up the stack before exiting the menu.
             cout << "Thank you!" << endl;
             break;
         }
