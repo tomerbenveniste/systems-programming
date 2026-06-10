@@ -1,5 +1,5 @@
 /* Assignment C++: 1
-Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
+Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206463846
    */
 
 /* iostream is a library in C++ that provides input and output functionality.
