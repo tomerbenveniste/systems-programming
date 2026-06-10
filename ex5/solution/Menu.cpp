@@ -116,11 +116,16 @@ void Menu::stackMenu() {
  * operations such as printing the queue, adding an element, removing an element, printing the first element,
  * or returning to the main menu. */
 void Menu::queueMenu() {
-    // Prompt for queue size once per menu entry, before entering the loop
+    // Prompt for queue size once per menu entry, re-prompt if user enters a non-positive value
     this->queue.set_maxQ(0);
-    cout << "Enter the size of the queue: " << endl;
     int maxQ;
-    cin >> maxQ;
+    do {
+        cout << "Enter the size of the queue: " << endl;
+        cin >> maxQ;
+        if (maxQ <= 0) {
+            cout << "The size must be positive. Please try again." << endl;
+        }
+    } while (maxQ <= 0);
     this->queue.set_maxQ(maxQ);
 
     while (true) {
