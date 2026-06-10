@@ -1,0 +1,6 @@
+// To run test_input: 
+//  ./executable1.exe <test_input.txt> teacher_output.txt
+//  ./program.exe <test_input.txt> my_output.txt
+//  diff -u my_output.txt teacher_output.txt
+//  executable1.exe - Rotem's exe
+//  program.exe - your compiled files
