@@ -6,25 +6,24 @@ Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
 #include "MyQueue.h"
 
 using namespace std;
-// The default constructor of the MyQueue class initializes
+// Default constructor - initializes the queue with maxQ set to 0
 MyQueue::MyQueue() {
     this->maxQ = 0;
 }
-// The parameterized constructor of the MyQueue class initializes
+// Parameterized constructor - initializes the queue with the given maximum capacity
 MyQueue::MyQueue(int maxQ) {
     this->maxQ = maxQ;
 }
-// The destructor of the MyQueue class 
+// Destructor of the MyQueue class - uses cleanQueue method
 MyQueue::~MyQueue() {
     this->cleanQueue();
 }
-
+// Empties the queue by repeatedly removing the front element until nothing is left
 void MyQueue::cleanQueue() {
     while (!this->isEmpty()) {
         this->deQueue();
     }
 }
-
 // The set_maxQ function sets the maximum capacity of the queue to the given value.
 void MyQueue::set_maxQ(int maxQ) {
     this->maxQ = maxQ;
@@ -41,14 +40,13 @@ void MyQueue::print_queue() const {
     if (isEmpty()) {
         return;
     }
-
+    // Iterate through the queue and print each element, separating them with " <- "
     for (size_t i = 0; i < queue.size(); i++) {
         cout  << queue[i] << "";
         if (i != queue.size()-1) {
             cout << " <- " << "";
         }   
     }
-
     cout << endl;
 }
 /* The enQueue function adds an element to the back of the queue. If the queue is full
@@ -69,26 +67,22 @@ bool MyQueue::deQueue() {
     if (isEmpty()) {
         return false;
     }
-
+    // erase at index 0 removes the front element, shifting all remaining elements forward
     queue.erase(queue.begin());
     return true;
 }
-
 /* The peek function returns the front element of the queue without removing it. If the queue is empty,
  * it returns -1 to indicate that the queue is empty. Otherwise, it returns the front element of the queue. */
 int MyQueue::peek() const {
     if (isEmpty()) {
         return -1; // Return -1 to indicate the queue is empty
     }
-
     return queue[0];
 }
-
 // The isEmpty function checks if the queue is empty. It returns true if the queue is empty and false otherwise.
 bool MyQueue::isEmpty() const {
     return queue.empty();
 }
-
 /* The is_full function checks if the queue is full. It returns true if the size of the queue is greater
  * than or equal to maxQ and false otherwise. */
 bool MyQueue::is_full() const {

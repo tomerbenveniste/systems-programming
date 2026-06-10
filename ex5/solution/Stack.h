@@ -11,9 +11,11 @@ Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
 
 using namespace std;
 
+/* Stack is a linked-list based data structure that follows the LIFO (Last In First Out) principle.
+ * It stores integers using dynamically allocated StackNode objects linked together. */
 class Stack {
 private:
-    StackNode* top;
+    StackNode* top; // Pointer to the top node of the stack (nullptr when the stack is empty)
     void copy_from(const Stack& other); // helper: deep copies other's elements into this (assumes this is empty)
     
 public:
@@ -21,11 +23,11 @@ public:
     Stack(const Stack& stack); // copy Constructor - deep copies all nodes from other into this stack
     Stack& operator=(const Stack& stack); // assignment operator - clears this stack then deep copies other into it
     ~Stack(); // normal Destructor
-    bool push(int element);
-    bool pop();
-    bool isEmpty() const;
-    int peek() const;
-    void print_stack() const;
+    bool push(int element); // Pushes a new integer onto the top of the stack, returns true on success
+    bool pop(); // Removes the top element from the stack, returns false if the stack is empty
+    bool isEmpty() const; // Returns true if the stack has no elements, false otherwise
+    int peek() const; // Returns the top element without removing it, returns INT_MIN if the stack is empty
+    void print_stack() const; // Prints all stack elements numbered from top to bottom
     Stack& operator+=(int value); // operator that pushes an integer to the stack
     bool operator==(const Stack&  other) const; // operator that compares two stacks
     Stack operator+(const Stack&  other) const; // operator that stacks two stacks on top of each other

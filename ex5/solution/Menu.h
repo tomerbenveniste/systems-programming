@@ -31,10 +31,10 @@ class Menu
     /* The queueMenu function displays the queue menu options and handles user input to perform queue
      * operations such as printing the queue, adding an element, removing an element, printing the first element,
      * or returning to the main menu. */
-    void queueMenu();    
-    // The constructor of the Menu class initializes   
+    void queueMenu();
+    // Constructor - initializes the Menu with a default Stack and a MyQueue with capacity 0
     Menu();
-    // The destructor of the Menu class
+    // Destructor - no manual cleanup needed, Stack and MyQueue manage their own memory
     ~Menu();
 };
 
