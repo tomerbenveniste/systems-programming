@@ -9,26 +9,47 @@
 #include <vector>
 #include "Product.h"
 
+// Forward declarations to avoid circular includes
 class Customer;
 class ShoppingCart;
 
+// Manages the store's inventory and tracks total profit
+// counter starts negative (cost of stocking inventory) and rises with each sale
 class Supplier {
 private:
-    double counter;
-    vector<Product> inventory;
+    double counter;            // running profit: decreases when adding inventory, increases on sale
+    vector<Product> inventory; // all products currently stocked in the store
 
 public:
+    // Initialises with counter = 0 and an empty inventory
     Supplier();
+
     ~Supplier();
 
+    // Removes product p entirely from inventory
     bool remove_Product(const Product &p);
+
+    // Removes a specific quantity of p from inventory
     bool remove_Product(const Product &p, int quantity);
+
+    // Processes a customer's cart checkout: adds cart total to counter
+    // Also decrements inventory quantities for each purchased item
     bool customer_purchases(Customer &c);
+
+    // Overload: processes a cart directly (used when Customer object is not available)
     bool customer_purchases(const ShoppingCart &cart);
+
+    // Finds product by ID and updates its price; prints error if not found
     bool change_price(int id, double new_price);
+
+    // Returns the current value of counter (total profit so far)
     double get_total_profit() const;
+
+    // Provides read access to the inventory vector
     const vector<Product> &get_inventory() const;
 
+    // Prints all inventory products and the total profit
+    // Format: "Supplier Details:\n[products]\nTotal Profit: X"
     friend ostream &operator<<(ostream &os, const Supplier &supplier);
 };
 
