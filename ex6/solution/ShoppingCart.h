@@ -12,10 +12,10 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 class ShoppingCart {
 protected:
     vector<Product> items;  // products currently in the cart
-    double total_price;     // sum of (price * quantity) for all items
+    double total_price; // sum of (price * quantity) for all items
 
 public:
-    // Initialises an empty cart with total_price = 0
+    // Initializes an empty cart with total_price = 0
     ShoppingCart();
 
     virtual ~ShoppingCart();
@@ -44,7 +44,7 @@ public:
     // Prints: "Shopping Cart:\n[products]\nTotal Price: X" (used during checkout)
     friend ostream &operator<<(ostream &os, const ShoppingCart &cart);
 
-    // Finds and returns a pointer to the product with the given ID; nullptr if not found
+    // Finds and returns a pointer to the product with the given ID (nullptr if not found)
     Product *operator[](int id);
 };
 

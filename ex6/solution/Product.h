@@ -12,10 +12,10 @@ using namespace std;
 // Represents a single product with an auto-assigned ID, name, price, and quantity
 class Product {
 private:
-    static int next_id;   // shared counter — incremented each time a brand-new product is created
-    int id;               // unique identifier assigned from next_id at construction
-    string name;          // product name
-    double price;         // price per unit
+    static int next_id; // shared counter — incremented each time a brand-new product is created
+    int id; // unique identifier assigned from next_id at construction
+    string name; // product name
+    double price; // price per unit
     unsigned int quantity; // number of units available
 
 public:
@@ -25,16 +25,16 @@ public:
     // Copy constructor with quantity override — same ID as source, but different quantity
     Product(const Product &p, int q);
 
-    // Primary constructor — assigns the next available ID and initialises fields
+    // Primary constructor — assigns the next available ID and initializes fields
     Product(string name, double price, int q = 1);
 
     ~Product();
 
     // Accessors
-    double get_price() const;     // returns price per unit
-    double get_quantity() const;  // returns current quantity
-    double get_id() const;        // returns unique product ID
-    string get_name() const;      // returns product name
+    double get_price() const; // returns price per unit
+    double get_quantity() const; // returns current quantity
+    double get_id() const; // returns unique product ID
+    string get_name() const; // returns product name
     void set_price(double new_price); // updates the unit price
 
     // Prints: "Product ID: X, Name: Y, Price: Z, Quantity: W"

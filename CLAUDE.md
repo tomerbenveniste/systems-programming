@@ -7,6 +7,224 @@ Work is done in pairs with school partner Carmi (GitHub: CarmiF). IDs: 207961954
 
 ---
 
+## ex6 — Assignment 2 C++: Shopping System (IN PROGRESS)
+
+### Topics
+Operator overloading, inheritance (polymorphism), friend functions
+
+### Status
+- `Product` class: **COMPLETE** — merged to main via PR #9 (branch `ex6-tomer-class-product`)
+- `ShoppingCart` class: **COMPLETE** — PR #10 open (branch `ex6-tomer-shopping-cart-class`)
+- `Supplier` class: **IN PROGRESS** — next up
+- `Customer`, `BusinessCustomer`, `Menu`: not started
+- All source in `ex6/solution/`
+- Reference input/output: `ex6/moodle_files/in.txt` / `ex6/moodle_files/out.txt`
+- Assignment PDF: `ex6/moodle_files/assignment2CPP2026B.pdf`
+- VPL entry point: `ex6/moodle_files/assignment2.cpp` (provided — don't modify; just `#include "Menu.h"` and calls `Menu a; a.mainMenu();`)
+
+### Teaching approach
+- Working lesson-by-lesson: Tomer writes code, Claude reviews before moving on
+- Emphasis on OOP principles + C++ syntax at each step
+- Each class gets its own branch, PR to main when done
+
+### Files status (all in `ex6/solution/`)
+- `Product.h` / `Product.cpp` — **DONE**
+- `ShoppingCart.h` / `ShoppingCart.cpp` — **DONE**
+- `Supplier.h` / `Supplier.cpp` — not started
+- `Customer.h` / `Customer.cpp` — not started (contains `Customer` base + `BusinessCustomer` derived)
+- `Menu.h` / `Menu.cpp` — not started
+
+### Class specifications
+
+#### Product
+```cpp
+class Product {
+private:
+    static int next_id;       // auto-increments for each new Product(name,price,q)
+    int id;
+    string name;
+    double price;
+    unsigned int quantity;
+public:
+    Product(const Product &p);            // copy: same ID
+    Product(const Product &p, int q);     // copy: same ID, different quantity
+    Product(string name, double price, int q = 1); // new ID assigned from next_id
+    double get_price() const;
+    double get_quantity() const;
+    double get_id() const;
+    friend ostream &operator<<(ostream &os, const Product &p);
+    bool operator==(const Product &other) const; // compares IDs
+    bool operator==(int other_id) const;
+    bool operator!=(const Product &other) const;
+    bool operator!=(int other_id) const;
+    Product &operator++();        // quantity += 1
+    Product &operator+=(unsigned int q);
+    Product &operator-=(unsigned int q);
+};
+```
+- `operator<<` format: `Product ID: X, Name: Y, Price: Z, Quantity: W`
+- IDs auto-assigned starting at 1; user never chooses the ID when creating
+
+#### ShoppingCart
+```cpp
+class ShoppingCart {
+protected:
+    vector<Product> items;
+    double total_price;
+public:
+    ShoppingCart();
+    virtual ~ShoppingCart();
+    bool add_Product(const Product &p);                  // adds full quantity; total_price += price * quantity
+    bool add_Product(const Product &p, int quantity);    // total_price += price * quantity
+    bool remove_Product(const Product &p);               // remove entirely
+    bool remove_Product(const Product &p, int quantity); // reduce quantity
+    const vector<Product> &Get_List() const;
+    void printcart() const;                // prints "Shopping Cart Details:\n[products]\nTotal Price: X"
+    virtual double Get_total() const;
+    friend ostream &operator<<(ostream &os, const ShoppingCart &cart);
+    Product* operator[](int id);           // find by ID, nullptr if not found
+};
+```
+- `printcart()` output header: `Shopping Cart Details:`
+- `operator<<` output header: `Shopping Cart:` (used in checkout context)
+
+#### Supplier
+```cpp
+class Supplier {
+private:
+    double counter = 0;          // total profit: decreases when adding inventory, increases on customer purchase
+    vector<Product> inventory;
+public:
+    Supplier();
+    ~Supplier();
+    bool remove_Product(const Product &p);
+    bool remove_Product(const Product &p, int quantity);
+    bool customer_purchases(Customer &c);              // processes customer cart, adds total to counter
+    bool customer_purchases(const ShoppingCart &cart); // adds cart.total_price to counter
+    bool change_price(int id, double new_price);
+    double get_total_profit() const;
+    friend ostream &operator<<(ostream &os, const Supplier &supplier);
+};
+```
+- `operator<<` format:
+  ```
+  Supplier Details:
+  Product ID: 1, Name: Milk, Price: 3.5, Quantity: 10
+  Total Profit: -65
+  ```
+- **Counter behavior**: when supplier ADDS products to inventory → `counter -= price * quantity` (cost). When customer PURCHASES → `counter += total`. So counter starts negative (inventory cost) and rises with sales.
+- `change_price` prints error if ID not found
+
+#### Customer & BusinessCustomer
+```cpp
+class Customer {
+protected:
+    string name;
+    ShoppingCart cart;
+public:
+    Customer(string name);
+    virtual ~Customer();
+    virtual bool add_to_cart(const Product &p, int quantity);
+    virtual bool remove_from_cart(int id, int quantity);
+    virtual double checkout();  // empties cart, prints cart contents, returns total
+    void print_cart() const;
+    friend ostream &operator<<(ostream &os, const Customer &c);
+};
+
+class BusinessCustomer : public Customer {
+private:
+    string company_name;
+    double discount_rate;   // e.g. 0.1 = 10% discount
+public:
+    BusinessCustomer(string name, string company_name, double discount_rate);
+    virtual ~BusinessCustomer();
+    virtual double checkout() override;  // applies discount before returning total
+    friend ostream &operator<<(ostream &os, const BusinessCustomer &bc);
+};
+```
+
+#### Menu
+```cpp
+class Menu {
+private:
+    Supplier supplier;
+    Customer* customer;   // polymorphic pointer — created when entering buyer menu
+public:
+    Menu();
+    ~Menu();
+    void mainMenu();     // loops: 1=supplierMenu, 2=buyerMenu (ask regular/business), 3=exit "Goodbye!"
+    void supplierMenu(); // loops: 1=print store, 2=add/restock, 3=change price, 4=remove, 5=profit, 6=back
+    void buyerMenu();    // loops: 1=print store, 2=add to cart, 3=remove from cart, 4=view cart, 5=checkout, 6=back
+};
+```
+
+### Menu behavior details (from out.txt)
+
+#### mainMenu
+- Option 1: enter `supplierMenu()`
+- Option 2: ask regular (1) or business (2) customer; collect name (and company+discount for business); create via `Customer*` polymorphically; call `buyerMenu()` — **NOTE: out.txt shows no customer type/name prompts, so the reference may create a default Customer**
+- Option 3: print `Goodbye!` and exit
+
+#### supplierMenu
+- Option 1: print `supplier` via `operator<<` (shows all inventory + total profit)
+- Option 2: print all products (ID, name, qty), ask for product ID:
+  - Found → ask quantity to add, call `++`/`+=` on product, `counter -= price * added_qty`
+  - Not found → `"Adding new product."` → ask name, price, qty → create `Product` (gets auto-ID)
+- Option 3: show all products (ID, name, price, qty), ask ID:
+  - Found → `"Product found: [product]"` → ask new price → update → `"Price updated successfully."`
+  - Not found → `"Product not found."`
+- Option 4: show all products, ask ID:
+  - Found → remove from inventory
+  - Not found → `"Product not found."`
+- Option 5: print `"Total profit: X"` (different from `operator<<` which prints `"Total Profit: X"`)
+- Option 6: print `"Exiting supplier menu."`, return to main
+
+#### buyerMenu
+- Option 1: print `"Items in the store:\n"` then `cout << supplier`
+- Option 2: print `"Items in the store:\n"` then `cout << supplier`, ask `"Enter product ID to add:"`, ask `"Enter quantity:"`:
+  - Requested qty > supplier stock → `"Not enough stock."` (still adds, capped at available stock) + `"Product added to cart."`
+  - Qty fits → `"Product added to cart."`
+  - ID not found → `"Product not found."`
+- Option 3: print `"Items in the cart:\n"` (from `printcart()`), ask ID, remove from cart
+- Option 4: print `"Items in the cart:\n"` then `customer->print_cart()` (shows `Shopping Cart Details:` + products + total)
+- Option 5 (checkout):
+  - Print `"Total price: X\nWould you like to check out? (y/n): "`
+  - If `y`: call `customer->checkout()` (prints `"Total price: X\nShopping Cart:\n[items]\nTotal Price: X"`, empties cart, returns total) → call `supplier.customer_purchases(*customer)` (adds total to counter)
+  - If `n`: back to menu, cart unchanged
+- Option 6: print `"Exiting shopping cart menu."`, return to main
+
+### Output format key observations
+- After supplier option 2 adds product: `"Product added."`
+- Invalid menu option: `"Invalid option. Please try again."`
+- Supplier inventory DOES NOT decrease when items added to cart — only decreases at checkout
+- Customer object persists across buyer menu sessions (cart survives exit/re-enter)
+- Product quantities in cart: if requested > available, caps at supplier stock (prints warning but adds capped amount)
+
+### How to compile & test (Windows PowerShell, from project root)
+```powershell
+$env:PATH = "C:\Program Files\JetBrains\CLion 2026.1.1\bin\mingw\bin;" + $env:PATH
+g++ ex6/solution/Product.cpp ex6/solution/ShoppingCart.cpp ex6/solution/Supplier.cpp ex6/solution/Customer.cpp ex6/solution/Menu.cpp ex6/moodle_files/assignment2.cpp -o ex6.exe -std=c++17
+cmd /c '.\ex6.exe < "ex6\moodle_files\in.txt" > my_ex6_output.txt'
+diff (Get-Content my_ex6_output.txt) (Get-Content "ex6\moodle_files\out.txt")
+```
+
+### Submission requirements
+- All `.h` and `.cpp` files (Product, ShoppingCart, Supplier, Customer, Menu) + assignment2.cpp
+- Header comment in every file:
+  ```
+  /****************************************
+   Assignment C++: 2
+   Author: Tomer Benveniste, ID: 207961954 / Carmi ..., ID: 206463846
+  *****************************************/
+  ```
+- No C library functions — C++ only (`<iostream>`, `<string>`, `<vector>` etc.)
+- Constants as `const`, `#define`, or `enum`
+- English comments on every method and every 2–3 lines of code
+- `const` on all non-mutating methods
+- No duplicate code
+
+---
+
 ## ex5 — Assignment 1 C++: Stack, Queue & Menu (IN PROGRESS)
 
 ### Status
