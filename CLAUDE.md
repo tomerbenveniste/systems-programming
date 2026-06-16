@@ -14,8 +14,9 @@ Operator overloading, inheritance (polymorphism), friend functions
 
 ### Status
 - `Product` class: **COMPLETE** — merged to main via PR #9 (branch `ex6-tomer-class-product`)
-- `ShoppingCart` class: **IN PROGRESS** — branch `ex6-tomer-shopping-cart-class`
-- `Supplier`, `Customer`, `BusinessCustomer`, `Menu`: not started
+- `ShoppingCart` class: **COMPLETE** — PR #10 open (branch `ex6-tomer-shopping-cart-class`)
+- `Supplier` class: **IN PROGRESS** — next up
+- `Customer`, `BusinessCustomer`, `Menu`: not started
 - All source in `ex6/solution/`
 - Reference input/output: `ex6/moodle_files/in.txt` / `ex6/moodle_files/out.txt`
 - Assignment PDF: `ex6/moodle_files/assignment2CPP2026B.pdf`
@@ -28,7 +29,7 @@ Operator overloading, inheritance (polymorphism), friend functions
 
 ### Files status (all in `ex6/solution/`)
 - `Product.h` / `Product.cpp` — **DONE**
-- `ShoppingCart.h` / `ShoppingCart.cpp` — **IN PROGRESS**
+- `ShoppingCart.h` / `ShoppingCart.cpp` — **DONE**
 - `Supplier.h` / `Supplier.cpp` — not started
 - `Customer.h` / `Customer.cpp` — not started (contains `Customer` base + `BusinessCustomer` derived)
 - `Menu.h` / `Menu.cpp` — not started
