@@ -1,5 +1,5 @@
-/* Assignment C++: 1
-   Author: Israel Israeli, ID: 01234567
+/* Assignment C++: 2
+   Author: Tomer Benveniste, ID: 207961954
 */ 
 
 #include "Menu.h"
