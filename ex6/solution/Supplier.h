@@ -17,13 +17,14 @@ class ShoppingCart;
 // counter starts negative (cost of stocking inventory) and rises with each sale
 class Supplier {
 private:
-    double counter;            // running profit: decreases when adding inventory, increases on sale
+    double counter; // running profit: decreases when adding inventory, increases on sale
     vector<Product> inventory; // all products currently stocked in the store
+    int find_index(int id) const; // returns index in inventory, -1 if not found
 
 public:
-    // Initialises with counter = 0 and an empty inventory
+    // Initializes with counter = 0 and an empty inventory
     Supplier();
-
+    // Dtor
     ~Supplier();
 
     // Removes product p entirely from inventory
@@ -51,6 +52,12 @@ public:
     // Prints all inventory products and the total profit
     // Format: "Supplier Details:\n[products]\nTotal Profit: X"
     friend ostream &operator<<(ostream &os, const Supplier &supplier);
+
+    // adds full quantity; counter -= price * quantity
+    bool add_Product(const Product &p);
+
+    // adds specific quantity; counter -= price * quantity
+    bool add_Product(const Product &p, int quantity);
 };
 
 #endif
