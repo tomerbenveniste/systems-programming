@@ -11,7 +11,7 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 // Base class for a store customer — holds a name and a shopping cart
 class Customer {
 protected:
-    string name;       // customer's display name
+    string name; // customer's display name
     ShoppingCart cart; // the customer's personal shopping cart
 
 public:
