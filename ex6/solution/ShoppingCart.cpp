@@ -101,3 +101,15 @@ Product *ShoppingCart::operator[](int id) {
     }
     return nullptr;
 }
+
+bool ShoppingCart::clear_cart() {
+    items.clear();
+    total_price = 0;
+    return true;
+}
+
+bool ShoppingCart::checkout()  {
+    
+    this->clear_cart();
+    return this->Get_total();
+}

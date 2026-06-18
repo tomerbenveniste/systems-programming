@@ -19,6 +19,8 @@ public:
     ShoppingCart();
 
     virtual ~ShoppingCart();
+    // Empties the cart, resets total_price to 0
+    bool clear_cart() ;
 
     // Adds all units of p to the cart; total_price += p.price * p.quantity
     bool add_Product(const Product &p);
@@ -38,8 +40,10 @@ public:
     // Prints: "Shopping Cart Details:\n[products]\nTotal Price: X"
     void printcart() const;
 
+    bool checkout() ;
+
     // Returns the current total price
-    virtual double Get_total() const;
+    virtual double Get_total() ;
 
     // Prints: "Shopping Cart:\n[products]\nTotal Price: X" (used during checkout)
     friend ostream &operator<<(ostream &os, const ShoppingCart &cart);

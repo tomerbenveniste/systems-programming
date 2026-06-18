@@ -20,6 +20,9 @@ public:
     // Constructs a customer with the given name
     Customer(string name);
 
+    Customer(string name, ShoppingCart cart);
+
+
     virtual ~Customer();
 
     // Adds the given quantity of product p to the cart

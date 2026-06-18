@@ -7,7 +7,10 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 using namespace std;
 
 // Initialises the menu: supplier is default-constructed, customer starts as nullptr
-Menu::Menu() {}
+Menu::Menu() 
+{
+
+}
 
 // Frees the dynamically allocated customer object if one was created
 Menu::~Menu() {}
@@ -17,7 +20,34 @@ Menu::~Menu() {}
 //   2 -> ask regular (1) or business (2), collect name/company/discount, create Customer*, call buyerMenu()
 //   3 -> print "Goodbye!" and return
 // Invalid input -> "Invalid option. Please try again."
-void Menu::mainMenu() {}
+void Menu::mainMenu() 
+{
+    while (true) {
+        cout << "(1) Supplier Menu" << endl;
+        cout << "(2) Buyer Menu" << endl;
+        cout << "(3) Exit" << endl;
+
+        int user_input;
+        cin >> user_input;
+
+       
+
+        if (user_input == 1) {
+            supplierMenu();
+        }
+        else if (user_input == 2) {
+            
+            buyerMenu();
+        }
+        else if (user_input == 3) {
+            cout << "Goodbye!" << endl;
+            return;
+        }
+        else {
+            cout << "Invalid selection." << endl;
+        }
+    }
+}
 
 // Loops until the user chooses to go back:
 //   1 -> cout << supplier  (shows inventory + total profit)
@@ -39,4 +69,50 @@ void Menu::supplierMenu() {}
 //          n -> return to loop unchanged
 //   6 -> print "Exiting shopping cart menu." and return
 // Invalid input -> "Invalid option. Please try again."
-void Menu::buyerMenu() {}
+void Menu::buyerMenu() 
+{
+    string name, company;
+    double discount = 0.0;
+    int type;
+    int user_input;
+
+  
+
+    cout << "Enter customer type (1 for regular, 2 for business): ";
+    cin >> type;
+
+    if (type == 1) {
+        cout << "Enter customer name: ";
+        cin >> name;
+        customer = new Customer(name);
+    }
+    else if (type == 2) {
+        cout << "Enter business name: ";
+        cin >> company;
+        cout << "Enter discount percentage: ";
+        cin >> discount;
+        customer = new BusinessCustomer(name, company, discount);
+    }
+   
+    while(user_input == 6)
+    {
+        cout << "Buyer Menu" << endl;
+        cout << "(1) Avilable prodacts" << endl;
+        cout << "(2) Add prodact" << endl;
+        cout << "(3) Remove prodact" << endl;
+        cout << "(4) Print cart" << endl;
+        cout << "(5) Buy all prodacts in cart" << endl;
+        
+        cin >> user_input;
+        if(user_input == 1)
+        {
+
+        }
+        else if(user_input == 2){}
+        else if(user_input == 3){}
+        else if(user_input == 4){}
+        else if(user_input == 5){}
+
+
+    }
+}
