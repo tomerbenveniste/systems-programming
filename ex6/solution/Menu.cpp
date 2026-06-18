@@ -140,7 +140,7 @@ void Menu::buyerMenu()
 {
     string name, company;
     double discount = 0.0;
-    int type;
+    int type, id, q;
     int user_input;
 
   
@@ -175,12 +175,59 @@ void Menu::buyerMenu()
         cin >> user_input;
         if(user_input == 1)
         {
+            this->supplier.print_inv();
+        }
+        else if(user_input == 2)
+        {
+            this->supplier.print_inv();
+
+            cout << "Enter prodact id to add" << endl;
+            cin >> id;
+            cout << "Enter prodact quantity to add" << endl;
+            cin >> q;
+
+            Product p = (this->customer->get_cart().Get_List())[id-1];
+
+            this->customer->add_to_cart(p, q);
+
 
         }
-        else if(user_input == 2){}
-        else if(user_input == 3){}
-        else if(user_input == 4){}
-        else if(user_input == 5){}
+        else if(user_input == 3)
+        {
+            this->customer->print_cart();
+
+            cout << "Enter prodact id to remove" << endl;
+            cin >> id;
+            cout << "Enter prodact quantity to remove" << endl;
+            cin >> q;
+
+            Product p = (this->customer->get_cart().Get_List())[id-1];
+
+            this->customer->remove_from_cart(id, q);
+        }
+        else if(user_input == 4)
+        {
+            this->customer->print_cart();
+
+
+        }
+        else if(user_input == 5)
+        {
+            string answer;
+            double total_price = this->customer->get_cart().Get_total();
+            cout << "The price of all prodacts in the cart are " << total_price << endl;
+            cout << "Do you want to pay? (yes/no)"<< endl;
+            cin >> answer;
+            if(answer == "yes")
+            {
+                this->supplier.customer_purchases(*(this->customer)); 
+
+                this->customer->checkout();
+            }
+
+            
+
+        }
 
 
     }

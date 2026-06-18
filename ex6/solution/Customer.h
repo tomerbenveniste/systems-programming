@@ -38,9 +38,11 @@ public:
     void print_cart() const;
 
     // Returns a mutable reference to the cart (used by Supplier to process purchases)
+    //ShoppingCart &get_cart();
+    // Mutable accessor for the cart
     ShoppingCart &get_cart();
 
-    // Returns a const reference to the cart
+    // Const accessor for the cart
     const ShoppingCart &get_cart() const;
 
     // Prints customer name and cart summary

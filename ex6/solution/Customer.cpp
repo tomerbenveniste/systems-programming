@@ -53,8 +53,10 @@ bool Customer::remove_from_cart(int id, int quantity)
 double Customer::checkout() 
 {
     double total = this->cart.checkout();
+    this->cart.clear_cart();
     return total; 
 }
+
 
 // Delegates to cart.printcart() which prints "Shopping Cart Details:" + items + total
 void Customer::print_cart() const 
