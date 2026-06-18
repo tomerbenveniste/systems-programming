@@ -22,6 +22,8 @@ private:
     int find_index(int id) const; // returns index in inventory, -1 if not found
 
 public:
+
+    
     // Initializes with counter = 0 and an empty inventory
     Supplier();
     // Dtor
@@ -57,7 +59,9 @@ public:
     bool add_Product(const Product &p);
 
     // adds specific quantity; counter -= price * quantity
-    bool add_Product(const Product &p, int quantity);
+    bool add_Product(const Product &p, int quantity);\
+
+    void print_inv() const;
 };
 
 #endif

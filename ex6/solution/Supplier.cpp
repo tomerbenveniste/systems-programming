@@ -105,3 +105,11 @@ bool Supplier::add_Product(const Product &p, int quantity) {
     counter -= p.get_price() * quantity; // decreasing price
     return true;
 }
+
+void Supplier:: print_inv() const
+{
+    for (const Product &p : this->get_inventory())
+            {
+                cout << p << endl;
+            }
+}

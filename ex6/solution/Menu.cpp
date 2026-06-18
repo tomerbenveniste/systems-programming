@@ -7,13 +7,14 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 using namespace std;
 
 // Initialises the menu: supplier is default-constructed, customer starts as nullptr
-Menu::Menu() 
+Menu::Menu(): supplier(),customer(nullptr)
 {
-
 }
-
 // Frees the dynamically allocated customer object if one was created
-Menu::~Menu() {}
+Menu::~Menu()
+{
+    delete customer;
+}
 
 // Loops until the user chooses to exit:
 //   1 -> supplierMenu()
@@ -30,14 +31,12 @@ void Menu::mainMenu()
         int user_input;
         cin >> user_input;
 
-       
-
         if (user_input == 1) {
-            supplierMenu();
+            this->supplierMenu();
         }
         else if (user_input == 2) {
             
-            buyerMenu();
+            this->buyerMenu();
         }
         else if (user_input == 3) {
             cout << "Goodbye!" << endl;
@@ -57,7 +56,75 @@ void Menu::mainMenu()
 //   5 -> print "Total profit: X"
 //   6 -> print "Exiting supplier menu." and return
 // Invalid input -> "Invalid option. Please try again."
-void Menu::supplierMenu() {}
+void Menu::supplierMenu() 
+{
+    int user_input;
+
+    while(user_input != 6)
+    {
+        cout << "Supplier Menu" << endl;
+        cout << "(1) Avilable prodacts" << endl;
+        cout << "(2) Add prodact" << endl;
+        cout << "(3) Change prodact price" << endl;
+        cout << "(4) Remove prodact" << endl;
+        cout << "(5) Show profits" << endl;
+        cout << "(6) Return to main menu" << endl;
+
+        
+        cin >> user_input;
+        if(user_input == 1)
+        {
+            this->supplier.print_inv();
+        }
+        else if(user_input == 2)
+        {
+            string name;
+            double price;
+            int q;
+            cout << "Add prodact" <<endl;
+            cout << "Add name" <<endl;
+            cin >> name; 
+
+            cout << "Add price" <<endl;
+            cin >> price;
+
+            cout << "Add quantity" <<endl;
+            cin >> q;
+            Product p(name, price);
+            this->supplier.add_Product(p, q);
+        }
+        else if(user_input == 3)
+        {   
+            int id;
+            double price;
+            this->supplier.print_inv();
+            cout << "Add id to change price" <<endl;
+            cin >> id;
+            cout << "Type the new price" <<endl;
+            cin >> price;
+            this->supplier.change_price(id,price);
+
+        }
+        else if(user_input == 4)
+        {
+            int id;
+            double price;
+            this->supplier.print_inv();
+            cout << "Type id to remove "<<endl;
+            cin >> id;
+            vector inv = supplier.get_inventory();
+            Product p = inv[id -1];
+            this->supplier.remove_Product(p);
+        }
+        else if(user_input == 5)
+        {
+          cout << "Total profits" << endl;
+          cout << this->supplier.get_total_profit() << endl;   
+        }
+
+
+    }
+}
 
 // Loops until the user chooses to go back:
 //   1 -> print "Items in the store:\n" then cout << supplier
@@ -94,7 +161,7 @@ void Menu::buyerMenu()
         customer = new BusinessCustomer(name, company, discount);
     }
    
-    while(user_input == 6)
+    while(user_input != 6)
     {
         cout << "Buyer Menu" << endl;
         cout << "(1) Avilable prodacts" << endl;
@@ -102,6 +169,8 @@ void Menu::buyerMenu()
         cout << "(3) Remove prodact" << endl;
         cout << "(4) Print cart" << endl;
         cout << "(5) Buy all prodacts in cart" << endl;
+        cout << "(6) Return to main menu" << endl;
+
         
         cin >> user_input;
         if(user_input == 1)

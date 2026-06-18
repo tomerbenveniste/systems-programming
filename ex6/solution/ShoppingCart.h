@@ -43,7 +43,7 @@ public:
     bool checkout() ;
 
     // Returns the current total price
-    virtual double Get_total() ;
+    virtual double Get_total() const;
 
     // Prints: "Shopping Cart:\n[products]\nTotal Price: X" (used during checkout)
     friend ostream &operator<<(ostream &os, const ShoppingCart &cart);
