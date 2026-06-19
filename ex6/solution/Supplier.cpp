@@ -27,7 +27,7 @@ bool Supplier::remove_Product(const Product &p, int quantity) {
     if (i == -1) { return false; } // product does not exist
     // product exist
     inventory[i] -= quantity; // reduce quantity
-    if (inventory[i].get_quantity() <= 0) {
+    if (inventory[i].get_quantity() <0) {
         inventory.erase(inventory.begin() + i); // remove if empty
     }
     return true;
@@ -57,6 +57,8 @@ bool Supplier::change_price(int id, double new_price) {
     // not jound
     if (i == -1) {
         cout << "Product not found." << endl;
+        cout << "" << endl;
+
         return false;
     }
     //found
