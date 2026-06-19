@@ -27,15 +27,17 @@ static int find_product_index(const vector<Product> &inventory, int id) {
 
 void Menu::mainMenu() {
     cout << endl;
+    int user_input;
+
     while (true) {
-        int user_input;
-        cin >> user_input;
+        
         cout << "Main Menu:" << endl;
         cout << "1. Store Menu" << endl;
         cout << "2. Shopping Cart Menu" << endl;
         cout << "3. Exit" << endl;
-        cout << "Enter your choice: " << endl;
+        cout << "Enter your choice: ";
 
+        cin >> user_input;
         
 
         if (user_input == 1) {
@@ -46,14 +48,14 @@ void Menu::mainMenu() {
             cout << "Goodbye!" << endl;
             return;
         } else {
-            cout << "Invalid option. Please try again." << endl;
+            cout << "Invalid option. Please try again." ;
         }
     }
 }
 
 void Menu::supplierMenu() {
     while (true) {
-        
+        cout << endl;
         cout << "Store Menu:" << endl;
         cout << "1. Print store" << endl;
         cout << "2. Add quantity to existing product or add new product" << endl;
@@ -70,9 +72,12 @@ void Menu::supplierMenu() {
             cout << supplier;
         } else if (user_input == 2) {
             cout << supplier;
+            cout << endl;
+
+            
+            cout << "Enter product ID: ";
             int id;
             cin >> id;
-            cout << "Enter product ID: ";
             
 
             const vector<Product> &inventory = supplier.get_inventory();
@@ -92,25 +97,27 @@ void Menu::supplierMenu() {
                 cin >> quantity;
                 Product p(name, price);
                 supplier.add_Product(p, quantity);
-                cout << "Product added." << endl;
+                cout << "Product added." ;
             } else {
                 int quantity;
                 cout << "Enter quantity: ";
                 cin >> quantity;
                 Product p = inventory[index];
                 supplier.add_Product(p, quantity);
-                cout << "Product added." << endl;
+                cout << "Product added." ;
             }
         } else if (user_input == 3) {
             cout << supplier;
-            int id;
-            cin >> id;
-            cout << "Enter product ID: ";
+            cout << endl;
+
             
+            cout << "Enter product ID: ";
+            int id;
+            cin >> id ;
             const vector<Product> &inventory = supplier.get_inventory();
             int index = find_product_index(inventory, id);
             if (index == -1) {
-                cout << "Product not found." << endl;
+                cout << "Product not found." ;
 
             } else {
                 cout << "Product found: " << inventory[index] << endl;
@@ -118,32 +125,34 @@ void Menu::supplierMenu() {
                 cout << "Enter new price: ";
                 cin >> price;
                 supplier.change_price(id, price);
-                cout << "Price updated successfully." << endl;
+                cout << "Price updated successfully." ;
             }
         } else if (user_input == 4) {
             cout << supplier;
             int id;
             cin >> id;
+            cout << endl;
+
             cout << "Enter product ID: ";
             
             const vector<Product> &inventory = supplier.get_inventory();
             int index = find_product_index(inventory, id);
             if (index == -1) {
-                cout << "Product not found." << endl;
+                cout << "Product not found." ;
 
             } else {
                 Product p = inventory[index];
                 supplier.remove_Product(p);
             }
         } else if (user_input == 5) {
-            cout << "Total profit: " << supplier.get_total_profit() << endl;
+            cout << "Total profit: " << supplier.get_total_profit() ;
         } else if (user_input == 6) {
             cout << "Exiting supplier menu." << endl;
             cout << "" << endl;
 
             return;
         } else {
-            cout << "Invalid option. Please try again." << endl;
+            cout << "Invalid option. Please try again." ;
         }
 
         cout << endl;
@@ -156,6 +165,7 @@ void Menu::buyerMenu() {
     }
 
     while (true) {
+        cout << endl;
         cout << "Shopping Cart Menu:" << endl;
         cout << "1. Print items in store" << endl;
         cout << "2. Add product to cart from store" << endl;
@@ -173,7 +183,7 @@ void Menu::buyerMenu() {
             cout << supplier;
         } else if (user_input == 2) {
             cout << "Items in the store:" << endl;
-            cout << supplier;
+            cout << supplier<<endl;
 
             int id;
             cout << "Enter product ID to add: ";
@@ -182,7 +192,7 @@ void Menu::buyerMenu() {
             const vector<Product> &inventory = supplier.get_inventory();
             int index = find_product_index(inventory, id);
             if (index == -1) {
-                cout << "Product not found." << endl;
+                cout << "Product not found." ;
 
             } else {
                 int quantity;
@@ -196,7 +206,7 @@ void Menu::buyerMenu() {
                     quantity = available;
                 }
                 customer->add_to_cart(store_product, quantity);
-                cout << "Product added to cart." << endl;
+                cout << "Product added to cart." ;
             }
         } else if (user_input == 3) {
             cout << "Items in the cart:" << endl;
@@ -217,16 +227,20 @@ void Menu::buyerMenu() {
             }
         } else if (user_input == 4) {
             cout << "Items in the cart:" << endl;
-            customer->print_cart();
+            cout << customer->get_cart();
         } else if (user_input == 5) {
             double total_price = customer->get_cart().Get_total();
-            cout << "Total price: " << total_price << endl;
+            cout << "Total price: " << total_price ;
             char answer;
+            cout<<endl;
+            cout << "Would you like to check out? (y/n): "<<endl;
+
             cin >> answer;
-            cout << "Would you like to check out? (y/n): ";
-            
+
             if (answer == 'y' || answer == 'Y') {
                 supplier.customer_purchases(*customer);
+                cout <<endl;
+
                 customer->checkout();
             }
         } else if (user_input == 6) {
@@ -234,7 +248,7 @@ void Menu::buyerMenu() {
             cout << endl;
             return;
         } else {
-            cout << "Invalid option. Please try again." << endl;
+            cout << "Invalid option. Please try again.";
         }
 
         cout << endl;
