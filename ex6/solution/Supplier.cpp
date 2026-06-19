@@ -40,8 +40,11 @@ bool Supplier::customer_purchases(Customer &c) {
     return customer_purchases(c.get_cart());
 }
 
-// Overload used when working directly with a ShoppingCart (e.g. after checkout)
+// Overload used when working directly with a ShoppingCart (e.g. before checkout)
 bool Supplier::customer_purchases(const ShoppingCart &cart) {
+    for (const Product &p : cart.Get_List()) {
+        remove_Product(p, (int)p.get_quantity());
+    }
     counter += cart.Get_total();
     return true;
 }

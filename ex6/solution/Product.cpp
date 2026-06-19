@@ -8,7 +8,8 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 int Product::next_id = 0;
 
 // Copy constructor — copies all fields including the original ID (no new ID assigned)
-Product::Product(const Product &p) : id(p.id), name(p.name), price(p.price), quantity(p.quantity) {}
+Product::Product(const Product &p) : id(p.id), name(p.name), price(p.price), quantity(p.quantity) 
+{}
 
 // Copy-with-quantity constructor — same ID as source, but quantity is overridden to q
 Product::Product(const Product &p, int q) : id(p.id), name(p.name), price(p.price), quantity(q) {}
@@ -20,7 +21,10 @@ Product::Product(string name, double price, int q) : id(++next_id), name(name), 
 Product::~Product() {}
 
 // Returns price per unit
-double Product::get_price() const { return this->price; }
+double Product::get_price() const 
+{ 
+    return this->price; 
+}
 
 // Returns current quantity
 double Product::get_quantity() const { return this->quantity; }

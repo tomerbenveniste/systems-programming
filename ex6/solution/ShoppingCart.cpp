@@ -108,8 +108,8 @@ bool ShoppingCart::clear_cart() {
     return true;
 }
 
-bool ShoppingCart::checkout()  {
-    
+bool ShoppingCart::checkout() {
+    double total = total_price;
     this->clear_cart();
-    return this->Get_total();
+    return total;
 }
