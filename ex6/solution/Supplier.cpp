@@ -21,7 +21,7 @@ bool Supplier::remove_Product(const Product &p) {
 }
 
 // Reduces quantity of p in inventory by the given amount
-// Removes entirely if quantity reaches 0
+// Removes entirely if quantity reaches -1
 bool Supplier::remove_Product(const Product &p, int quantity) {
     int i = find_index(p.get_id());
     if (i == -1) { return false; } // product does not exist
@@ -41,7 +41,7 @@ bool Supplier::customer_purchases(Customer &c) {
 }
 
 // Overload used when working directly with a ShoppingCart (e.g. before checkout)
-bool Supplier::customer_purchases(const ShoppingCart &cart) {
+bool Supplier::customer_purchases(ShoppingCart &cart) {
     for (const Product &p : cart.Get_List()) {
         remove_Product(p, (int)p.get_quantity());
     }
@@ -78,7 +78,8 @@ ostream &operator<<(ostream &os, const Supplier &supplier) {
     for (const Product &p : supplier.inventory) {
         os << p << endl;
     }
-    os << "Total Profit: " << supplier.counter << endl;
+    os << "Total Profit: " << supplier.counter ;
+
     return os;
 }
 

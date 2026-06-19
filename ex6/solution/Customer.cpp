@@ -56,8 +56,8 @@ bool Customer::remove_from_cart(int id, int quantity)
 double Customer::checkout() 
 {
     double total = this->cart.Get_total();
-    cout << "Total price: " << total ;
-    cout << this->cart;
+    cout << "Total price: " << total <<endl;
+    cout << this->cart<<endl;
     this->cart.clear_cart();
     return total; 
 }

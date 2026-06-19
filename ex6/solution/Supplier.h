@@ -40,7 +40,7 @@ public:
     bool customer_purchases(Customer &c);
 
     // Overload: processes a cart directly (used when Customer object is not available)
-    bool customer_purchases(const ShoppingCart &cart);
+    bool customer_purchases(ShoppingCart &cart);
 
     // Finds product by ID and updates its price; prints error if not found
     bool change_price(int id, double new_price);

@@ -25,7 +25,11 @@ bool ShoppingCart::add_Product(const Product &p, int quantity) {
         items.push_back(Product(p, quantity));
     } else {
         // product already in cart — increase its quantity
-        *existing += quantity;
+        if(existing->get_quantity()>= quantity)
+        {
+            *existing += quantity;
+        }
+        
     }
     total_price += p.get_price() * quantity;
     return true;
@@ -69,16 +73,25 @@ const vector<Product> &ShoppingCart::Get_List() const { return items; }
 // Prints the cart products and total price - view cart use
 void ShoppingCart::printcart() const {
     // prints the header
-    cout << "Shopping Cart Details:" << endl;
+    cout << "Shopping Cart:" << endl;
     // loop to print all products in the cart
     for (int i = 0; i < items.size(); i++) {
         cout << items[i] << endl;
     }
-    cout << "Total Price: " << total_price << endl; // print total price of the cart
+    cout << "Total Price: " << total_price ; // print total price of the cart
 }
 
 // Returns the running total price of all items in the cart
-double ShoppingCart::Get_total() const { return total_price; }
+double ShoppingCart::Get_total() 
+{ 
+    total_price = 0;
+    for (int i = 0; i < this->items.size(); i++) {
+        total_price = total_price + this->items[i].get_price() * this->items[i].get_quantity();
+
+    }
+    return total_price;
+
+}
 
 // Prints Shopping Cart — used during checkout
 ostream &operator<<(ostream &os, const ShoppingCart &cart) {
@@ -88,7 +101,7 @@ ostream &operator<<(ostream &os, const ShoppingCart &cart) {
     for (int i = 0; i < cart.items.size(); i++) {
         os << cart.items[i] << endl;
     }
-    os << "Total Price: " << cart.total_price << endl; // print total price of the cart
+    os << "Total Price: " << cart.total_price ; // print total price of the cart
     return os;
 }
 
@@ -113,3 +126,4 @@ bool ShoppingCart::checkout() {
     this->clear_cart();
     return total;
 }
+
