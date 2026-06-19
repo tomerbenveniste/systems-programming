@@ -24,9 +24,11 @@ Menu::~Menu()
 void Menu::mainMenu() 
 {
     while (true) {
-        cout << "(1) Supplier Menu" << endl;
-        cout << "(2) Buyer Menu" << endl;
-        cout << "(3) Exit" << endl;
+        cout << "Main Menu:" << endl;
+        cout << "1. Store Menu" << endl;
+        cout << "2. Shopping Cart Menu" << endl;
+        cout << "3. Exit" << endl;
+        cout << "Enter your choice: " ;
 
         int user_input;
         cin >> user_input;
@@ -62,16 +64,17 @@ void Menu::supplierMenu()
 
     while(user_input != 6)
     {
-        cout << "Supplier Menu" << endl;
-        cout << "(1) Avilable prodacts" << endl;
-        cout << "(2) Add prodact" << endl;
-        cout << "(3) Change prodact price" << endl;
-        cout << "(4) Remove prodact" << endl;
-        cout << "(5) Show profits" << endl;
-        cout << "(6) Return to main menu" << endl;
+        cout << "Store Menu:" << endl;
+        cout << "1. Print store" << endl;
+        cout << "2. Add quantity to existing product or add new product" << endl;
+        cout << "3. Change existing product price" << endl;
+        cout << "4. Remove product from the store" << endl;
+        cout << "5. View total profit" << endl;
+        cout << "6. Exit" << endl;
+        cout << "Enter your choice: " ;
 
-        
         cin >> user_input;
+        cout << "" <<endl;
         if(user_input == 1)
         {
             this->supplier.print_inv();
@@ -170,9 +173,13 @@ void Menu::buyerMenu()
         cout << "(4) Print cart" << endl;
         cout << "(5) Buy all prodacts in cart" << endl;
         cout << "(6) Return to main menu" << endl;
+        cout << "Enter your choice: " ;
+
 
         
         cin >> user_input;
+        cout << "" << endl;
+
         if(user_input == 1)
         {
             this->supplier.print_inv();
