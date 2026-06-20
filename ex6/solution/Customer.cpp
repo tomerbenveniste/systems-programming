@@ -81,13 +81,14 @@ BusinessCustomer::BusinessCustomer(string name, string company_name, double disc
 BusinessCustomer::~BusinessCustomer() {}
 
 // Checkout with discount: computes total, prints cart contents, clears cart
-double BusinessCustomer::checkout() 
+double BusinessCustomer::checkout()
 {
     double total = this->cart.Get_total();
+    // apply discount: e.g. 10% off means multiply by 0.9
     double discounted_total = total * (1.0 - discount_rate);
     cout << "Total price: " << discounted_total << endl;
-    cout << this->cart << endl;
-    this->cart.clear_cart();
+    cout << this->cart << endl; // print cart contents via operator<<
+    this->cart.clear_cart();   // empty the cart after checkout
     return discounted_total;
 }
 

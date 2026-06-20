@@ -69,8 +69,10 @@ Product &Product::operator+=(unsigned int q) {
 }
 
 // Removes q units from quantity, returns *this
+// Clamps to 0 so quantity never goes negative
 Product &Product::operator-=(unsigned int q) {
     if (this->quantity <= q) {
+        // requested removal exceeds stock — floor at 0
         this->quantity = 0;
     } else {
         this->quantity -= q;

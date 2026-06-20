@@ -24,10 +24,12 @@ bool ShoppingCart::add_Product(const Product &p, int quantity) {
         // product not in cart — add a copy with the requested quantity
         items.push_back(Product(p, quantity));
     } else {
+        // product already in cart — remove it and re-insert at the end
+        // this keeps "most recently touched" order, which matches expected output
         int qty_existing = (int)existing->get_quantity();
-        int idx = existing - &items[0];
+        int idx = existing - &items[0]; // index of the existing entry
         items.erase(items.begin() + idx);
-        items.push_back(Product(p, qty_existing + quantity));
+        items.push_back(Product(p, qty_existing + quantity)); // re-add with combined quantity
     }
     total_price += p.get_price() * quantity;
     return true;
@@ -51,16 +53,17 @@ bool ShoppingCart::remove_Product(const Product &p, int quantity) {
         // product in not in the cart — nothing to remove
         return false;
     }
-    // if the given quantity exceeds the number that in the cart - need to remove the product from the cart
+    // if requested removal >= what's in cart, remove the product entirely
     if ((int)existing->get_quantity() <= quantity) {
-        // the max units to decrease is the actual quantity in the cart
+        // subtract only the actual quantity (not the requested amount) from total
         total_price -= p.get_price() * existing->get_quantity();
-        // remove the product entirely from the vector
+        // erase the entry from the vector
         int index = existing - &items[0];
         items.erase(items.begin() + index);
     } else {
-        total_price -= p.get_price() * quantity; // decrease the total price
-        *existing -= quantity; // decrease the quantity
+        // partial removal — reduce price and quantity by the requested amount
+        total_price -= p.get_price() * quantity;
+        *existing -= quantity;
     }
     return true;
 }
@@ -79,15 +82,15 @@ void ShoppingCart::printcart() const {
     cout << "Total Price: " << total_price << endl; // print total price of the cart
 }
 
-// Returns the running total price of all items in the cart
+// Returns the running total price — recalculates from items rather than relying on total_price field
 double ShoppingCart::Get_total() const
 {
     double total = 0;
+    // accumulate price * quantity for each item in the cart
     for (int i = 0; i < (int)this->items.size(); i++) {
         total += this->items[i].get_price() * this->items[i].get_quantity();
     }
     return total;
-
 }
 
 // Prints Shopping Cart — used during checkout
@@ -118,9 +121,10 @@ bool ShoppingCart::clear_cart() {
     return true;
 }
 
+// Clears the cart and returns the total that was paid
 bool ShoppingCart::checkout() {
     double total = total_price;
-    this->clear_cart();
+    this->clear_cart(); // reset items and total_price to zero
     return total;
 }
 

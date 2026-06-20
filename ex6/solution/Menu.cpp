@@ -79,7 +79,7 @@ void Menu::supplierMenu() {
         }
 
         else if (user_input == 2) {
-            cout << supplier << endl;
+            cout << supplier << endl; // show current inventory before asking
 
             int id;
             cout << "Enter product ID: ";
@@ -89,6 +89,7 @@ void Menu::supplierMenu() {
             int index = find_product_index(inventory, id);
 
             if (index == -1) {
+                // ID not found — create a brand-new product (gets auto-assigned ID)
                 cout << "Product not found." << endl;
                 cout << "Adding new product." << endl;
 
@@ -108,13 +109,12 @@ void Menu::supplierMenu() {
                 if (quantity <= 0) {
                     cout << "Quantity must be positive." << endl;
                 } else {
-                    // Creates a new product.
-                    // Note: if Product generates its own ID, the ID entered above is only used for searching.
-                    Product p(name, price);
+                    Product p(name, price); // auto-ID assigned here
                     supplier.add_Product(p, quantity);
                     cout << "Product added." << endl;
                 }
             } else {
+                // ID found — restock existing product by the given quantity
                 int quantity;
 
                 cout << "Enter quantity: ";
@@ -123,8 +123,7 @@ void Menu::supplierMenu() {
                 if (quantity <= 0) {
                     cout << "Quantity must be positive." << endl;
                 } else {
-                    // Product exists, so we add quantity to the existing product.
-                    Product p = inventory[index];
+                    Product p = inventory[index]; // copy so we can pass by const ref
                     supplier.add_Product(p, quantity);
                     cout << "Product added." << endl;
                 }
@@ -239,32 +238,31 @@ void Menu::buyerMenu() {
 
                 const Product &store_product = inventory[index];
 
-                // Get the current products in the customer's cart.
+                // check how many units are already reserved in the cart
                 const vector<Product> &products_in_cart_vec = customer->get_cart().Get_List();
-
-                // Check if this product is already in the cart.
                 int index_in_cart = find_product_index(products_in_cart_vec, id);
 
                 int quantity_already_in_cart = 0;
-
-                // Only access the cart vector if the product was found.
                 if (index_in_cart != -1) {
+                    // product is in the cart — read its reserved quantity
                     quantity_already_in_cart = products_in_cart_vec[index_in_cart].get_quantity();
                 }
 
-                // Available amount = store stock - amount already in cart.
+                // available = store stock minus what's already reserved in cart
                 int available = store_product.get_quantity() - quantity_already_in_cart;
 
                 if (available < 0) {
+                    // cart already holds more than store has (shouldn't normally happen)
                     cout << "Not enough stock." << endl;
                     continue;
                 }
 
                 if (quantity > available) {
+                    // warn only when some stock exists but not enough
                     if (available > 0) {
                         cout << "Not enough stock." << endl;
                     }
-                    quantity = available;
+                    quantity = available; // cap to what's actually available
                 }
                 customer->add_to_cart(store_product, quantity);
                 cout << "Product added to cart." << endl;
@@ -306,20 +304,16 @@ void Menu::buyerMenu() {
             double total_price = customer->get_cart().Get_total();
 
             cout << "Total price: " << total_price << endl;
-            cout << "Would you like to check out? (y/n): " ;
+            cout << "Would you like to check out? (y/n): ";
 
             char answer;
             cin >> answer;
 
             if (answer == 'y' || answer == 'Y') {
-                // Important:
-                // supplier.customer_purchases should receive the shopping cart,
-                // not the Customer object itself.
+                // update inventory and profit before clearing the cart
                 supplier.customer_purchases(customer->get_cart());
+                // print the cart contents and clear it
                 customer->checkout();
-                
-
-               
             }
         }
 

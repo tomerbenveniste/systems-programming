@@ -24,11 +24,11 @@ bool Supplier::remove_Product(const Product &p) {
 // Removes entirely if quantity reaches -1
 bool Supplier::remove_Product(const Product &p, int quantity) {
     int i = find_index(p.get_id());
-    if (i == -1) { return false; } // product does not exist
-    // product exist
-    inventory[i] -= quantity; // reduce quantity
-    if (inventory[i].get_quantity() <0) {
-        inventory.erase(inventory.begin() + i); // remove if empty
+    if (i == -1) { return false; } // product does not exist in inventory
+    inventory[i] -= quantity; // reduce stock (operator-= clamps to 0)
+    if (inventory[i].get_quantity() < 0) {
+        // remove the entry entirely if stock reached 0
+        inventory.erase(inventory.begin() + i);
     }
     return true;
 }
@@ -42,9 +42,11 @@ bool Supplier::customer_purchases(Customer &c) {
 
 // Overload used when working directly with a ShoppingCart (e.g. before checkout)
 bool Supplier::customer_purchases(ShoppingCart &cart) {
+    // first decrement inventory for every purchased item
     for (const Product &p : cart.Get_List()) {
         remove_Product(p, (int)p.get_quantity());
     }
+    // then record the sale revenue in the profit counter
     counter += cart.Get_total();
     return true;
 }
