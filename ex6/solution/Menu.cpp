@@ -89,7 +89,7 @@ void Menu::supplierMenu() {
             int index = find_product_index(inventory, id);
 
             if (index == -1) {
-                // ID not found — create a brand-new product (gets auto-assigned ID)
+                // ID not found - create a brand-new product (gets auto-assigned ID)
                 cout << "Product not found." << endl;
                 cout << "Adding new product." << endl;
 
@@ -114,7 +114,7 @@ void Menu::supplierMenu() {
                     cout << "Product added." << endl;
                 }
             } else {
-                // ID found — restock existing product by the given quantity
+                // ID found - restock existing product by the given quantity
                 int quantity;
 
                 cout << "Enter quantity: ";
@@ -244,7 +244,7 @@ void Menu::buyerMenu() {
 
                 int quantity_already_in_cart = 0;
                 if (index_in_cart != -1) {
-                    // product is in the cart — read its reserved quantity
+                    // product is in the cart - read its reserved quantity
                     quantity_already_in_cart = products_in_cart_vec[index_in_cart].get_quantity();
                 }
 

@@ -4,10 +4,10 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 
 #include "ShoppingCart.h"
 
-// Initializes an empty cart — no items, total is 0
+// Initializes an empty cart - no items, total is 0
 ShoppingCart::ShoppingCart() : total_price(0) {}
 
-// Destructor — vector cleans up automatically
+// Destructor - vector cleans up automatically
 ShoppingCart::~ShoppingCart() {}
 
 // Adds the product with its full quantity; if product already in cart, increases its quantity
@@ -21,10 +21,10 @@ bool ShoppingCart::add_Product(const Product &p, int quantity) {
     // searching for the given product in the shopping cart vector
     Product *existing = (*this)[(int)p.get_id()];
     if (existing == nullptr) {
-        // product not in cart — add a copy with the requested quantity
+        // product not in cart - add a copy with the requested quantity
         items.push_back(Product(p, quantity));
     } else {
-        // product already in cart — remove it and re-insert at the end
+        // product already in cart - remove it and re-insert at the end
         // this keeps "most recently touched" order, which matches expected output
         int qty_existing = (int)existing->get_quantity();
         int idx = existing - &items[0]; // index of the existing entry
@@ -50,7 +50,7 @@ bool ShoppingCart::remove_Product(const Product &p, int quantity) {
     // searching for the given product in the shopping cart vector
     Product *existing = (*this)[(int)p.get_id()];
     if (existing == nullptr) {
-        // product in not in the cart — nothing to remove
+        // product in not in the cart - nothing to remove
         return false;
     }
     // if requested removal >= what's in cart, remove the product entirely
@@ -61,7 +61,7 @@ bool ShoppingCart::remove_Product(const Product &p, int quantity) {
         int index = existing - &items[0];
         items.erase(items.begin() + index);
     } else {
-        // partial removal — reduce price and quantity by the requested amount
+        // partial removal - reduce price and quantity by the requested amount
         total_price -= p.get_price() * quantity;
         *existing -= quantity;
     }
@@ -82,7 +82,7 @@ void ShoppingCart::printcart() const {
     cout << "Total Price: " << total_price << endl; // print total price of the cart
 }
 
-// Returns the running total price — recalculates from items rather than relying on total_price field
+// Returns the running total price - recalculates from items rather than relying on total_price field
 double ShoppingCart::Get_total() const
 {
     double total = 0;
@@ -93,7 +93,7 @@ double ShoppingCart::Get_total() const
     return total;
 }
 
-// Prints Shopping Cart — used during checkout
+// Prints Shopping Cart - used during checkout
 ostream &operator<<(ostream &os, const ShoppingCart &cart) {
     // prints the header
     os << "Shopping Cart:" << endl;

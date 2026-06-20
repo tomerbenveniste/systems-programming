@@ -8,7 +8,7 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 #include <string>
 #include "ShoppingCart.h"
 
-// Base class for a store customer — holds a name and a shopping cart
+// Base class for a store customer - holds a name and a shopping cart
 class Customer {
 protected:
     string name; // customer's display name

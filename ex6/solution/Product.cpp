@@ -4,20 +4,20 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 
 #include "Product.h"
 
-// Static counter — shared across all Product instances, starts at 0 (first product gets ID 1)
+// Static counter - shared across all Product instances, starts at 0 (first product gets ID 1)
 int Product::next_id = 0;
 
-// Copy constructor — copies all fields including the original ID (no new ID assigned)
+// Copy constructor - copies all fields including the original ID (no new ID assigned)
 Product::Product(const Product &p) : id(p.id), name(p.name), price(p.price), quantity(p.quantity) 
 {}
 
-// Copy-with-quantity constructor — same ID as source, but quantity is overridden to q
+// Copy-with-quantity constructor - same ID as source, but quantity is overridden to q
 Product::Product(const Product &p, int q) : id(p.id), name(p.name), price(p.price), quantity(q) {}
 
-// Primary constructor — assigns the next available ID, then increments next_id
+// Primary constructor - assigns the next available ID, then increments next_id
 Product::Product(string name, double price, int q) : id(++next_id), name(name), price(price), quantity(q) {}
 
-// Destructor — no dynamic memory to free
+// Destructor - no dynamic memory to free
 Product::~Product() {}
 
 // Returns price per unit
@@ -56,7 +56,7 @@ bool Product::operator!=(const Product &other) const { return !(*this == other);
 // True if this product's ID differs from other_id (reuse == operator)
 bool Product::operator!=(int other_id) const { return !(*this == other_id); }
 
-// Prefix increment — adds 1 to quantity, returns *this
+// Prefix increment - adds 1 to quantity, returns *this
 Product &Product::operator++() {
     this->quantity++;
     return *this;
@@ -72,7 +72,7 @@ Product &Product::operator+=(unsigned int q) {
 // Clamps to 0 so quantity never goes negative
 Product &Product::operator-=(unsigned int q) {
     if (this->quantity <= q) {
-        // requested removal exceeds stock — floor at 0
+        // requested removal exceeds stock - floor at 0
         this->quantity = 0;
     } else {
         this->quantity -= q;

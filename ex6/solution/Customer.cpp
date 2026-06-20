@@ -10,7 +10,7 @@ Customer::Customer(string name)
     this->name = name;
 }
 
-// Destructor — no dynamic memory owned directly
+// Destructor - no dynamic memory owned directly
 Customer::~Customer() {}
 
 // Delegates to cart.add_Product with the specified quantity
@@ -77,7 +77,7 @@ BusinessCustomer::BusinessCustomer(string name, string company_name, double disc
     this->discount_rate = discount_rate;
 }
 
-// Destructor — no extra dynamic memory
+// Destructor - no extra dynamic memory
 BusinessCustomer::~BusinessCustomer() {}
 
 // Checkout with discount: computes total, prints cart contents, clears cart

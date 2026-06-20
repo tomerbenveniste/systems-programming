@@ -8,17 +8,17 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 #include "Supplier.h"
 #include "Customer.h"
 
-// Top-level controller — owns the supplier and a polymorphic customer pointer
+// Top-level controller - owns the supplier and a polymorphic customer pointer
 class Menu {
 private:
     Supplier supplier;   // the store's single supplier (persists for the whole session)
-    Customer *customer;  // pointer — set when buyer menu is entered, nullptr otherwise
+    Customer *customer;  // pointer - set when buyer menu is entered, nullptr otherwise
 
 public:
     // Initialises supplier and sets customer pointer to nullptr
     Menu();
 
-    // Destructor — deletes customer if one was allocated
+    // Destructor - deletes customer if one was allocated
     ~Menu();
 
     // Main loop: option 1 = supplier menu, 2 = buyer menu, 3 = exit ("Goodbye!")

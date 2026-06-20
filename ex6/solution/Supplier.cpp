@@ -8,7 +8,7 @@ Assignment C++: 2 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206
 // Initializes supplier with zero profit and an empty inventory
 Supplier::Supplier() : counter(0) {}
 
-// Destructor — vector cleans up automatically
+// Destructor - vector cleans up automatically
 Supplier::~Supplier() {}
 
 // Removes product p entirely from inventory
