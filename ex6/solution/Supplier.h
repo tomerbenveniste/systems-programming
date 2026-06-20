@@ -59,7 +59,13 @@ public:
     bool add_Product(const Product &p);
 
     // adds specific quantity; counter -= price * quantity
-    bool add_Product(const Product &p, int quantity);\
+    bool add_Product(const Product &p, int quantity);
+
+    // Reduces inventory quantities for each item in cart, without touching the counter
+    void reduce_inventory(const ShoppingCart &cart);
+
+    // Adds the given sale amount to the profit counter, without touching inventory
+    void add_profit(double amount);
 
     void print_inv() const;
 };

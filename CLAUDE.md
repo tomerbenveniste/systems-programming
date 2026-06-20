@@ -16,17 +16,12 @@ Operator overloading, inheritance (polymorphism), friend functions
 - `Product` class: **COMPLETE** — merged to main via PR #9 (branch `ex6-tomer-class-product`)
 - `ShoppingCart` class: **COMPLETE** — PR #10 open (branch `ex6-tomer-shopping-cart-class`)
 - `Supplier` class: **COMPLETE** — merged to main via PR #11 (branch `ex6-tomer-supplier-class`)
-- `Customer` / `BusinessCustomer`: **IN PROGRESS** — on branch `tomer_ex6` (branched from `origin/carmi_ex6`); Carmi wrote initial version, Tomer cleaned up (removed extra ctors, fixed destructor, propagated return value, `Get_total() const`, `BusinessCustomer::checkout()` endl)
-- `Menu`: **IN PROGRESS** — on branch `tomer_ex6`; Carmi wrote full implementation; known remaining bugs (see below)
+- `Customer` / `BusinessCustomer`: **COMPLETE** — on branch `tomer_ex6` (branched from `origin/carmi_ex6`); Carmi wrote initial version, Tomer cleaned up
+- `Menu`: **COMPLETE** — on branch `tomer_ex6`; produces **zero diff** against `ex6/moodle_files/out.txt`
 - All source in `ex6/solution/`
 - Reference input/output: `ex6/moodle_files/in.txt` / `ex6/moodle_files/out.txt`
 - Assignment PDF: `ex6/moodle_files/assignment2CPP2026B.pdf`
 - VPL entry point: `ex6/moodle_files/assignment2.cpp` (provided — don't modify; just `#include "Menu.h"` and calls `Menu a; a.mainMenu();`)
-
-### Known remaining bugs (found by running diff against out.txt)
-1. `ShoppingCart::printcart()` prints header `"Shopping Cart:"` — should be `"Shopping Cart Details:"`
-2. `buyerMenu` option 4 (view cart) uses `cout << customer->get_cart()` (calls `operator<<` → wrong header) — should call `customer->print_cart()` instead
-3. Cart item ordering: when adding a product already in cart with 0 available, `add_Product(..., 0)` may reorder items — expected order in out.txt differs from ours
 
 ### Teaching approach
 - Working lesson-by-lesson: Tomer writes code, Claude reviews before moving on
@@ -35,10 +30,10 @@ Operator overloading, inheritance (polymorphism), friend functions
 
 ### Files status (all in `ex6/solution/`)
 - `Product.h` / `Product.cpp` — **DONE**
-- `ShoppingCart.h` / `ShoppingCart.cpp` — **DONE** (bug: `printcart()` header wrong — see known bugs)
+- `ShoppingCart.h` / `ShoppingCart.cpp` — **DONE**
 - `Supplier.h` / `Supplier.cpp` — **DONE**
-- `Customer.h` / `Customer.cpp` — **DONE** (cleaned up on `tomer_ex6`)
-- `Menu.h` / `Menu.cpp` — **IN PROGRESS** (has bugs — see known bugs above)
+- `Customer.h` / `Customer.cpp` — **DONE**
+- `Menu.h` / `Menu.cpp` — **DONE** (zero diff against `out.txt`)
 
 ### Class specifications
 
@@ -158,7 +153,7 @@ private:
 public:
     Menu();
     ~Menu();
-    void mainMenu();     // loops: 1=supplierMenu, 2=buyerMenu (ask regular/business), 3=exit "Goodbye!"
+    void mainMenu();     // loops: 1=supplierMenu, 2=buyerMenu (silently creates Customer("Customer")), 3=exit "Goodbye!"
     void supplierMenu(); // loops: 1=print store, 2=add/restock, 3=change price, 4=remove, 5=profit, 6=back
     void buyerMenu();    // loops: 1=print store, 2=add to cart, 3=remove from cart, 4=view cart, 5=checkout, 6=back
 };
@@ -188,14 +183,16 @@ public:
 #### buyerMenu
 - Option 1: print `"Items in the store:\n"` then `cout << supplier`
 - Option 2: print `"Items in the store:\n"` then `cout << supplier`, ask `"Enter product ID to add:"`, ask `"Enter quantity:"`:
-  - Requested qty > supplier stock → `"Not enough stock."` (still adds, capped at available stock) + `"Product added to cart."`
-  - Qty fits → `"Product added to cart."`
+  - `available = store_quantity - quantity_already_in_cart`
+  - Requested qty > available AND available > 0 → `"Not enough stock."`, cap to available, `"Product added to cart."`
+  - Requested qty > available AND available == 0 → silently cap to 0, add qty 0 to cart (reorders cart), `"Product added to cart."` (no warning)
+  - Requested qty ≤ available → add normally, `"Product added to cart."`
   - ID not found → `"Product not found."`
 - Option 3: print `"Items in the cart:\n"` (from `printcart()`), ask ID, remove from cart
 - Option 4: print `"Items in the cart:\n"` then `customer->print_cart()` (shows `Shopping Cart Details:` + products + total)
 - Option 5 (checkout):
-  - Print `"Total price: X\nWould you like to check out? (y/n): "`
-  - If `y`: call `customer->checkout()` (prints `"Total price: X\nShopping Cart:\n[items]\nTotal Price: X"`, empties cart, returns total) → call `supplier.customer_purchases(*customer)` (adds total to counter)
+  - Print `"Total price: X\nWould you like to check out? (y/n): "` where X = `customer->get_checkout_total()` (polymorphic — discounted for BusinessCustomer)
+  - If `y`: call `supplier.reduce_inventory(cart)` (decrements stock) → `customer->checkout()` (polymorphic — prints discounted total for BusinessCustomer, clears cart, returns final amount) → `supplier.add_profit(final_amount)` (credits the actual amount paid, which may be discounted)
   - If `n`: back to menu, cart unchanged
 - Option 6: print `"Exiting shopping cart menu."`, return to main
 

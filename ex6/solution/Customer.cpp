@@ -41,9 +41,15 @@ double Customer::checkout()
 }
 
 // Delegates to cart.printcart() which prints "Shopping Cart Details:" + items + total
-void Customer::print_cart() const 
+void Customer::print_cart() const
 {
     this->cart.printcart();
+}
+
+// Regular customers pay the full cart total - no discount applied
+double Customer::get_checkout_total() const
+{
+    return this->cart.Get_total();
 }
 
 // Returns mutable reference to cart (needed by Supplier::customer_purchases)
@@ -80,7 +86,7 @@ BusinessCustomer::BusinessCustomer(string name, string company_name, double disc
 // Destructor - no extra dynamic memory
 BusinessCustomer::~BusinessCustomer() {}
 
-// Checkout with discount: computes total, prints cart contents, clears cart
+// Checkout with discount: applies discount to total, prints cart contents, clears cart
 double BusinessCustomer::checkout()
 {
     double total = this->cart.Get_total();
@@ -92,12 +98,18 @@ double BusinessCustomer::checkout()
     return discounted_total;
 }
 
+// Returns the discounted total without modifying the cart
+double BusinessCustomer::get_checkout_total() const
+{
+    return this->cart.Get_total() * (1.0 - discount_rate);
+}
+
 // Prints business customer info: name, company, and discount alongside cart summary
-ostream &operator<<(ostream &os, const BusinessCustomer &bc) 
-{ 
+ostream &operator<<(ostream &os, const BusinessCustomer &bc)
+{
     os << "BusinessCustomer:" << endl;
     os << static_cast<const Customer&>(bc);
-    os << "company:" << bc.company_name << endl;
-    os << "discount" << bc.discount_rate << endl;
-    return os; 
+    os << "Company: " << bc.company_name << endl;
+    os << "Discount: " << bc.discount_rate << endl;
+    return os;
 }

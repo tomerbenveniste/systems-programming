@@ -114,6 +114,20 @@ bool Supplier::add_Product(const Product &p, int quantity) {
     return true;
 }
 
+// Reduces inventory quantities for each item in cart - does not touch the counter
+// Called before checkout() so the cart is still populated
+void Supplier::reduce_inventory(const ShoppingCart &cart) {
+    for (const Product &p : cart.Get_List()) {
+        remove_Product(p, (int)p.get_quantity());
+    }
+}
+
+// Adds the given sale amount to the profit counter - does not touch inventory
+// Used after checkout() so the discounted total (not the full cart price) is recorded
+void Supplier::add_profit(double amount) {
+    counter += amount;
+}
+
 void Supplier:: print_inv() const
 {
     for (const Product &p : this->get_inventory())

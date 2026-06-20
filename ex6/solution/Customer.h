@@ -33,6 +33,9 @@ public:
     // Prints the cart using ShoppingCart::printcart()
     void print_cart() const;
 
+    // Returns the total the customer will actually pay (no discount for regular customers)
+    virtual double get_checkout_total() const;
+
     // Returns a mutable reference to the cart (used by Supplier to process purchases)
     // Mutable accessor for the cart
     ShoppingCart &get_cart();
@@ -58,6 +61,9 @@ public:
 
     // Checkout with discount applied: total *= (1 - discount_rate)
     virtual double checkout() override;
+
+    // Returns the discounted total (cart total * (1 - discount_rate))
+    virtual double get_checkout_total() const override;
 
     // Prints business customer info including company and discount rate
     friend ostream &operator<<(ostream &os, const BusinessCustomer &bc);

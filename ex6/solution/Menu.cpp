@@ -49,6 +49,10 @@ void Menu::mainMenu() {
         if (user_input == 1) {
             supplierMenu();
         } else if (user_input == 2) {
+            // create customer on first entry; keep existing customer (and cart) on re-entry
+            if (customer == nullptr) {
+                customer = new Customer("Customer");
+            }
             buyerMenu();
         } else if (user_input == 3) {
             cout << "Goodbye!" << endl;
@@ -193,11 +197,7 @@ void Menu::supplierMenu() {
 }
 
 void Menu::buyerMenu() {
-    // Create customer only once.
-    if (customer == nullptr) {
-        customer = new Customer("Customer");
-    }
-
+    // customer is always created by mainMenu() before this is called
     while (true) {
         cout << endl;
         cout << "Shopping Cart Menu:" << endl;
@@ -258,7 +258,6 @@ void Menu::buyerMenu() {
                 }
 
                 if (quantity > available) {
-                    // warn only when some stock exists but not enough
                     if (available > 0) {
                         cout << "Not enough stock." << endl;
                     }
@@ -301,19 +300,21 @@ void Menu::buyerMenu() {
         }
 
         else if (user_input == 5) {
-            double total_price = customer->get_cart().Get_total();
-
-            cout << "Total price: " << total_price << endl;
+            // get_checkout_total() is polymorphic - returns discounted total for business customers
+            cout << "Total price: " << customer->get_checkout_total() << endl;
             cout << "Would you like to check out? (y/n): ";
 
             char answer;
             cin >> answer;
 
             if (answer == 'y' || answer == 'Y') {
-                // update inventory and profit before clearing the cart
-                supplier.customer_purchases(customer->get_cart());
-                // print the cart contents and clear it
-                customer->checkout();
+                // reduce inventory first, while the cart still holds the items
+                supplier.reduce_inventory(customer->get_cart());
+                // checkout() is polymorphic - applies discount for business customers
+                // it prints cart contents, clears the cart, and returns the final amount paid
+                double final_amount = customer->checkout();
+                // add the actual payment (possibly discounted) to the supplier's counter
+                supplier.add_profit(final_amount);
             }
         }
 
