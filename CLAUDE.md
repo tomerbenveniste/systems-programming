@@ -15,12 +15,18 @@ Operator overloading, inheritance (polymorphism), friend functions
 ### Status
 - `Product` class: **COMPLETE** — merged to main via PR #9 (branch `ex6-tomer-class-product`)
 - `ShoppingCart` class: **COMPLETE** — PR #10 open (branch `ex6-tomer-shopping-cart-class`)
-- `Supplier` class: **IN PROGRESS** — next up
-- `Customer`, `BusinessCustomer`, `Menu`: not started
+- `Supplier` class: **COMPLETE** — merged to main via PR #11 (branch `ex6-tomer-supplier-class`)
+- `Customer` / `BusinessCustomer`: **IN PROGRESS** — on branch `tomer_ex6` (branched from `origin/carmi_ex6`); Carmi wrote initial version, Tomer cleaned up (removed extra ctors, fixed destructor, propagated return value, `Get_total() const`, `BusinessCustomer::checkout()` endl)
+- `Menu`: **IN PROGRESS** — on branch `tomer_ex6`; Carmi wrote full implementation; known remaining bugs (see below)
 - All source in `ex6/solution/`
 - Reference input/output: `ex6/moodle_files/in.txt` / `ex6/moodle_files/out.txt`
 - Assignment PDF: `ex6/moodle_files/assignment2CPP2026B.pdf`
 - VPL entry point: `ex6/moodle_files/assignment2.cpp` (provided — don't modify; just `#include "Menu.h"` and calls `Menu a; a.mainMenu();`)
+
+### Known remaining bugs (found by running diff against out.txt)
+1. `ShoppingCart::printcart()` prints header `"Shopping Cart:"` — should be `"Shopping Cart Details:"`
+2. `buyerMenu` option 4 (view cart) uses `cout << customer->get_cart()` (calls `operator<<` → wrong header) — should call `customer->print_cart()` instead
+3. Cart item ordering: when adding a product already in cart with 0 available, `add_Product(..., 0)` may reorder items — expected order in out.txt differs from ours
 
 ### Teaching approach
 - Working lesson-by-lesson: Tomer writes code, Claude reviews before moving on
@@ -29,10 +35,10 @@ Operator overloading, inheritance (polymorphism), friend functions
 
 ### Files status (all in `ex6/solution/`)
 - `Product.h` / `Product.cpp` — **DONE**
-- `ShoppingCart.h` / `ShoppingCart.cpp` — **DONE**
-- `Supplier.h` / `Supplier.cpp` — not started
-- `Customer.h` / `Customer.cpp` — not started (contains `Customer` base + `BusinessCustomer` derived)
-- `Menu.h` / `Menu.cpp` — not started
+- `ShoppingCart.h` / `ShoppingCart.cpp` — **DONE** (bug: `printcart()` header wrong — see known bugs)
+- `Supplier.h` / `Supplier.cpp` — **DONE**
+- `Customer.h` / `Customer.cpp` — **DONE** (cleaned up on `tomer_ex6`)
+- `Menu.h` / `Menu.cpp` — **IN PROGRESS** (has bugs — see known bugs above)
 
 ### Class specifications
 
@@ -162,7 +168,7 @@ public:
 
 #### mainMenu
 - Option 1: enter `supplierMenu()`
-- Option 2: ask regular (1) or business (2) customer; collect name (and company+discount for business); create via `Customer*` polymorphically; call `buyerMenu()` — **NOTE: out.txt shows no customer type/name prompts, so the reference may create a default Customer**
+- Option 2: silently create `new Customer("Customer")` and call `buyerMenu()` — **out.txt is the authority: no customer type/name prompts appear in the reference output**
 - Option 3: print `Goodbye!` and exit
 
 #### supplierMenu
@@ -203,7 +209,7 @@ public:
 ### How to compile & test (Windows PowerShell, from project root)
 ```powershell
 $env:PATH = "C:\Program Files\JetBrains\CLion 2026.1.1\bin\mingw\bin;" + $env:PATH
-g++ ex6/solution/Product.cpp ex6/solution/ShoppingCart.cpp ex6/solution/Supplier.cpp ex6/solution/Customer.cpp ex6/solution/Menu.cpp ex6/moodle_files/assignment2.cpp -o ex6.exe -std=c++17
+g++ ex6/solution/Product.cpp ex6/solution/ShoppingCart.cpp ex6/solution/Supplier.cpp ex6/solution/Customer.cpp ex6/solution/Menu.cpp ex6/moodle_files/assignment2.cpp -I ex6/solution -o ex6.exe -std=c++17
 cmd /c '.\ex6.exe < "ex6\moodle_files\in.txt" > my_ex6_output.txt'
 diff (Get-Content my_ex6_output.txt) (Get-Content "ex6\moodle_files\out.txt")
 ```

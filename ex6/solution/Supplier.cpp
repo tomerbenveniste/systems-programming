@@ -21,14 +21,14 @@ bool Supplier::remove_Product(const Product &p) {
 }
 
 // Reduces quantity of p in inventory by the given amount
-// Removes entirely if quantity reaches 0
+// Removes entirely if quantity reaches -1
 bool Supplier::remove_Product(const Product &p, int quantity) {
     int i = find_index(p.get_id());
-    if (i == -1) { return false; } // product does not exist
-    // product exist
-    inventory[i] -= quantity; // reduce quantity
-    if (inventory[i].get_quantity() <0) {
-        inventory.erase(inventory.begin() + i); // remove if empty
+    if (i == -1) { return false; } // product does not exist in inventory
+    inventory[i] -= quantity; // reduce stock (operator-= clamps to 0)
+    if (inventory[i].get_quantity() < 0) {
+        // remove the entry entirely if stock reached 0
+        inventory.erase(inventory.begin() + i);
     }
     return true;
 }
@@ -41,10 +41,12 @@ bool Supplier::customer_purchases(Customer &c) {
 }
 
 // Overload used when working directly with a ShoppingCart (e.g. before checkout)
-bool Supplier::customer_purchases(const ShoppingCart &cart) {
+bool Supplier::customer_purchases(ShoppingCart &cart) {
+    // first decrement inventory for every purchased item
     for (const Product &p : cart.Get_List()) {
         remove_Product(p, (int)p.get_quantity());
     }
+    // then record the sale revenue in the profit counter
     counter += cart.Get_total();
     return true;
 }
@@ -78,7 +80,8 @@ ostream &operator<<(ostream &os, const Supplier &supplier) {
     for (const Product &p : supplier.inventory) {
         os << p << endl;
     }
-    os << "Total Profit: " << supplier.counter << endl;
+    os << "Total Profit: " << supplier.counter ;
+
     return os;
 }
 
