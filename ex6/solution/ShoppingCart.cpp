@@ -82,14 +82,13 @@ void ShoppingCart::printcart() const {
 }
 
 // Returns the running total price of all items in the cart
-double ShoppingCart::Get_total() 
-{ 
-    total_price = 0;
-    for (int i = 0; i < this->items.size(); i++) {
-        total_price = total_price + this->items[i].get_price() * this->items[i].get_quantity();
-
+double ShoppingCart::Get_total() const
+{
+    double total = 0;
+    for (int i = 0; i < (int)this->items.size(); i++) {
+        total += this->items[i].get_price() * this->items[i].get_quantity();
     }
-    return total_price;
+    return total;
 
 }
 

@@ -15,14 +15,10 @@ protected:
     ShoppingCart cart; // the customer's personal shopping cart
 
 public:
-    Customer(); // default constructor (used for polymorphic pointer initialisation)
-
     // Constructs a customer with the given name
     Customer(string name);
 
-    Customer(string name, ShoppingCart cart);
-
-
+    // dtor
     virtual ~Customer();
 
     // Adds the given quantity of product p to the cart
@@ -38,7 +34,6 @@ public:
     void print_cart() const;
 
     // Returns a mutable reference to the cart (used by Supplier to process purchases)
-    //ShoppingCart &get_cart();
     // Mutable accessor for the cart
     ShoppingCart &get_cart();
 
