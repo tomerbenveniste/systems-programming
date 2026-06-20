@@ -261,10 +261,11 @@ void Menu::buyerMenu() {
                 }
 
                 if (quantity > available) {
-                    cout << "Not enough stock." << endl;
+                    if (available > 0) {
+                        cout << "Not enough stock." << endl;
+                    }
                     quantity = available;
                 }
-
                 customer->add_to_cart(store_product, quantity);
                 cout << "Product added to cart." << endl;
             }
@@ -298,7 +299,7 @@ void Menu::buyerMenu() {
 
         else if (user_input == 4) {
             cout << "Items in the cart:" << endl;
-            cout << customer->get_cart() << endl;
+            customer->print_cart();
         }
 
         else if (user_input == 5) {

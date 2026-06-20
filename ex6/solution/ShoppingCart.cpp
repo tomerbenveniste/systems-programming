@@ -24,12 +24,10 @@ bool ShoppingCart::add_Product(const Product &p, int quantity) {
         // product not in cart — add a copy with the requested quantity
         items.push_back(Product(p, quantity));
     } else {
-        // product already in cart — increase its quantity
-        if(existing->get_quantity()>= quantity)
-        {
-            *existing += quantity;
-        }
-        
+        int qty_existing = (int)existing->get_quantity();
+        int idx = existing - &items[0];
+        items.erase(items.begin() + idx);
+        items.push_back(Product(p, qty_existing + quantity));
     }
     total_price += p.get_price() * quantity;
     return true;
@@ -73,12 +71,12 @@ const vector<Product> &ShoppingCart::Get_List() const { return items; }
 // Prints the cart products and total price - view cart use
 void ShoppingCart::printcart() const {
     // prints the header
-    cout << "Shopping Cart:" << endl;
+    cout << "Shopping Cart Details:" << endl;
     // loop to print all products in the cart
     for (int i = 0; i < items.size(); i++) {
         cout << items[i] << endl;
     }
-    cout << "Total Price: " << total_price ; // print total price of the cart
+    cout << "Total Price: " << total_price << endl; // print total price of the cart
 }
 
 // Returns the running total price of all items in the cart
