@@ -1,7 +1,6 @@
 /*Assignment C++: 3
-Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
+Author: Israel Israeli, ID: 01234567
 */
-
 #ifndef SQUARE_H
 #define SQUARE_H
 
@@ -9,22 +8,22 @@ Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
 
 class Square : public Shape {
 private:
-    double side; // אורך צלע הריבוע[cite: 1]
+    double side; // Side length of the square[cite: 1]
 
 public:
-    // בנאים והורסים
-    Square(); // בנאי דיפולטיבי[cite: 1]
+    // Constructors and Destructor
+    Square(); // Default constructor[cite: 1]
     Square(const char* color, int width, double side);
     virtual ~Square(); // Destructor[cite: 1]
 
-    // מתודות Get & Set[cite: 1]
+    // Getters & Setters[cite: 1]
     double getSide() const;
     void setSide(double newSide);
 
-    // מתודות ייחודיות
-    void draw() const; // מציגה ריבוע של כוכביות[cite: 1]
+    // Specific methods
+    void draw() const; // Displays a square of asterisks[cite: 1]
 
-    // מימוש מתודות אבסטרקטיות[cite: 1]
+    // Implementation of abstract methods[cite: 1]
     virtual double getPerimeter() const override;
     virtual double getArea() const override;
 };

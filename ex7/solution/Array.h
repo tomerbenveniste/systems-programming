@@ -1,5 +1,5 @@
 /*Assignment C++: 3
-Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
+Author: Israel Israeli, ID: 01234567
 */
 #ifndef ARRAY_H
 #define ARRAY_H
@@ -9,24 +9,24 @@ Author: Tomer Benveniste, ID: 207961954 / Carmi Friedman, ID: 206463846
 template <class T>
 class Array {
 private:
-    int size; // גודל המערך
-    T* elements; // מצביע לאיבר הראשון במערך
+    int size; // Array size[cite: 1]
+    T* elements; // Pointer to the first element in the array[cite: 1]
 
 public:
-    // בנאים והורסים
-    Array(); // בנאי ברירת מחדל
-    ~Array(); // Destructor לניקוי זיכרון דינמי
+    // Constructors and Destructor
+    Array(); // Default constructor[cite: 1]
+    ~Array(); // Destructor to clean up dynamic memory[cite: 1]
 
-    // מתודות
-    void Add(T element); // הוספת איבר בסוף המערך
-    T remove(int index); // מחיקת איבר לפי אינדקס והחזרת הערך שנמחק[cite: 1]
-    int getSize() const; // החזרת גודל המערך[cite: 1]
+    // Methods
+    void Add(T element); // Adds an element to the end of the array[cite: 1]
+    T remove(int index); // Removes an element by index and returns the deleted value[cite: 1]
+    int getSize() const; // Returns the array size[cite: 1]
 
-    // אופרטורים[cite: 1]
+    // Operators[cite: 1]
     T& operator[](int index);
     const T& operator[](int index) const;
 
-    // הצהרה על אופרטור הדפסה (ב-Templates מקובל להצהיר כידיד או לממש בפנים)[cite: 1]
+    // Declaration of the print operator (for templates, usually declared as friend or implemented inline)[cite: 1]
     template <class U>
     friend std::ostream& operator<<(std::ostream& os, const Array<U>& arr);
 };
