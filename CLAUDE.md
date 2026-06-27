@@ -25,10 +25,10 @@ Polymorphism, RTTI (`dynamic_cast`), exceptions (`throw` / `try` / `catch`), tem
 - `Shape.cpp` — **DONE** (Tomer implemented)
 - `Circle.h` — **DONE** (Carmi's skeleton, correct)
 - `Circle.cpp` — **DONE** (Tomer implemented)
-- `Square.h` — skeleton only
-- `Square.cpp` — **NEXT** (stubs only, Tomer to implement next session)
+- `Square.h` — **DONE** (Carmi's skeleton, correct)
+- `Square.cpp` — **DONE** (Tomer implemented)
 - `OrthogonalTriangle.h` — skeleton only
-- `OrthogonalTriangle.cpp` — stubs only
+- `OrthogonalTriangle.cpp` — **NEXT** (stubs only, Tomer to implement next session)
 - `Array.h` — declared only, no implementation (template — implementation goes in the header)
 - `main.cpp` — menu skeleton with TODOs
 

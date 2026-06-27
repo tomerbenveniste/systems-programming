@@ -2,6 +2,7 @@
 Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206463846
 */
 #include "Circle.h"
+#define _USE_MATH_DEFINES
 #include <cmath> // M_PI is defined here
 #include <stdexcept> // for throwing exceptions
 
