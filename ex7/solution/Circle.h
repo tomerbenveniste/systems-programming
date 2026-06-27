@@ -13,10 +13,10 @@ private:
 public:
     // Constructors and Destructor
     Circle(); // Default constructor
-    Circle(const char* color, int width, int radius);
+    Circle(const char* color, int width, int radius); // parameterized constructor
     virtual ~Circle(); // Destructor
 
-    // Getters & Setters[cite: 1]
+    // Getters & Setters
     int getRadius() const;
     void setRadius(int newRadius);
 

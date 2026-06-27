@@ -22,11 +22,11 @@ Polymorphism, RTTI (`dynamic_cast`), exceptions (`throw` / `try` / `catch`), tem
 
 ### Files status (all in `ex7/solution/`)
 - `Shape.h` — **DONE** (Carmi's skeleton, correct)
-- `Shape.cpp` — **DONE** (Tomer implemented this session)
+- `Shape.cpp` — **DONE** (Tomer implemented)
 - `Circle.h` — **DONE** (Carmi's skeleton, correct)
-- `Circle.cpp` — **NEXT** (stubs only, Tomer to implement next session)
+- `Circle.cpp` — **DONE** (Tomer implemented)
 - `Square.h` — skeleton only
-- `Square.cpp` — stubs only
+- `Square.cpp` — **NEXT** (stubs only, Tomer to implement next session)
 - `OrthogonalTriangle.h` — skeleton only
 - `OrthogonalTriangle.cpp` — stubs only
 - `Array.h` — declared only, no implementation (template — implementation goes in the header)

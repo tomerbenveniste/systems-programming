@@ -12,7 +12,7 @@ private:
 public:
     // Constructors and Destructor
     Shape(); // Default constructor
-    Shape(const char* color, int width); // Constructor with all parameters
+    Shape(const char* color, int width); // parameterized Constructor
     virtual ~Shape(); // Virtual default destructor
 
     // Getters & Setters
