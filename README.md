@@ -3,8 +3,6 @@
 Coursework from *Introduction to Systems Programming* (20937), Ben-Gurion University of the Negev.
 The course covers C, C++, and Linux, progressing from procedural C to object-oriented C++ with templates and RTTI.
 
-**Author:** Tomer Benveniste · [LinkedIn](https://linkedin.com/in/tomer-benveniste-73135a252)
-
 ---
 
 ## Exercises
