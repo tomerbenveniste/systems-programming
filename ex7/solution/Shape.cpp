@@ -4,6 +4,7 @@ Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206463846
 #include "Shape.h"
 #include <cstring> // For dynamic string operations
 #include <stdexcept> // for throwing exceptions
+using namespace std;
 
 // default Constructor
 Shape::Shape() {
@@ -30,10 +31,10 @@ const char* Shape::getColor() const {
 void Shape::setColor(const char* newColor) {
     // Input validation
     if (newColor == nullptr) {
-        throw std::invalid_argument("User entered nullptr - invalid input");
+        throw invalid_argument("User entered nullptr - invalid input");
     }
     if (strcmp(newColor, "red") != 0 && strcmp(newColor, "blue") != 0 && strcmp(newColor, "green") != 0) {
-        throw std::invalid_argument("User entered a wrong color - invalid input");
+        throw invalid_argument("User entered a wrong color - invalid input");
     }
     // input is valid
     delete[] this->color; // Freeing prior color memory
@@ -49,7 +50,7 @@ int Shape::getWidth() const {
 void Shape::setWidth(int newWidth) {
     // input validation
     if (newWidth <= 0) {
-        throw std::invalid_argument("User entered a non-positive width - invalid input");
+        throw invalid_argument("User entered a non-positive width - invalid input");
     }
     this->width = newWidth;
 }

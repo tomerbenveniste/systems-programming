@@ -11,9 +11,8 @@ private:
     double side; // Leg length
 
 public:
-    // Constructors and Destructor
     OrthogonalTriangle(); // Default constructor
-    OrthogonalTriangle(const char* color, int width, double side);
+    OrthogonalTriangle(const char* color, int width, double side); // parameterized Constructor
     virtual ~OrthogonalTriangle(); // Destructor
 
     // Getters & Setters

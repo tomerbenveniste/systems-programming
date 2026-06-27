@@ -11,9 +11,8 @@ private:
     double side; // Side length of the square
 
 public:
-    // Constructors and Destructor
     Square(); // Default constructor
-    Square(const char* color, int width, double side);
+    Square(const char* color, int width, double side); // parameterized constructor
     virtual ~Square(); // Destructor
 
     // Getters & Setters

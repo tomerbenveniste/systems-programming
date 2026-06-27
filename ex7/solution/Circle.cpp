@@ -5,6 +5,7 @@ Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206463846
 #define _USE_MATH_DEFINES
 #include <cmath> // M_PI is defined here
 #include <stdexcept> // for throwing exceptions
+using namespace std;
 
 // default Constructor
 Circle::Circle() : radius(1) {
@@ -26,7 +27,7 @@ int Circle::getRadius() const {
 void Circle::setRadius(int newRadius) {
     // input validation
     if (newRadius <= 0) {
-        throw std::invalid_argument("Circle::setRadius - non-positive radius - invalid input");
+        throw invalid_argument("Circle::setRadius - non-positive radius - invalid input");
     }
     // input is valid
     this->radius = newRadius;
