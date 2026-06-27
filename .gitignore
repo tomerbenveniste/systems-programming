@@ -6,7 +6,8 @@ cmake-build-debug/
 a.out
 main
 *.exe
-.out
+*.out
+program
 
 # Object and build files
 *.o
@@ -28,6 +29,24 @@ core
 
 # Local Claude context
 CLAUDE.md
+.claude/
+
+# Test comparison and output files
+my_*.txt
+myoutput*.txt
+teacher_*.txt
+test_out.txt
+test_err.txt
+*_output.txt
+
+# Root-level scratch test files
+ex5_test_input.txt
+
+# GPT/AI session artifacts
+ex4/Task02/
+
+# Submission PDFs
+*.pdf
 
 # Coverage and virtualenv
 .coverage
