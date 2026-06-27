@@ -7,7 +7,71 @@ Work is done in pairs with school partner Carmi (GitHub: CarmiF). IDs: 207961954
 
 ---
 
-## ex6 — Assignment 2 C++: Shopping System (IN PROGRESS)
+## ex7 — Assignment 3 C++: Shapes (IN PROGRESS)
+
+### Topics
+Polymorphism, RTTI (`dynamic_cast`), exceptions (`throw` / `try` / `catch`), templates (`Array<T>`)
+
+### Branch
+`ex7-tomer-1` (branched from `main` which already had Carmi's skeletons)
+
+### Teaching approach
+- Same lesson-by-lesson style: Tomer writes, Claude reviews, no code written without Tomer asking
+- One class per session, one concept at a time
+- Shape → Circle → Square → OrthogonalTriangle → Array → main
+
+### Files status (all in `ex7/solution/`)
+- `Shape.h` — **DONE** (Carmi's skeleton, correct)
+- `Shape.cpp` — **DONE** (Tomer implemented this session)
+- `Circle.h` — **DONE** (Carmi's skeleton, correct)
+- `Circle.cpp` — **NEXT** (stubs only, Tomer to implement next session)
+- `Square.h` — skeleton only
+- `Square.cpp` — stubs only
+- `OrthogonalTriangle.h` — skeleton only
+- `OrthogonalTriangle.cpp` — stubs only
+- `Array.h` — declared only, no implementation (template — implementation goes in the header)
+- `main.cpp` — menu skeleton with TODOs
+
+### Key decisions / patterns established in Shape.cpp
+- `color` is `char*` (dynamic, not `std::string`) — must `new char[]` / `delete[]` manually
+- Default constructor sets `color = nullptr` so destructor's `delete[]` is safe
+- Parameterized constructor also sets `color = nullptr` before calling `setColor`, for the same reason
+- `setColor` order: validate first → `delete[]` old → allocate → `strcpy`
+- Color validation: `strcmp` against `"red"`, `"blue"`, `"green"` — throw `std::invalid_argument` if none match
+- Width validation: throw if `<= 0`
+- `nullptr` check before `strcmp` calls (strcmp on nullptr crashes)
+
+### Class specs (quick reference)
+- `Shape`: abstract base — `char* color`, `int width`, pure virtual `getPerimeter()` / `getArea()`
+- `Circle`: `int radius`, implements perimeter = 2πr, area = πr²
+- `Square`: `double side`, implements perimeter = 4*side, area = side², has `draw()` (grid of `*`)
+- `OrthogonalTriangle`: `double side` (both legs equal), perimeter = side*(2+√2), area = side²/2, has `draw()` (staircase of `*`)
+- `Array<T>`: hand-rolled dynamic array (no vector), template so full implementation in `.h`
+- `main`: menu — add shape / delete by index / print by index (uses `dynamic_cast` for `draw()`) / exit
+
+### Key C++ concepts per class
+- `Circle.cpp`: initializer list syntax for calling base constructor
+- `Square.cpp` / `OrthogonalTriangle.cpp`: `draw()` with nested loops, `(int)` casting for floor
+- `Array.h`: template syntax, why implementation is in `.h`, `new`/`delete[]` for resizing, `[]` operator, bounds-check throw
+- `main.cpp`: `dynamic_cast<Square*>` / `dynamic_cast<OrthogonalTriangle*>` for RTTI, try/catch loop for retrying input
+
+### How to compile & test
+```powershell
+$env:PATH = "C:\Program Files\JetBrains\CLion 2026.1.1\bin\mingw\bin;" + $env:PATH
+g++ ex7/solution/Shape.cpp ex7/solution/Circle.cpp ex7/solution/Square.cpp ex7/solution/OrthogonalTriangle.cpp ex7/solution/main.cpp -I ex7/solution -o ex7.exe -std=c++17
+.\ex7.exe
+```
+
+### Submission requirements
+- All `.h` and `.cpp` files + `Array.h`
+- Header comment in every file (Assignment C++: 3, both IDs)
+- No `vector` — `Array<T>` is the only container
+- Exceptions for all input validation (color, width, dimensions, array index)
+- `draw()` called via `dynamic_cast` (RTTI), not a virtual method in Shape
+
+---
+
+## ex6 — Assignment 2 C++: Shopping System (COMPLETE)
 
 ### Topics
 Operator overloading, inheritance (polymorphism), friend functions

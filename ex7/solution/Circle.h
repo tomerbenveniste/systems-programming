@@ -1,5 +1,5 @@
 /*Assignment C++: 3
-Author: Israel Israeli, ID: 01234567
+Author: Tomer Benveniste, ID: 207961954  /  Carmi Frank, ID: 206463846
 */
 #ifndef CIRCLE_H
 #define CIRCLE_H
@@ -8,19 +8,19 @@ Author: Israel Israeli, ID: 01234567
 
 class Circle : public Shape {
 private:
-    int radius; // Radius[cite: 1]
+    int radius; // Radius
 
 public:
     // Constructors and Destructor
-    Circle(); // Default constructor[cite: 1]
+    Circle(); // Default constructor
     Circle(const char* color, int width, int radius);
-    virtual ~Circle(); // Destructor[cite: 1]
+    virtual ~Circle(); // Destructor
 
     // Getters & Setters[cite: 1]
     int getRadius() const;
     void setRadius(int newRadius);
 
-    // Implementation of abstract methods (No draw method for circle)[cite: 1]
+    // Implementation of abstract methods (No draw method for circle)
     virtual double getPerimeter() const override;
     virtual double getArea() const override;
 };

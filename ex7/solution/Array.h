@@ -1,5 +1,5 @@
 /*Assignment C++: 3
-Author: Israel Israeli, ID: 01234567
+Author: Tomer Benveniste, ID: 207961954  /  Carmi Frank, ID: 206463846
 */
 #ifndef ARRAY_H
 #define ARRAY_H
@@ -9,24 +9,24 @@ Author: Israel Israeli, ID: 01234567
 template <class T>
 class Array {
 private:
-    int size; // Array size[cite: 1]
-    T* elements; // Pointer to the first element in the array[cite: 1]
+    int size; // Array size
+    T* elements; // Pointer to the first element in the array
 
 public:
     // Constructors and Destructor
-    Array(); // Default constructor[cite: 1]
-    ~Array(); // Destructor to clean up dynamic memory[cite: 1]
+    Array(); // Default constructor
+    ~Array(); // Destructor to clean up dynamic memory
 
     // Methods
-    void Add(T element); // Adds an element to the end of the array[cite: 1]
-    T remove(int index); // Removes an element by index and returns the deleted value[cite: 1]
-    int getSize() const; // Returns the array size[cite: 1]
+    void Add(T element); // Adds an element to the end of the array
+    T remove(int index); // Removes an element by index and returns the deleted value
+    int getSize() const; // Returns the array size
 
-    // Operators[cite: 1]
+    // Operators
     T& operator[](int index);
     const T& operator[](int index) const;
 
-    // Declaration of the print operator (for templates, usually declared as friend or implemented inline)[cite: 1]
+    // Declaration of the print operator (for templates, usually declared as friend or implemented inline)
     template <class U>
     friend std::ostream& operator<<(std::ostream& os, const Array<U>& arr);
 };

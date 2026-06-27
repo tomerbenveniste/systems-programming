@@ -1,5 +1,5 @@
 /*Assignment C++: 3
-Author: Israel Israeli, ID: 01234567
+Author: Tomer Benveniste, ID: 207961954  /  Carmi Frank, ID: 206463846
 */
 #ifndef ORTHOGONALTRIANGLE_H
 #define ORTHOGONALTRIANGLE_H
@@ -8,22 +8,22 @@ Author: Israel Israeli, ID: 01234567
 
 class OrthogonalTriangle : public Shape {
 private:
-    double side; // Leg length[cite: 1]
+    double side; // Leg length
 
 public:
     // Constructors and Destructor
-    OrthogonalTriangle(); // Default constructor[cite: 1]
+    OrthogonalTriangle(); // Default constructor
     OrthogonalTriangle(const char* color, int width, double side);
-    virtual ~OrthogonalTriangle(); // Destructor[cite: 1]
+    virtual ~OrthogonalTriangle(); // Destructor
 
-    // Getters & Setters[cite: 1]
+    // Getters & Setters
     double getSide() const;
     void setSide(double newSide);
 
     // Specific methods
-    void draw() const; // Displays an orthogonal triangle of asterisks[cite: 1]
+    void draw() const; // Displays an orthogonal triangle of asterisks
 
-    // Implementation of abstract methods[cite: 1]
+    // Implementation of abstract methods
     virtual double getPerimeter() const override;
     virtual double getArea() const override;
 };
