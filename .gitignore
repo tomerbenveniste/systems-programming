@@ -1,5 +1,4 @@
-# CLion project files
-CMakeLists.txt
+# CLion build output
 cmake-build-debug/
 
 # Compiled binaries

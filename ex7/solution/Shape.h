@@ -15,6 +15,13 @@ public:
     Shape(const char* color, int width); // parameterized Constructor
     virtual ~Shape(); // Virtual default destructor
 
+protected:
+    // Copying is protected so derived shapes can be copied, but a Shape& can't be assigned
+    // from a different shape type (slicing)
+    Shape(const Shape& other); // Copy constructor - deep copies the color string
+    Shape& operator=(const Shape& other); // Assignment operator - deep copies the color string
+
+public:
     // Getters & Setters
     const char* getColor() const;
     void setColor(const char* newColor);

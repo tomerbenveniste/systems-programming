@@ -18,6 +18,31 @@ Shape::Shape(const char* color, int width) {
     this->setWidth(width);
 }
 
+// Copy Constructor - each shape gets its own copy of the color string, so destructors never free the same block twice
+Shape::Shape(const Shape& other) : color(nullptr), width(other.width) {
+    if (other.color != nullptr) {
+        this->color = new char[strlen(other.color) + 1];
+        strcpy(this->color, other.color);
+    }
+}
+
+// Assignment operator - builds the new string first and only then frees the old one,
+// so self-assignment and a failed allocation both leave the shape intact
+Shape& Shape::operator=(const Shape& other) {
+    if (this == &other) {
+        return *this;
+    }
+    char* newColor = nullptr;
+    if (other.color != nullptr) {
+        newColor = new char[strlen(other.color) + 1];
+        strcpy(newColor, other.color);
+    }
+    delete[] this->color;
+    this->color = newColor;
+    this->width = other.width;
+    return *this;
+}
+
 // Destructor
 Shape::~Shape() {
     delete[] this->color;

@@ -5,6 +5,7 @@ Author: Tomer Benveniste, ID: 207961954  /  Carmi Frank, ID: 206463846
 #define ARRAY_H
 #include <stdexcept> // for dealing with exceptions
 #include <iostream>
+#include <utility> // for std::swap
 
 template <class T>
 class Array {
@@ -14,6 +15,8 @@ private:
 
 public:
     Array(); // Default constructor
+    Array(const Array& other); // Copy constructor - deep copies other's elements into a new block
+    Array& operator=(Array other); // Assignment operator - copy-and-swap, safe for self-assignment
     ~Array(); // Destructor to clean up dynamic memory
 
     // Methods
@@ -35,6 +38,26 @@ public:
 // default Constructor
 template <typename T>
 Array<T>::Array() : size(0), elements(nullptr) {
+}
+
+// Copy Constructor - allocates its own block so the two arrays never share (and double-delete) memory
+template <typename T>
+Array<T>::Array(const Array& other) : size(other.size), elements(nullptr) {
+    if (other.size > 0) {
+        this->elements = new T[other.size];
+        for (int i = 0; i < other.size; i++) {
+            this->elements[i] = other.elements[i];
+        }
+    }
+}
+
+// Assignment operator - 'other' arrives as a copy (by value), so we swap our contents with it
+// and its destructor frees our old block
+template <typename T>
+Array<T>& Array<T>::operator=(Array other) {
+    std::swap(this->size, other.size);
+    std::swap(this->elements, other.elements);
+    return *this;
 }
 
 // Destructor

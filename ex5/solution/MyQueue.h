@@ -9,11 +9,15 @@ Author: Tomer Benveniste, ID: 207961954 / Carmi Frank, ID: 206463846
 #include <climits>
 using namespace std;
 
-/* MyQueue is a vector-based queue with a fixed maximum capacity.
- * It follows the FIFO (First In First Out) principle - elements are added at the back and removed from the front. */
+/* MyQueue is a circular (ring buffer) queue with a fixed maximum capacity.
+ * It follows the FIFO (First In First Out) principle - elements are added at the back and removed from the front.
+ * Instead of shifting elements on every removal, the front moves forward and wraps around the buffer,
+ * so enQueue, deQueue and peek are all O(1). */
 class MyQueue {
 private:
-    vector<int> queue; // The underlying container holding the queue elements (front is index 0)
+    vector<int> buffer; // Fixed-size storage, allocated once when the capacity is set
+    int head; // Index of the front element inside buffer
+    int count; // Number of elements currently in the queue
     int maxQ; // The maximum number of elements the queue can hold
 
 public:
